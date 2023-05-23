@@ -1,0 +1,18 @@
+{
+  "home": "الرئيسية",
+  "services": "خدماتنا",
+  "how_it_works": "كيف تعمل؟",
+  "our_team": "فريق العمل",
+  "about_us": "من نحن",
+  "contact_us": "تواصل معنا",
+  "services.business": "الأعمال",
+  "services.finance": "المالية",
+  "services.accounting": "المحاسبة",
+  "services.electronic_invoicing": "الفوترة الإلكترونية",
+  "services.credit_indicator": "مؤشر النقد",
+  "services.expenses": "التكاليف",
+  "services.individual": "الفرد",
+  "services.prepayment_recording": "تسجيلات الدفع",
+  "services.payment_tracking": "تعقب الدفع",
+  "services.cashback_offers": "الدفع & العروض"
+}

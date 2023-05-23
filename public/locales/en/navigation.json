@@ -1,0 +1,18 @@
+{
+  "home": "Home",
+  "services": "Our Services",
+  "how_it_works": "How it works?",
+  "our_team": "Our Team",
+  "about_us": "About us",
+  "contact_us": "Contact us",
+  "services.business": "Business",
+  "services.finance": "Finance",
+  "services.accounting": "accounting",
+  "services.electronic_invoicing": "Electronic Invoicing",
+  "services.credit_indicator": "Credit Indicator",
+  "services.expenses": "Expenses",
+  "services.individual": "Individual",
+  "services.prepayment_recording": "Prepayment Recording",
+  "services.payment_tracking": "Payment Tracking",
+  "services.cashback_offers": "Cashback & Offers"
+}

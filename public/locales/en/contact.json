@@ -1,0 +1,15 @@
+{
+  "contact": "Contact",
+  "contact_us": "Contact Us",
+  "contact.email": "E-mail",
+  "contact.header": "We would love to hear from you...",
+  "contact.subheader": "We’ll get back to you as soon as possible.",
+  "contact.name": "Your full name *",
+  "contact.name.required": "Please type your full name",
+  "contact.email_address": "Your E-mail Address *",
+  "contact.email.required": "Please type your E-mail Address",
+  "contact.message": "Your message *",
+  "contact.message.required": "Please enter message",
+  "contact.phone": "Your Phone number *",
+  "contact.phone.required": "Please enter your phone"
+}

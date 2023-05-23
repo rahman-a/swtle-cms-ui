@@ -1,0 +1,15 @@
+{
+  "contact": "تواصل معنا",
+  "contact_us": "تواصل معنا",
+  "contact.email": "البريد",
+  "contact.header": "نحن نحب أن نسمع منك…",
+  "contact.subheader": "سنعود إليك في أقرب وقت ممكن.",
+  "contact.name": "إسمك كاملاً هنا *",
+  "contact.name.required": "من فضلك أكتب اسمك كاملاً",
+  "contact.email_address": "بريدك الإلكترونى هنا *",
+  "contact.email.required": "من فضلك أكتب بريدك الإلكترونى",
+  "contact.message": "أكتب رسالتك هنا *",
+  "contact.message.required": "من فضلك أكتب رسالتك",
+  "contact.phone": "رقم هاتفك *",
+  "contact.phone.required": "من فضلك أدخل رقم هاتفك"
+}
