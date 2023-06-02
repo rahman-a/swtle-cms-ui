@@ -22,6 +22,8 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "framer-motion": "^10.10.0",
+    "html-react-parser": "^3.0.16",
+    "markdown-it": "^13.0.1",
     "next": "13.2.4",
     "next-i18next": "^13.2.2",
     "next-seo": "^6.0.0",
@@ -39,11 +41,13 @@
     "react-player": "^2.12.0",
     "react-webcam": "^7.0.1",
     "sharp": "^0.32.1",
+    "text-encoding": "^0.7.0",
     "typescript": "5.0.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
+    "@types/markdown-it": "^12.2.3",
     "@types/uuid": "^9.0.1"
   }
 }

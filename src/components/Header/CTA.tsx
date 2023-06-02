@@ -5,6 +5,7 @@ interface ICTAProps {
   label: string
   isOpen?: boolean
   isHeroSection?: boolean
+  href: string
   onClose?: () => void
 }
 
@@ -12,11 +13,12 @@ export default function CTA({
   label,
   isOpen,
   onClose,
+  href,
   isHeroSection,
 }: ICTAProps) {
   const router = useRouter()
   const CtaHandler = () => {
-    router.push(`${process.env.NEXT_PUBLIC_APP_URL}`)
+    router.push(`${href}`)
     onClose && onClose()
   }
   return (

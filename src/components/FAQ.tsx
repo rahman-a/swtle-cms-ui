@@ -14,30 +14,18 @@ import {
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-interface IFAQProps {}
+interface IFAQProps {
+  faqs: {
+    id: number
+    question: string
+    answer: string
+  }[]
+}
 
-export default function FAQ(props: IFAQProps) {
+export default function FAQ({ faqs }: IFAQProps) {
   const router = useRouter()
   const locale = router.locale
-  const { t } = useTranslation('home')
-  const { t: tc } = useTranslation('common')
-  const questions = [
-    {
-      id: 1,
-      title: t('faq.1.question'),
-      answer: t('faq.1.answer'),
-    },
-    {
-      id: 2,
-      title: t('faq.2.question'),
-      answer: t('faq.2.answer'),
-    },
-    {
-      id: 3,
-      title: t('faq.3.question'),
-      answer: t('faq.3.answer'),
-    },
-  ]
+  const { t } = useTranslation('common')
   return (
     <Box
       position='relative'
@@ -86,8 +74,8 @@ export default function FAQ(props: IFAQProps) {
             borderRadius={8}
             width={{ base: '95%', md: '65%', xl: '50%' }}
           >
-            {questions.map((question) => (
-              <AccordionItem key={question.id} p='1rem 1rem 0 1rem'>
+            {faqs.map((faq) => (
+              <AccordionItem key={faq.id} p='1rem 1rem 0 1rem'>
                 <h2>
                   <AccordionButton>
                     <Box
@@ -95,13 +83,13 @@ export default function FAQ(props: IFAQProps) {
                       flex='1'
                       textAlign={locale === 'ar' ? 'right' : 'left'}
                     >
-                      {question.title}
+                      {faq.question}
                     </Box>
                     <AccordionIcon />
                   </AccordionButton>
                 </h2>
                 <AccordionPanel py={4} color='gray.500'>
-                  {question.answer}
+                  {faq.answer}
                 </AccordionPanel>
               </AccordionItem>
             ))}
@@ -112,7 +100,7 @@ export default function FAQ(props: IFAQProps) {
             borderRadius={20}
             my={8}
           >
-            {tc('see_more')}
+            {t('see_more')}
           </Button>
         </Flex>
       </Container>

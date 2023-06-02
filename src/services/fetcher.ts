@@ -10,7 +10,7 @@ interface FetcherOptions {
 export default async function fetcher({ api, url, options }: FetcherOptions) {
   const apiURL = api ?? strapiUrl
   try {
-    const response = await axios.get(`${apiURL}${url}`, options)
+    const response = await axios.get(`${apiURL}/api/${url}`, options)
     return response.data
   } catch (error: any) {
     console.log('Error: ', error)

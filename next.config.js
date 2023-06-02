@@ -4,6 +4,9 @@ const nextConfig = {
   reactStrictMode: true,
   i18n,
   transpilePackages: ['react-countup'],
+  images: {
+    domains: ['localhost', 'res.cloudinary.com'],
+  },
 }
 
 module.exports = nextConfig

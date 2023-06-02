@@ -10,59 +10,77 @@ import {
 import { useTranslation } from 'next-i18next'
 import { motion } from 'framer-motion'
 import { fadeUp, fadeDown } from '@animation-variants'
-import heroSectionBGImage from '@assets/images/main-hero-section.png'
-import heroSectionBGImageMedium from '@assets/images/main-hero-section-md.png'
-import heroSectionBGImageSmall from '@assets/images/main-hero-section-sm.png'
+
 import CTA from './Header/CTA'
 import Video from './Videos'
 import { PlayIcon } from '../icons'
 import Partners from './Partners'
 import CountUp from 'react-countup'
-// const CountUp = dynamic(() => import('react-countup'), { ssr: false })
+
+type Stat = {
+  id: number
+  value: number
+  name: string
+  currency?: string
+  suffix?: string
+  prefix?: string
+}
+
+type Partner = {
+  id: number
+  name: string
+  logo: string
+}
 
 interface IMainHeroSectionProps {
+  images: {
+    base: string
+    md: string
+    lg: string
+  }
+  stats: Stat[]
+  data: {
+    title: string
+    subtitle: string
+    cta: {
+      label: string
+      href: string
+    }
+    companyName: string
+    video: {
+      url: string
+      thumbnail?: string
+    }
+    partners: Partner[]
+  }
   isStatistics?: boolean
 }
 
 export default function MainHeroSection({
   isStatistics,
+  images,
+  stats,
+  data,
 }: IMainHeroSectionProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { t: tHome } = useTranslation('home')
-  const stats = [
-    {
-      id: 1,
-      label: tHome('hero.stats.transactions'),
-      value: '60000',
-      suffix: '+',
-    },
-    { id: 2, label: tHome('hero.stats.member'), value: '75', suffix: 'K+' },
-    {
-      id: 3,
-      label: tHome('hero.stats.current_payments'),
-      value: '1.7',
-      suffix: 'M+',
-      currency: 'aed',
-    },
-    {
-      id: 4,
-      label: tHome('hero.stats.settled_payments'),
-      value: '2.4',
-      suffix: 'M+',
-      currency: 'aed',
-    },
-  ]
+  const { t } = useTranslation('common')
+
   return (
     <>
-      <Video isOpen={isOpen} onClose={onClose} />
+      <Video
+        isOpen={isOpen}
+        onClose={onClose}
+        link={data.video.url}
+        thumbnail={data.video.thumbnail}
+      />
       <Box
         className='hero-section'
         height='100vh'
         width='100%'
         backgroundImage={{
-          base: `url(${heroSectionBGImageSmall.src})`,
-          md: `url(${heroSectionBGImageMedium.src})`,
-          xl: `url(${heroSectionBGImage.src})`,
+          base: `url(${images.base})`,
+          md: `url(${images.md})`,
+          xl: `url(${images.lg})`,
         }}
         backgroundSize='cover'
         backgroundPosition={{ base: 'inherit', md: 'center' }}
@@ -97,9 +115,9 @@ export default function MainHeroSection({
                 textAlign='center'
                 fontSize={{ base: '25px', md: '40px', lg: '60px' }}
               >
-                {tHome('hero.title')} &nbsp;
+                {data.title} &nbsp;
                 <Text as='span' color='secondary' textDecoration='underline'>
-                  {tHome('hero.swtle')}
+                  {data.companyName}
                 </Text>
               </Text>
               <Text
@@ -109,20 +127,24 @@ export default function MainHeroSection({
                 width={{ base: '80%', md: '100%' }}
                 fontSize={{ base: '16px', md: '18px', lg: '20px' }}
               >
-                {tHome('hero.subtitle')}
+                {data.subtitle}
               </Text>
               <HStack spacing={3}>
-                <Button
-                  variant='outline'
-                  color='white'
-                  _hover={{ background: '#000', borderColor: '#000' }}
-                  borderRadius='5rem'
-                  onClick={onOpen}
-                >
-                  {tHome('hero.video_btn')}
-                  <PlayIcon width='1.5rem' height='1.5rem' />
-                </Button>
-                <CTA label={tHome('hero.cta')} />
+                {data.video?.url && (
+                  <Button
+                    variant='outline'
+                    color='white'
+                    _hover={{ background: '#000', borderColor: '#000' }}
+                    borderRadius='5rem'
+                    onClick={onOpen}
+                  >
+                    {t('video_btn')}
+                    <PlayIcon width='1.5rem' height='1.5rem' />
+                  </Button>
+                )}
+                {data.cta?.label && (
+                  <CTA label={data.cta.label} href={data.cta.href} />
+                )}
               </HStack>
             </VStack>
             {isStatistics && (
@@ -155,7 +177,7 @@ export default function MainHeroSection({
                         xl: '24px',
                       }}
                     >
-                      {stat.label}
+                      {stat.name}
                     </Text>
                     <Text
                       as='p'
@@ -189,7 +211,7 @@ export default function MainHeroSection({
             )}
           </VStack>
         </Flex>
-        <Partners />
+        <Partners partners={data.partners} />
       </Box>
     </>
   )

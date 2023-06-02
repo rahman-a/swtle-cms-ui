@@ -2,37 +2,24 @@ import { Box, Container, Flex, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import FeatureCard from './Feature-Card'
 
-interface IWhySwtleProps {}
+interface IWhySwtleProps {
+  header: string
+  subheader: string
+  articles: {
+    id: number
+    title: string
+    body: string
+    slug: string
+    image: string
+  }[]
+}
 
-export default function WhySwtle(props: IWhySwtleProps) {
+export default function WhySwtle({
+  header,
+  subheader,
+  articles,
+}: IWhySwtleProps) {
   const { t } = useTranslation('home')
-  const cards = [
-    {
-      id: 1,
-      title: t('features.1.title'),
-      description: t('features.1.content'),
-      image: '/images/feature-1.png',
-    },
-
-    {
-      id: 2,
-      title: t('features.2.title'),
-      description: t('features.2.content'),
-      image: '/images/feature-2.png',
-    },
-    {
-      id: 3,
-      title: t('features.3.title'),
-      description: t('features.3.content'),
-      image: '/images/feature-3.png',
-    },
-    {
-      id: 4,
-      title: t('features.4.title'),
-      description: t('features.4.content'),
-      image: '/images/feature-4.png',
-    },
-  ]
   return (
     <Container minW='95%' py={20}>
       <Flex
@@ -53,7 +40,7 @@ export default function WhySwtle(props: IWhySwtleProps) {
             fontWeight='bold'
             color='secondary'
           >
-            {t('features.title')}
+            {header}
           </Text>
           <Text
             as='p'
@@ -61,7 +48,7 @@ export default function WhySwtle(props: IWhySwtleProps) {
             fontSize={{ base: 'xl', xl: '2xl' }}
             width={{ base: '100%', lg: '55%' }}
           >
-            {t('features.subtitle')}
+            {subheader}
           </Text>
         </Box>
         <Flex
@@ -72,8 +59,8 @@ export default function WhySwtle(props: IWhySwtleProps) {
           flexWrap='wrap'
           gap={4}
         >
-          {cards.map((card, idx) => (
-            <FeatureCard key={card.id} {...card} />
+          {articles.map((article, idx) => (
+            <FeatureCard key={article.id} {...article} />
           ))}
         </Flex>
       </Flex>

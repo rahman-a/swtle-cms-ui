@@ -3,18 +3,22 @@ import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { Flex, VStack, Text, Link, Box } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
+import parseHTML from 'html-react-parser'
 
 interface IFeatureCardProps {
   title: string
-  description: string
+  body: string
   image: string
+  slug: string
 }
 
 export default function FeatureCard({
   title,
-  description,
+  body,
   image,
+  slug,
 }: IFeatureCardProps) {
+  const articleBody = parseHTML(body) as string
   const { t } = useTranslation('common')
   const { locale } = useRouter()
   return (
@@ -35,12 +39,12 @@ export default function FeatureCard({
           height={32}
           overflow='hidden'
         >
-          {description.length > 250
-            ? description.substring(0, 250) + ' . . . .'
-            : description}
+          {articleBody.length > 250
+            ? articleBody.substring(0, 250) + ' . . . .'
+            : articleBody}
         </Text>
         <Box textAlign={locale === 'ar' ? 'left' : 'right'} w='100%'>
-          <Link as={NextLink} href='#' color='secondary'>
+          <Link as={NextLink} href={`/blog/${slug}`} color='secondary'>
             {t('read_more')}
           </Link>
         </Box>

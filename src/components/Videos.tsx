@@ -11,9 +11,16 @@ import {
 interface IVideoProps {
   isOpen: boolean
   onClose: () => void
+  link: string
+  thumbnail?: string
 }
 
-export default function Video({ isOpen, onClose }: IVideoProps) {
+export default function Video({
+  isOpen,
+  onClose,
+  link,
+  thumbnail,
+}: IVideoProps) {
   return (
     <Modal
       isOpen={isOpen}
@@ -27,9 +34,14 @@ export default function Video({ isOpen, onClose }: IVideoProps) {
         <ModalCloseButton color='white' />
         <ModalBody p='0'>
           <ReactPlayer
-            url='https://www.youtube.com/watch?v=ItLIUzMjteA&ab_channel=EbrahimRaeyp'
-            // eslint-disable-next-line @next/next/no-img-element
-            light={<img src='./images/thumbnail.webp' alt='hero-section' />}
+            url={link}
+            light={
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={thumbnail ?? './images/thumbnail.webp'}
+                alt='hero-section'
+              />
+            }
             width='100%'
           />
         </ModalBody>

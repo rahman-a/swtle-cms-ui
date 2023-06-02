@@ -2,10 +2,16 @@ import { Box, Flex, HStack, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
-export interface IPartnerProps {}
+export interface IPartnerProps {
+  partners: {
+    id: number
+    name: string
+    logo: string
+  }[]
+}
 
-export default function Partner(props: IPartnerProps) {
-  const { t } = useTranslation('home')
+export default function Partner({ partners }: IPartnerProps) {
+  const { t } = useTranslation('common')
   return (
     <Box
       display='flex'
@@ -22,15 +28,18 @@ export default function Partner(props: IPartnerProps) {
         borderRadius='xl'
         p={{ base: 4, md: 8 }}
       >
-        <Text color='primary'>{t('hero.partner_success')}</Text>
+        <Text color='primary'>{t('partner_success')}</Text>
         <HStack justifyContent='space-evenly' w='100%'>
-          <Image src='/images/tdra.png' alt='TDRA' width={100} height={100} />
-          <Image
-            src='/images/economytourism.png'
-            alt='Economy and Tourism'
-            width={100}
-            height={100}
-          />
+          {partners.length > 0 &&
+            partners.map((partner) => (
+              <Image
+                key={partner.id}
+                src={partner.logo}
+                alt={partner.name}
+                width={100}
+                height={100}
+              />
+            ))}
         </HStack>
       </Flex>
     </Box>

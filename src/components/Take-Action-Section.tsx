@@ -2,9 +2,20 @@ import { Box, Container, Flex } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import TakeAction from './Take-Action'
 
-interface ITakeActionSectionProps {}
+interface ITakeActionSectionProps {
+  title: string
+  content: string
+  cta: {
+    label: string
+    href: string
+  }
+}
 
-export default function TakeActionSection(props: ITakeActionSectionProps) {
+export default function TakeActionSection({
+  title,
+  content,
+  cta,
+}: ITakeActionSectionProps) {
   const { t } = useTranslation('home')
   const { t: tc } = useTranslation('common')
   return (
@@ -36,12 +47,9 @@ export default function TakeActionSection(props: ITakeActionSectionProps) {
           gap={{ base: 8 }}
         >
           <TakeAction
-            title={`${t('cta.2.title')}`}
-            content={`${t('cta.2.content')}`}
-            cta={{
-              label: tc('get_started'),
-              href: `${process.env.NEXT_PUBLIC_APP_URL}`,
-            }}
+            title={title}
+            content={content}
+            cta={cta}
             width={{
               base: '100%',
               md: '75%',

@@ -11,33 +11,22 @@ import { CheckIcon } from '@chakra-ui/icons'
 import SectionImage from './Section-Image'
 import { useTranslation } from 'next-i18next'
 
-interface ISpecialAboutSwtleProps {}
+interface ISpecialAboutSwtleProps {
+  title: string
+  image: string
+  features: {
+    id: number
+    title: string
+    description: string
+  }[]
+}
 
-export default function SpecialAboutSwtle(props: ISpecialAboutSwtleProps) {
+export default function SpecialAboutSwtle({
+  title,
+  image,
+  features,
+}: ISpecialAboutSwtleProps) {
   const { t } = useTranslation('home')
-  const features = [
-    {
-      id: 1,
-      title: t('special.1.title'),
-      description: t('special.1.content'),
-    },
-    {
-      id: 2,
-      title: t('special.2.title'),
-      description: t('special.2.content'),
-    },
-    {
-      id: 3,
-      title: t('special.3.title'),
-      description: t('special.3.content'),
-    },
-    {
-      id: 4,
-      title: t('special.4.title'),
-      description: t('special.4.content'),
-    },
-  ]
-
   return (
     <Container minW='95%' py={20}>
       <Flex direction='column' gap={16} alignItems='center'>
@@ -47,7 +36,7 @@ export default function SpecialAboutSwtle(props: ISpecialAboutSwtleProps) {
           fontWeight='bold'
           color='secondary'
         >
-          {t('special.title')}
+          {title}
         </Text>
         <Flex
           gap={{ base: 14, xl: 20 }}
@@ -55,7 +44,7 @@ export default function SpecialAboutSwtle(props: ISpecialAboutSwtleProps) {
           flexDirection={{ base: 'column', xl: 'row' }}
         >
           <SectionImage
-            image='/images/special-swtle.png'
+            image={image}
             radius='top right'
             outline='bottom right'
           />
