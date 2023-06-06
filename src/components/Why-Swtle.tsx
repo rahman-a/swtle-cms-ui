@@ -19,7 +19,6 @@ export default function WhySwtle({
   subheader,
   articles,
 }: IWhySwtleProps) {
-  const { t } = useTranslation('home')
   return (
     <Container minW='95%' py={20}>
       <Flex

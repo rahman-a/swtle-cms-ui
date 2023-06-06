@@ -44,7 +44,11 @@ export default function FeatureCard({
             : articleBody}
         </Text>
         <Box textAlign={locale === 'ar' ? 'left' : 'right'} w='100%'>
-          <Link as={NextLink} href={`/blog/${slug}`} color='secondary'>
+          <Link
+            as={NextLink}
+            href={slug ? `/blog/${slug}` : ''}
+            color='secondary'
+          >
             {t('read_more')}
           </Link>
         </Box>

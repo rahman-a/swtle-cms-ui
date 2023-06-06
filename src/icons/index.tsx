@@ -10,6 +10,7 @@ import {
   BsFillEyeSlashFill,
   BsFillEyeFill,
   BsRecordCircleFill,
+  BsYoutube,
 } from 'react-icons/bs'
 import { HiOutlineLocationMarker } from 'react-icons/hi'
 import { RiSendPlaneFill } from 'react-icons/ri'
@@ -39,6 +40,7 @@ export const MessengerIcon = (props: any) => (
   <Icon as={BsMessenger} {...props} />
 )
 export const LinkedinIcon = (props: any) => <Icon as={BsLinkedin} {...props} />
+export const YoutubeIcon = (props: any) => <Icon as={BsYoutube} {...props} />
 export const ChatIcon = (props: any) => <Icon as={BsFillChatFill} {...props} />
 export const TwitterIcon = (props: any) => <Icon as={BsTwitter} {...props} />
 export const UserIcon = (props: any) => <Icon as={FaUserAlt} {...props} />

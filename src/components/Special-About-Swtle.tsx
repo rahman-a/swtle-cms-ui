@@ -26,7 +26,6 @@ export default function SpecialAboutSwtle({
   image,
   features,
 }: ISpecialAboutSwtleProps) {
-  const { t } = useTranslation('home')
   return (
     <Container minW='95%' py={20}>
       <Flex direction='column' gap={16} alignItems='center'>

@@ -81,7 +81,7 @@ const WorkStep = forwardRef<HTMLDivElement, IWorkStepProps>(
 )
 
 function HexaGon({ step }: { step: number }) {
-  const { t } = useTranslation('how-it-works')
+  const { t } = useTranslation('common')
   return (
     <Box
       className='hexagon'

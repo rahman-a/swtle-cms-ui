@@ -22,7 +22,6 @@ export default function SectionImage({
   overlayText,
   styles,
 }: ISectionImageProps) {
-  const { locale } = useRouter()
   const outlineStyle = classNames({
     'outline-bottom-right': outline === 'bottom right',
     'outline-bottom-left': outline === 'bottom left',

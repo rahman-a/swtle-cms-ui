@@ -10,9 +10,17 @@ import howItWorksBG from '@assets/images/how-it-works.png'
 import howItWorksBGMedium from '@assets/images/how-it-works-md.png'
 import howItWorksBGSmall from '@assets/images/how-it-works-sm.png'
 import { HeroSection, WorkStep } from '../components'
-export interface IHowItWorksProps {}
+import fetcher from '../services/fetcher'
 
-export default function HowItWorks(props: IHowItWorksProps) {
+const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
+
+export default function HowItWorks({
+  data,
+  metadata,
+}: {
+  data: any
+  metadata: any
+}) {
   const [timeLineHeight, setTimeLineHeight] = useState(0)
   const [indicatorOffset, setIndicatorOffset] = useState(0)
   const [timeLineIndicatorHeight, setTimeLineIndicatorHeight] = useState(0)
@@ -22,57 +30,10 @@ export default function HowItWorks(props: IHowItWorksProps) {
   ] = useState(0)
   const [timeLineContainerBottom, setTimeLineContainerBottom] = useState(0)
   const timeLineRef = useRef<HTMLDivElement>(null)
-  const { locale } = useRouter()
-  const { t } = useTranslation('how-it-works')
-  const { t: tn } = useTranslation('navigation')
   const timeLineContainerRef = useRef<HTMLDivElement>(null)
   const timeLineSectionRef = useRef<HTMLDivElement>(null)
   const scroll = useScroll()
 
-  const steps = [
-    {
-      id: 1,
-      title: t('works.step.1.title'),
-      description: t('works.step.1.content'),
-      image: '/images/steps/work-step-1.png',
-    },
-    {
-      id: 2,
-      title: t('works.step.2.title'),
-      description: t('works.step.2.content'),
-      image: '/images/steps/work-step-2.png',
-    },
-    {
-      id: 3,
-      title: t('works.step.3.title'),
-      description: t('works.step.3.content'),
-      image: '/images/steps/work-step-3.png',
-    },
-    {
-      id: 4,
-      title: t('works.step.4.title'),
-      description: t('works.step.4.content'),
-      image: '/images/steps/work-step-4.png',
-    },
-    {
-      id: 5,
-      title: t('works.step.5.title'),
-      description: t('works.step.5.content'),
-      image: '/images/steps/work-step-5.png',
-    },
-    {
-      id: 6,
-      title: t('works.step.6.title'),
-      description: t('works.step.6.content'),
-      image: '/images/steps/work-step-6.png',
-    },
-    {
-      id: 7,
-      title: t('works.step.7.title'),
-      description: t('works.step.7.content'),
-      image: '/images/steps/work-step-7.png',
-    },
-  ]
   scroll.scrollY.on('change', (v) => {
     if (distanceBetweenTimelineTipAndPageTop === 0) return
     if (distanceBetweenTimelineTipAndPageTop >= v) {
@@ -111,21 +72,24 @@ export default function HowItWorks(props: IHowItWorksProps) {
 
   return (
     <>
-      <NextSeo title='Swtle | How it Works' />
+      <NextSeo
+        title={metadata.metaTitle}
+        description={metadata.metaDescription}
+      />
       <HeroSection
         image={{
           base: howItWorksBGSmall,
           md: howItWorksBGMedium,
           xl: howItWorksBG,
         }}
-        title={tn('how_it_works')}
+        title={data.header}
       />
       <Container minW='95%'>
         <Text
           fontSize={{ base: '2xl', md: '3xl', xl: '4xl' }}
           width={{ base: '95%', md: '60%' }}
         >
-          {t('works.header')}
+          {data.description}
         </Text>
         <Flex
           py={32}
@@ -136,7 +100,7 @@ export default function HowItWorks(props: IHowItWorksProps) {
           position='relative'
         >
           <Text width='fit-content' fontWeight='bold' fontSize='3xl'>
-            {t('works.strategy')}
+            {data.flowTitle}
           </Text>
           <HStack
             ref={timeLineContainerRef}
@@ -145,7 +109,7 @@ export default function HowItWorks(props: IHowItWorksProps) {
             flexDirection='column'
             position='relative'
           >
-            {steps.map((step, index) => (
+            {data.steps.map((step: any, index: number) => (
               <WorkStep
                 key={step.id}
                 step={step.id}
@@ -184,13 +148,37 @@ export default function HowItWorks(props: IHowItWorksProps) {
   )
 }
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
+  const response = await fetcher({
+    url: `how-it-work?populate=deep&locale=${locale}`,
+  })
+  if (!response || response.data?.length === 0) {
+    return {
+      notFound: true,
+    }
+  }
+  const fetchedData = response.data.attributes
+
+  const data = {
+    header: fetchedData.header,
+    description: fetchedData.description,
+    flowTitle: fetchedData.stepsFlowTitle,
+    steps: fetchedData.steps
+      .map((step: any) => ({
+        id: step.id,
+        title: step.title,
+        description: step.description,
+        step: step.step,
+        image: `${strapiUrl}${step.image.data.attributes.url}`,
+      }))
+      .sort((a: any, b: any) => a.step - b.step),
+  }
   return {
     props: {
+      data,
+      metadata: fetchedData.metadata,
       ...(await serverSideTranslations(locale!, [
         'common',
-        'home',
         'navigation',
-        'how-it-works',
         'footer',
       ])),
     },

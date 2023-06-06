@@ -13,10 +13,15 @@ import { fadeLeft, fadeRight, fadeUp } from '@animation-variants'
 import { CheckIcon } from '@chakra-ui/icons'
 import { useTranslation } from 'next-i18next'
 
-interface IServiceBenefitsProps {}
+interface IServiceBenefitsProps {
+  benefits: {
+    id: string
+    text: string
+  }[]
+}
 
-export default function ServiceBenefits(props: IServiceBenefitsProps) {
-  const { t } = useTranslation('services')
+export default function ServiceBenefits({ benefits }: IServiceBenefitsProps) {
+  const { t } = useTranslation('common')
   const { locale } = useRouter()
   return (
     <Card boxShadow='lg' borderRadius='lg' p={4} bg='white'>
@@ -33,52 +38,18 @@ export default function ServiceBenefits(props: IServiceBenefitsProps) {
       </CardHeader>
       <CardBody>
         <List spacing={4}>
-          <ListItem
-            as={motion.li}
-            initial='hide'
-            whileInView='show'
-            variants={locale === 'en' ? fadeRight : fadeLeft}
-          >
-            <ListIcon as={CheckIcon} color='green.500' />
-            {t('service.1.benefits.1')}
-          </ListItem>
-          <ListItem
-            as={motion.li}
-            initial='hide'
-            whileInView='show'
-            variants={locale === 'en' ? fadeRight : fadeLeft}
-          >
-            <ListIcon as={CheckIcon} color='green.500' />
-            {t('service.1.benefits.2')}
-          </ListItem>
-          <ListItem
-            as={motion.li}
-            initial='hide'
-            whileInView='show'
-            variants={locale === 'en' ? fadeRight : fadeLeft}
-          >
-            <ListIcon as={CheckIcon} color='green.500' />
-            {t('service.1.benefits.3')}
-          </ListItem>
-          {/* You can also use custom icons from react-icons */}
-          <ListItem
-            as={motion.li}
-            initial='hide'
-            whileInView='show'
-            variants={locale === 'en' ? fadeRight : fadeLeft}
-          >
-            <ListIcon as={CheckIcon} color='green.500' />
-            {t('service.1.benefits.4')}
-          </ListItem>
-          <ListItem
-            as={motion.li}
-            initial='hide'
-            whileInView='show'
-            variants={locale === 'en' ? fadeRight : fadeLeft}
-          >
-            <ListIcon as={CheckIcon} color='green.500' />
-            {t('service.1.benefits.5')}
-          </ListItem>
+          {benefits.map((benefit) => (
+            <ListItem
+              key={benefit.id}
+              as={motion.li}
+              initial='hide'
+              whileInView='show'
+              variants={locale === 'en' ? fadeRight : fadeLeft}
+            >
+              <ListIcon as={CheckIcon} color='green.500' />
+              {benefit.text}
+            </ListItem>
+          ))}
         </List>
       </CardBody>
     </Card>

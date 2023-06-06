@@ -10,30 +10,38 @@ import { NextSeo } from 'next-seo'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
+import MarkdownIt from 'markdown-it'
 import teamBG from '@assets/images/team.png'
 import teamBGMedium from '@assets/images/team-md.png'
 import teamBGSmall from '@assets/images/team-sm.png'
+import fetcher from '@/src/services/fetcher'
+const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
-interface ITeamProps {}
+interface ITeamProps {
+  data: any
+  metadata: any
+}
 
-export default function Team(props: ITeamProps) {
+export default function Team({ data, metadata }: ITeamProps) {
   const { t } = useTranslation('team')
-  const { t: tn } = useTranslation('navigation')
   return (
     <>
-      <NextSeo title='Swtle | Our Team' />
+      <NextSeo
+        title={metadata.metaTitle}
+        description={metadata.metaDescription}
+      />
       <HeroSection
         image={{
           base: teamBGSmall,
           md: teamBGMedium,
           xl: teamBG,
         }}
-        title={tn('our_team')}
+        title={data.header}
       />
       <Container minW='95%'>
         <TextImageSection
-          header={`${t('team.header')}`}
-          description={`${t('team.content')}`}
+          header={data.aboutTeam.header}
+          description={data.aboutTeam.description}
           descriptionFontSize={{
             base: 'md',
             md: 'xl',
@@ -44,7 +52,7 @@ export default function Team(props: ITeamProps) {
             base: 8,
           }}
           sectionImage={{
-            image: '/images/team-text.png',
+            image: data.aboutTeam.sectionImage,
             overlayText: `${t('team')}`,
           }}
           verticalLine={{
@@ -53,14 +61,14 @@ export default function Team(props: ITeamProps) {
           }}
         />
         <Flex flexWrap='wrap' justifyContent='center' gap={{ base: 8 }}>
-          {[...Array.from({ length: 6 })].map((_, i) => (
-            <TeamMemberCard key={i} />
+          {data.staff.map((member: any) => (
+            <TeamMemberCard member={member} key={member.id} />
           ))}
         </Flex>
 
         <TakeAction
-          content={t('team.cta.content')}
-          isContactUs={true}
+          content={data.cta.content}
+          isContactUs={data.cta.isContactUs}
           width={{
             base: '100%',
             md: '75%',
@@ -75,8 +83,44 @@ export default function Team(props: ITeamProps) {
   )
 }
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
+  const response = await fetcher({
+    url: `our-team?populate=deep&locale=${locale}`,
+  })
+  if (!response || response.data?.length === 0) {
+    return {
+      notFound: true,
+    }
+  }
+  const fetchedData = response.data.attributes
+  const data = {
+    header: fetchedData.header,
+    aboutTeam: {
+      ...fetchedData.aboutTeam,
+      sectionImage: `${strapiUrl}${fetchedData.aboutTeam.sectionImage.data.attributes.url}`,
+    },
+    staff: fetchedData.staff.data.map((member: any) => ({
+      id: member.id,
+      ...member.attributes,
+      biography: MarkdownIt({ html: true }).render(member.attributes.biography),
+      image: member.attributes.image.data
+        ? `${strapiUrl}${member.attributes.image.data?.attributes.url}`
+        : null,
+      CV: member.attributes.CV.data
+        ? `${strapiUrl}${member.attributes.CV.data?.attributes.url}`
+        : null,
+      socials: member.attributes.socials.length
+        ? member.attributes.socials.map((social: any) => ({
+            ...social,
+            icon: `${strapiUrl}${social.icon.data.attributes.formats.thumbnail.url}`,
+          }))
+        : [],
+    })),
+    cta: fetchedData.action,
+  }
   return {
     props: {
+      data,
+      metadata: fetchedData.metadata,
       ...(await serverSideTranslations(locale!, [
         'common',
         'home',

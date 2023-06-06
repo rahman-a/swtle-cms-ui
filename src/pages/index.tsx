@@ -11,14 +11,12 @@ import {
 } from '@components'
 import { NextSeo } from 'next-seo'
 import { Container } from '@chakra-ui/react'
-import { useTranslation } from 'next-i18next'
 import MarkdownIt from 'markdown-it'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import heroSectionBGImage from '@assets/images/main-hero-section.png'
 import heroSectionBGImageMedium from '@assets/images/main-hero-section-md.png'
 import heroSectionBGImageSmall from '@assets/images/main-hero-section-sm.png'
 import fetcher from '@api/fetcher'
-import { useEffect } from 'react'
 
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
@@ -155,6 +153,9 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
 
   const aboutSwtle = {
     ...fetchedData.aboutCompany,
+    description: MarkdownIt({ html: true }).render(
+      fetchedData.aboutCompany.description
+    ),
     sectionImage: `${strapiUrl}${fetchedData.aboutCompany.sectionImage.data.attributes.url}`,
   }
 

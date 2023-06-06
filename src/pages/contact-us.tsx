@@ -20,14 +20,27 @@ import { GetStaticPropsContext } from 'next'
 import contactUsBG from '@assets/images/contact-us.png'
 import contactUsBGMedium from '@assets/images/contact-us-md.png'
 import contactUsBGSmall from '@assets/images/contact-us-sm.png'
+import fetcher from '../services/fetcher'
+
+const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
+
 interface IContactUsProps {}
 
-export default function ContactUs(props: IContactUsProps) {
+export default function ContactUs({
+  data,
+  metadata,
+}: {
+  data: any
+  metadata: any
+}) {
   const { t } = useTranslation('contact')
   const { t: tf } = useTranslation('footer')
   return (
     <>
-      <NextSeo title='Swtle | Contact Us' />
+      <NextSeo
+        title={metadata.metaTitle}
+        description={metadata.metaDescription}
+      />
       <HeroSection
         image={{
           base: contactUsBGSmall,
@@ -35,39 +48,39 @@ export default function ContactUs(props: IContactUsProps) {
           xl: contactUsBG,
         }}
         position={{ base: 'inherit', md: 'center' }}
-        title={t('contact')}
+        title={data.header}
       />
       <Container minW='95%' mb='14'>
         <Flex flexDirection={{ base: 'column', lg: 'row' }} gap={{ base: 20 }}>
           <VStack alignItems='flex-start' spacing={4}>
             <Box>
               <Text as='h2' fontSize='3xl'>
-                {t('contact.header')}
+                {data.title}
               </Text>
               <Text as='p' fontSize='xl'>
-                {t('contact.subheader')}
+                {data.subtitle}
               </Text>
               <List spacing={6} py={4}>
                 <ListItem>
                   <ListIcon as={LocationIcon} color='secondary' />
-                  {tf('footer.location')}
+                  {data.location}
                 </ListItem>
                 <ListItem>
                   <ListIcon as={PhoneIcon} color='secondary' />
-                  +971566325325
+                  {data.phone}
                 </ListItem>
                 <ListItem>
                   <ListIcon as={EmailIcon} color='secondary' />
                   {t('contact.email')} : &nbsp;
-                  <Link as={NextLink} href='mailto:info@swtle.com'>
-                    info@swtle.com
+                  <Link as={NextLink} href={`mailto:${data.email}`}>
+                    {data.email}
                   </Link>
                 </ListItem>
               </List>
             </Box>
             {/* Google Map */}
             <Box width={{ base: '100%', lg: 'auto' }}>
-              <GoogleMap />
+              <GoogleMap url={data.mapUrl} />
             </Box>
           </VStack>
           <ContactForm />
@@ -77,11 +90,29 @@ export default function ContactUs(props: IContactUsProps) {
   )
 }
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
+  const response = await fetcher({
+    url: `contact-us?populate=deep&locale=${locale}`,
+  })
+  if (!response || response.data?.length === 0) {
+    return {
+      notFound: true,
+    }
+  }
+  const fetchedData = response.data.attributes
   return {
     props: {
+      data: {
+        header: fetchedData.header,
+        title: fetchedData.title,
+        subtitle: fetchedData.subtitle,
+        location: fetchedData.location,
+        email: fetchedData.email,
+        phone: fetchedData.phone,
+        mapUrl: fetchedData.googleMapUrl,
+      },
+      metadata: fetchedData.metadata,
       ...(await serverSideTranslations(locale!, [
         'common',
-        'home',
         'navigation',
         'contact',
         'footer',

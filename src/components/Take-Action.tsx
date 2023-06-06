@@ -1,6 +1,7 @@
 import { Button, Flex, HStack, Text, VStack } from '@chakra-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import { useRouter } from 'next/router'
+import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
 interface ITakeActionProps {
   title?: string
@@ -53,23 +54,25 @@ export default function TakeAction({
         <HStack>
           {isContactUs && (
             <Button
+              as={NextLink}
               variant='outline'
               borderRadius='3xl'
               borderColor='secondary'
               color='secondary'
-              onClick={() => router.push('/contact-us')}
+              href='/contact-us'
             >
               {t('contact_us')}
             </Button>
           )}
           {cta && (
             <Button
+              as={NextLink}
               rightIcon={
                 locale === 'ar' ? <ChevronLeftIcon /> : <ChevronRightIcon />
               }
               variant='primary'
               borderRadius='3xl'
-              onClick={() => router.push(cta.href)}
+              href={cta.href}
             >
               {cta.label}
             </Button>

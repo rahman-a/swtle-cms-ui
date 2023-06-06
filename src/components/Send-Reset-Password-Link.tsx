@@ -50,8 +50,7 @@ export default function ForgetPassword({
   const resetPasswordHandler = async (info: { email: string }) => {
     setIsLoading(true)
     try {
-      const { data } = await userAPI.sendPasswordResetLink(info.email)
-      console.log('🚀resetPasswordHandler ~ data:', data)
+      await userAPI.sendPasswordResetLink(info.email)
       setIsLinkSent(true)
     } catch (error: any) {
       if (error.response) {

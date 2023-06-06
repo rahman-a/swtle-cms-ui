@@ -6,28 +6,33 @@ import {
 } from '@components'
 import { Box, Container, Flex } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import MarkdownIt from 'markdown-it'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
 import serviceBG from '@assets/images/services.png'
 import serviceBGMedium from '@assets/images/services-md.png'
 import serviceBGSmall from '@assets/images/services-sm.png'
-import serviceCardBG from '@assets/images/service-card.png'
-interface IServiceProps {}
+import fetcher from '@/src/services/fetcher'
+const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
-export default function Service(props: IServiceProps) {
-  const router = useRouter()
-  const { t } = useTranslation('services')
-  const { t: tn } = useTranslation('navigation')
-  const { t: tc } = useTranslation('common')
-  const capitalizeService = (str: string) => {
-    return !str ? '' : str.charAt(0).toUpperCase() + str.slice(1)
+interface IServiceProps {
+  data: {
+    content: any
+    benefits: any
+    action: any
   }
+  metadata: any
+}
+
+export default function Service({ data, metadata }: IServiceProps) {
+  const { t: tn } = useTranslation('navigation')
+
   return (
     <>
       <NextSeo
-        title={`Swtle | ${capitalizeService(router.query.service as string)}`}
+        title={metadata.metaTitle}
+        description={metadata.metaDescription}
       />
       <HeroSection
         image={{
@@ -39,25 +44,26 @@ export default function Service(props: IServiceProps) {
       />
       <Container minWidth='95%'>
         <TextImageSection
-          title={`${t('services.benefits.1.title')}`}
-          description={`${t('services.benefits.1.content')}`}
+          title={data.content.title}
+          description={data.content.description}
           sectionImage={{
-            image: serviceCardBG,
+            image: data.content.sectionImage,
           }}
+          list={data.content.list}
           styles={{
             paddingTop: '0.5rem',
           }}
         />
       </Container>
       <Flex justify='center'>
-        <ServiceBenefits />
+        <ServiceBenefits benefits={data.benefits} />
       </Flex>
       <Box py={12} px={{ base: 4, md: 0 }}>
         <TakeAction
-          content={t('services.cta.content')}
+          content={data.action.content}
           cta={{
-            label: tc('try_swtle_today'),
-            href: `${process.env.NEXT_PUBLIC_APP_URL}`,
+            label: data.action.cta.label,
+            href: data.action.cta.link,
           }}
         />
       </Box>
@@ -68,15 +74,11 @@ export default function Service(props: IServiceProps) {
 export const getStaticPaths = async ({ locales }: GetStaticPropsContext) => {
   const paths = []
   const slugs = [
-    'prepayment-recording',
+    'payment-transactions-recording-and-tracking',
     'electronic-invoicing',
-    'payment-tracking',
-    'cashback-offers',
-    'finance',
-    'accounting',
-    'electronic-invoicing',
-    'credit-indicators',
-    'expenses',
+    'credit-evaluation',
+    'debt-collection',
+    'legal-recourse',
   ]
   for (const locale of locales!) {
     for (const slug of slugs) {
@@ -89,14 +91,38 @@ export const getStaticPaths = async ({ locales }: GetStaticPropsContext) => {
   }
 }
 
-export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
+export const getStaticProps = async ({
+  locale,
+  params,
+}: GetStaticPropsContext) => {
+  console.log('URL: ', `services/${params?.service}?locale=${locale}`)
+  const response = await fetcher({
+    url: `services/${params?.service}?locale=${locale}`,
+  })
+  if (!response || !response.data) {
+    return {
+      notFound: true,
+    }
+  }
+  const fetchedData = response.data.attributes
+  const data = {
+    content: {
+      ...fetchedData.description,
+      description: MarkdownIt({ html: true }).render(
+        fetchedData.description.description
+      ),
+      sectionImage: `${strapiUrl}${fetchedData.description.sectionImage.data.attributes.url}`,
+    },
+    benefits: fetchedData.Benefits,
+    action: fetchedData.action,
+  }
   return {
     props: {
+      data,
+      metadata: fetchedData.metadata,
       ...(await serverSideTranslations(locale!, [
         'common',
-        'home',
         'navigation',
-        'services',
         'footer',
       ])),
     },

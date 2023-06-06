@@ -10,15 +10,17 @@ import {
 
 import { motion } from 'framer-motion'
 import { zoomIn, fadeDown } from '@animation-variants'
+import useExternalSVG from '../hooks/useExternalSVG'
 
 interface IServiceCardProps {
   title: string
-  icon: React.ReactNode
+  icon: string
 }
 const ServiceCardTab = forwardRef<HTMLDivElement, IServiceCardProps>(
   ({ title, icon, ...rest }, ref) => {
+    const svgIcon = useExternalSVG({ src: icon })
     // 1. Reuse the `useTab` hook
-    const tabProps = useTab({ title, icon, ...rest, ref })
+    const tabProps = useTab({ title, icon: svgIcon, ...rest, ref })
 
     // 2. Hook into the Tabs `size`, `variant`, props
     const styles = useMultiStyleConfig('Tabs', tabProps)
@@ -54,8 +56,9 @@ const ServiceCardTab = forwardRef<HTMLDivElement, IServiceCardProps>(
             initial='hide'
             whileInView='show'
             variants={zoomIn}
+            position={{ base: 'relative' }}
           >
-            {icon}
+            {svgIcon}
           </CardHeader>
         )}
         <CardBody

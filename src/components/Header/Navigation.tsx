@@ -50,7 +50,7 @@ export default function Navigation({ isOpen, onClose }: INavigationProps) {
           {
             id: 1,
             label: t('services.prepayment_recording'),
-            url: '/services/prepayment-recording',
+            url: '/services/payment-transactions-recording-and-tracking',
           },
           {
             id: 2,
@@ -59,13 +59,18 @@ export default function Navigation({ isOpen, onClose }: INavigationProps) {
           },
           {
             id: 3,
-            label: t('services.payment_tracking'),
-            url: '/services/payment-tracking',
+            label: t('services.credit_evaluation'),
+            url: '/services/credit-evaluation',
           },
           {
             id: 4,
-            label: t('services.cashback_offers'),
-            url: '/services/cashback-offers',
+            label: t('services.debt_collection'),
+            url: '/services/debt-collection',
+          },
+          {
+            id: 5,
+            label: t('services.legal_recourse'),
+            url: '/services/legal-recourse',
           },
         ],
         business: [
@@ -262,7 +267,7 @@ const SubNavItems = ({
             p={2}
             color='primary'
             fontSize={{ base: 'sm', md: 'md' }}
-            href={item.url}
+            href={item.url ?? ''}
             _hover={{
               color: 'white',
               bg: 'primary',

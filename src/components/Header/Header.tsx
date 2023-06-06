@@ -78,7 +78,7 @@ export default function Header(props: IHeaderProps) {
               <Language />
             </Box>
             {router.asPath !== '/login' && router.asPath !== '/register' && (
-              <CTA label={t('get_started')} />
+              <CTA label={t('get_started')} href='https://app.swtle.com' />
             )}
             <Button
               display={{ base: 'block', sm: 'block', lg: 'block', xl: 'none' }}

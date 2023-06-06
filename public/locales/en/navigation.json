@@ -14,5 +14,8 @@
   "services.individual": "Individual",
   "services.prepayment_recording": "Prepayment Recording",
   "services.payment_tracking": "Payment Tracking",
-  "services.cashback_offers": "Cashback & Offers"
+  "services.cashback_offers": "Cashback & Offers",
+  "services.credit_evaluation": "Credit Evaluation",
+  "services.debt_collection": "Debt Collection",
+  "services.legal_recourse": "Legal Recourse"
 }

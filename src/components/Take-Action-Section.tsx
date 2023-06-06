@@ -16,8 +16,6 @@ export default function TakeActionSection({
   content,
   cta,
 }: ITakeActionSectionProps) {
-  const { t } = useTranslation('home')
-  const { t: tc } = useTranslation('common')
   return (
     <Box
       position='relative'

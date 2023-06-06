@@ -27,7 +27,6 @@ type FormData = {
 }
 
 export default function ContactForm(props: IContactFormProps) {
-  const { locale } = useRouter()
   const { t } = useTranslation('contact')
   const { t: tc } = useTranslation('common')
   const {

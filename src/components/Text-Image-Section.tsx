@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import SectionImage from './Section-Image'
+import parser from 'html-react-parser'
 import Image from 'next/image'
 import { ISectionImageProps } from './Section-Image'
 import { FillCircleIcon } from '../icons'
@@ -190,7 +191,7 @@ export default function TextImageSection({
                   lineHeight={{ base: '1.8', md: '1.6' }}
                   fontSize={descriptionFontSize}
                 >
-                  {description}
+                  {parser(description)}
                 </Text>
               </HStack>
               {list && list.length > 0 && (
