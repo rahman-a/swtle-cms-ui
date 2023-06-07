@@ -112,7 +112,7 @@ export default function HowItWorks({
             {data.steps.map((step: any, index: number) => (
               <WorkStep
                 key={step.id}
-                step={step.id}
+                step={step.step}
                 isReverse={index % 2 === 1}
                 title={step.title}
                 description={step.description}
