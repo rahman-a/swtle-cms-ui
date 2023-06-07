@@ -73,25 +73,7 @@ export default function Navigation({ isOpen, onClose }: INavigationProps) {
             url: '/services/legal-recourse',
           },
         ],
-        business: [
-          { id: 1, label: t('services.finance'), url: '/services/finance' },
-          {
-            id: 2,
-            label: t('services.accounting'),
-            url: '/services/accounting',
-          },
-          {
-            id: 3,
-            label: t('services.electronic_invoicing'),
-            url: '/services/electronic-invoicing',
-          },
-          {
-            id: 4,
-            label: t('services.credit_indicator'),
-            url: '/services/credit-indicators',
-          },
-          { id: 5, label: t('services.expenses'), url: '/services/expenses' },
-        ],
+        business: [],
       },
     },
     {
@@ -144,7 +126,7 @@ export default function Navigation({ isOpen, onClose }: INavigationProps) {
                       {isOpen && <Box>{link.icon}</Box>}
                       <Link
                         as={NextLink}
-                        href={''}
+                        href={'#'}
                         p={2}
                         fontSize='md'
                         fontWeight={500}
@@ -160,48 +142,56 @@ export default function Navigation({ isOpen, onClose }: INavigationProps) {
                     </HStack>
                   </PopoverTrigger>
 
-                  {link.children && (
-                    <PopoverContent
-                      border={0}
-                      boxShadow='xl'
-                      position={'relative'}
-                      bg='white'
-                      rounded='xl'
-                      minW={{ base: 'xs', sm: 'sm', md: 'md' }}
+                  <PopoverContent
+                    border={0}
+                    boxShadow='xl'
+                    position={'relative'}
+                    bg='white'
+                    rounded='xl'
+                    // minW={{ base: 'xs', sm: 'sm', md: 'md' }}
+                  >
+                    <PopoverArrow />
+                    <PopoverCloseButton color='primary' />
+                    <HStack
+                      display={
+                        link.children.business.length > 0 ? 'flex' : 'block'
+                      }
+                      p={5}
+                      alignItems={'flex-start'}
                     >
-                      <PopoverArrow />
-                      <PopoverCloseButton color='primary' />
-                      <HStack p={5} alignItems={'flex-start'}>
-                        <SubNavItems
-                          items={link.children.individual}
-                          title={t('services.individual')}
-                          onClose={onClose && onClose}
-                        />
-                        <Divider
-                          orientation='vertical'
-                          height={{ base: '350px', sm: '300px' }}
-                          px={2}
-                        />
-                        <SubNavItems
-                          items={link.children.business}
-                          title={t('services.business')}
-                          onClose={onClose && onClose}
-                        />
-                      </HStack>
-                      <Link
-                        as={NextLink}
-                        href='/services'
-                        color='secondary'
-                        position={'absolute'}
-                        right={locale === 'en' ? '2rem' : 'unset'}
-                        left={locale === 'ar' ? '2rem' : 'unset'}
-                        bottom='1rem'
-                        fontSize='sm'
-                      >
-                        {tc('see_more')}
-                      </Link>
-                    </PopoverContent>
-                  )}
+                      <SubNavItems
+                        items={link.children.individual}
+                        title={t('services.individual')}
+                        onClose={onClose && onClose}
+                      />
+                      {link.children.business.length > 0 && (
+                        <>
+                          <Divider
+                            orientation='vertical'
+                            height={{ base: '350px', sm: '300px' }}
+                            px={2}
+                          />
+                          <SubNavItems
+                            items={link.children.business}
+                            title={t('services.business')}
+                            onClose={onClose && onClose}
+                          />
+                        </>
+                      )}
+                    </HStack>
+                    <Link
+                      as={NextLink}
+                      href='/services'
+                      color='secondary'
+                      position={'absolute'}
+                      right={locale === 'en' ? '2rem' : 'unset'}
+                      left={locale === 'ar' ? '2rem' : 'unset'}
+                      bottom='0.5rem'
+                      fontSize='sm'
+                    >
+                      {tc('see_more')}
+                    </Link>
+                  </PopoverContent>
                 </Popover>
               </Box>
             )
@@ -265,6 +255,7 @@ const SubNavItems = ({
             key={item.id}
             onClick={onClose ? onClose : undefined}
             p={2}
+            width='100%'
             color='primary'
             fontSize={{ base: 'sm', md: 'md' }}
             href={item.url ?? ''}

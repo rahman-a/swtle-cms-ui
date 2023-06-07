@@ -64,16 +64,22 @@ export default function Footer(props: IFooterProps) {
               </HStack>
               <HStack>
                 <Flex gap={4}>
-                  <Link href='https://www.facebook.com/swtle'>
+                  <Link
+                    target='_blank'
+                    href='https://www.facebook.com/swtle.op'
+                  >
                     <FacebookIcon />
                   </Link>
-                  <Link href='https://www.facebook.com/swtle'>
+                  <Link
+                    target='_blank'
+                    href='https://www.linkedin.com/in/swtle-%D8%B3%D9%88%D9%8A%D8%AA%D9%84-0221a5265/'
+                  >
                     <LinkedinIcon />
                   </Link>
-                  <Link href='https://www.facebook.com/swtle'>
+                  {/* <Link href='https://www.facebook.com/swtle'>
                     <TwitterIcon />
-                  </Link>
-                  <Link href='https://www.facebook.com/swtle'>
+                  </Link> */}
+                  <Link target='_blank' href='https://m.me/swtle.op'>
                     <MessengerIcon />
                   </Link>
                 </Flex>

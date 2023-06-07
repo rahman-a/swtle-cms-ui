@@ -94,14 +94,14 @@ export default function FAQ({ faqs }: IFAQProps) {
               </AccordionItem>
             ))}
           </Accordion>
-          <Button
+          {/* <Button
             onClick={() => router.push('/contact-us')}
             variant='primary'
             borderRadius={20}
             my={8}
           >
             {t('see_more')}
-          </Button>
+          </Button> */}
         </Flex>
       </Container>
     </Box>

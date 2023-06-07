@@ -30,5 +30,7 @@
   "faq.header": "FAQ",
   "faq.title": "Asked Questions",
   "works.step": "step",
-  "service.benefits": "Benefits of the Service"
+  "service.benefits": "Benefits of the Service",
+  "success_message": "Your message has been sent successfully",
+  "error_message": "An error occurred while sending your message"
 }

@@ -42,6 +42,7 @@ export default function ServiceBenefits({ benefits }: IServiceBenefitsProps) {
             <ListItem
               key={benefit.id}
               as={motion.li}
+              display={'flex'}
               initial='hide'
               whileInView='show'
               variants={locale === 'en' ? fadeRight : fadeLeft}

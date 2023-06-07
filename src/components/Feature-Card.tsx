@@ -43,7 +43,7 @@ export default function FeatureCard({
             ? articleBody.substring(0, 250) + ' . . . .'
             : articleBody}
         </Text>
-        <Box textAlign={locale === 'ar' ? 'left' : 'right'} w='100%'>
+        {/* <Box textAlign={locale === 'ar' ? 'left' : 'right'} w='100%'>
           <Link
             as={NextLink}
             href={slug ? `/blog/${slug}` : ''}
@@ -51,7 +51,7 @@ export default function FeatureCard({
           >
             {t('read_more')}
           </Link>
-        </Box>
+        </Box> */}
       </VStack>
     </Flex>
   )

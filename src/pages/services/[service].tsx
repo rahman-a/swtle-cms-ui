@@ -56,7 +56,9 @@ export default function Service({ data, metadata }: IServiceProps) {
         />
       </Container>
       <Flex justify='center'>
-        <ServiceBenefits benefits={data.benefits} />
+        <Box maxW={{ base: '98%', lg: '50%' }}>
+          <ServiceBenefits benefits={data.benefits} />
+        </Box>
       </Flex>
       <Box py={12} px={{ base: 4, md: 0 }}>
         <TakeAction
@@ -95,7 +97,6 @@ export const getStaticProps = async ({
   locale,
   params,
 }: GetStaticPropsContext) => {
-  console.log('URL: ', `services/${params?.service}?locale=${locale}`)
   const response = await fetcher({
     url: `services/${params?.service}?locale=${locale}`,
   })

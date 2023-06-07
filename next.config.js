@@ -5,7 +5,7 @@ const nextConfig = {
   i18n,
   transpilePackages: ['react-countup'],
   images: {
-    domains: ['localhost', 'res.cloudinary.com'],
+    domains: ['localhost', 'res.cloudinary.com', 'cms.swtle.com'],
   },
 }
 

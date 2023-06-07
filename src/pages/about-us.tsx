@@ -6,10 +6,10 @@ import {
   Tab,
   TabPanel,
   TabIndicator,
+  useMediaQuery,
 } from '@chakra-ui/react'
 import { HeroSection, TextImageSection } from '@components'
 import { NextSeo } from 'next-seo'
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
 import MarkdownIt from 'markdown-it'
@@ -20,8 +20,6 @@ import fetcher from '../services/fetcher'
 
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
-interface IAboutUsProps {}
-
 export default function AboutUs({
   data,
   metadata,
@@ -29,8 +27,8 @@ export default function AboutUs({
   data: any
   metadata: any
 }) {
-  const { t } = useTranslation('about-us')
-  const { t: tn } = useTranslation('navigation')
+  const [isLargerThanXl] = useMediaQuery('(min-width: 80em)')
+
   return (
     <>
       <NextSeo
@@ -106,6 +104,9 @@ export default function AboutUs({
                     image: tab.content.sectionImage,
                     radius: 'top left',
                     radiusValue: '10rem',
+                    styles: {
+                      top: isLargerThanXl ? '-10rem' : 0,
+                    },
                   }}
                 />
               </TabPanel>

@@ -12,6 +12,7 @@ import {
   ListIcon,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import NextLink from 'next/link'
 import SectionImage from './Section-Image'
 import parser from 'html-react-parser'
 import Image from 'next/image'
@@ -206,10 +207,7 @@ export default function TextImageSection({
               )}
             </VStack>
             {sectionButton && (
-              <Button
-                onClick={() => router.push(sectionButton.href)}
-                {...sectionButton}
-              >
+              <Button as={NextLink} {...sectionButton}>
                 {sectionButton.label}
               </Button>
             )}

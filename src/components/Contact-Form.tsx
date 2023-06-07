@@ -10,12 +10,14 @@ import {
   InputLeftElement,
   Button,
   HStack,
+  useToast,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { AtSignIcon, PhoneIcon } from '@chakra-ui/icons'
 import { useTranslation } from 'next-i18next'
 import { SendPlaneIcon, UserIcon } from '../icons'
+import { useState } from 'react'
+const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
 export interface IContactFormProps {}
 
@@ -27,13 +29,17 @@ type FormData = {
 }
 
 export default function ContactForm(props: IContactFormProps) {
+  const [isLoading, setIsLoading] = useState(false)
   const { t } = useTranslation('contact')
   const { t: tc } = useTranslation('common')
+  const toast = useToast()
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
+    mode: 'all',
     defaultValues: {
       fullName: '',
       email: '',
@@ -42,8 +48,35 @@ export default function ContactForm(props: IContactFormProps) {
     },
   })
 
-  const onSubmitHandler = (data: FormData) => {
-    console.log({ data })
+  const onSubmitHandler = async (data: FormData) => {
+    setIsLoading(true)
+    const response = await fetch(`${strapiUrl}/api/contacts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data }),
+    })
+    const resData = await response.json()
+    if (resData.data?.attributes) {
+      toast({
+        title: `${tc('success')}`,
+        description: `${tc('success_message')}`,
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+      reset()
+    } else {
+      toast({
+        title: `${tc('error')}`,
+        description: `${tc('error_message')}`,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+    setIsLoading(false)
   }
   return (
     <Box
@@ -147,6 +180,8 @@ export default function ContactForm(props: IContactFormProps) {
             variant='primary'
             borderRadius='3xl'
             type='submit'
+            disabled={isLoading}
+            isLoading={isLoading}
           >
             {tc('send')}
           </Button>

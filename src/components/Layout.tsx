@@ -12,10 +12,11 @@ export default function Layout({ children }: ILayoutProps) {
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta httpEquiv='content-type' content='text/html; charset=UTF-8' />
-        <link href='/images/logo.svg' rel='shortcut icon' type='image/svg' />
-        <link href='/images/logo.svg' rel='apple-touch-icon' />
-        <link href='/images/logo.svg' rel='apple-touch-icon' sizes='72x72' />
-        <link href='/images/logo.svg' rel='apple-touch-icon' sizes='114x114' />
+        <link rel='icon' href='/favicon.ico' sizes='any' />
+        <link href='/favicon.ico' rel='shortcut icon' type='image/svg' />
+        <link href='/favicon.ico' rel='apple-touch-icon' />
+        <link href='/favicon.ico' rel='apple-touch-icon' sizes='72x72' />
+        <link href='/favicon.ico' rel='apple-touch-icon' sizes='114x114' />
       </Head>
       <Header />
       <main>{children}</main>

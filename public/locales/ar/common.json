@@ -29,5 +29,7 @@
   "partner_success": "شركاء النجاح",
   "faq.title": "الأسئلة المتكررة",
   "works.step": "الخطوة",
-  "service.benefits": "مميزات الخدمة"
+  "service.benefits": "مميزات الخدمة",
+  "success_message": "تم إرسال رسالتك بنجاح",
+  "error_message": "حدث خطأ ما أثناء ارسال رسالتك"
 }
