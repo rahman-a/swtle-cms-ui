@@ -48,6 +48,7 @@ const DrawerComponent = forwardRef<HTMLButtonElement, IDrawerProps>(
                 label={t('try_swtle_today')}
                 isOpen={isOpen}
                 onClose={onClose}
+                href='https://app.swtle.com'
               />
             )}
           </DrawerBody>
