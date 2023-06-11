@@ -64,11 +64,16 @@ export default function Navigation({ isOpen, onClose }: INavigationProps) {
           },
           {
             id: 4,
+            label: t('services.financing_solution'),
+            url: '/services/financing-solution',
+          },
+          {
+            id: 5,
             label: t('services.debt_collection'),
             url: '/services/debt-collection',
           },
           {
-            id: 5,
+            id: 6,
             label: t('services.legal_recourse'),
             url: '/services/legal-recourse',
           },

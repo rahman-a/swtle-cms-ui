@@ -17,6 +17,7 @@ import aboutUsBG from '@assets/images/about-us.png'
 import aboutUsBGMedium from '@assets/images/about-us-md.png'
 import aboutUsBGSmall from '@assets/images/about-us-sm.png'
 import fetcher from '../services/fetcher'
+import { useEffect } from 'react'
 
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
@@ -28,7 +29,9 @@ export default function AboutUs({
   metadata: any
 }) {
   const [isLargerThanXl] = useMediaQuery('(min-width: 80em)')
-
+  useEffect(() => {
+    console.log('Data-About-us: ', data)
+  }, [data])
   return (
     <>
       <NextSeo
@@ -118,6 +121,7 @@ export default function AboutUs({
   )
 }
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
+  console.log('strapiUrl: ', strapiUrl)
   const response = await fetcher({
     url: `about-us?populate=deep&locale=${locale}`,
   })

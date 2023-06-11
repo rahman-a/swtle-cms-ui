@@ -79,6 +79,7 @@ export const getStaticPaths = async ({ locales }: GetStaticPropsContext) => {
     'payment-transactions-recording-and-tracking',
     'electronic-invoicing',
     'credit-evaluation',
+    'financing-solution',
     'debt-collection',
     'legal-recourse',
   ]

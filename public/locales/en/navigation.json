@@ -2,7 +2,7 @@
   "home": "Home",
   "services": "Our Services",
   "how_it_works": "How it works?",
-  "our_team": "Our Team",
+  "our_team": "Experts & Consultants",
   "about_us": "About us",
   "contact_us": "Contact us",
   "services.business": "Business",
@@ -17,5 +17,6 @@
   "services.cashback_offers": "Cashback & Offers",
   "services.credit_evaluation": "Credit Evaluation",
   "services.debt_collection": "Debt Collection",
-  "services.legal_recourse": "Legal Recourse"
+  "services.legal_recourse": "Legal Recourse",
+  "services.financing_solution": "Financing Solution"
 }

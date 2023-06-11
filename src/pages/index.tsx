@@ -99,7 +99,7 @@ export default function Home({ data, metadata }: { data: any; metadata: any }) {
           }}
         />
       </Container>
-      <FAQ faqs={data.faqs} />
+      <FAQ faqs={data.faqs} IsContactUs={false} />
       <TakeActionSection
         title={data.takeActionTwo.title}
         content={data.takeActionTwo.content}

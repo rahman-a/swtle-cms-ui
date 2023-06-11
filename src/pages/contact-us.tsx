@@ -1,5 +1,5 @@
 import { NextSeo } from 'next-seo'
-import { ContactForm, GoogleMap, HeroSection } from '../components'
+import { ContactForm, GoogleMap, HeroSection, FAQ } from '../components'
 import {
   Container,
   Flex,
@@ -34,7 +34,6 @@ export default function ContactUs({
   metadata: any
 }) {
   const { t } = useTranslation('contact')
-  const { t: tf } = useTranslation('footer')
   return (
     <>
       <NextSeo
@@ -85,6 +84,9 @@ export default function ContactUs({
           </VStack>
           <ContactForm />
         </Flex>
+        <Box my='10'>
+          <FAQ faqs={data.faqs} IsContactUs={true} />
+        </Box>
       </Container>
     </>
   )
@@ -93,12 +95,20 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
   const response = await fetcher({
     url: `contact-us?populate=deep&locale=${locale}`,
   })
+  const FAQsResponse = await fetcher({
+    url: `faqs?&locale=${locale}`,
+  })
   if (!response || response.data?.length === 0) {
     return {
       notFound: true,
     }
   }
   const fetchedData = response.data.attributes
+  const faqs = FAQsResponse.data.map((faq: any) => ({
+    id: faq.id,
+    question: faq.attributes.question,
+    answer: faq.attributes.answer,
+  }))
   return {
     props: {
       data: {
@@ -109,6 +119,7 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
         email: fetchedData.email,
         phone: fetchedData.phone,
         mapUrl: fetchedData.googleMapUrl,
+        faqs,
       },
       metadata: fetchedData.metadata,
       ...(await serverSideTranslations(locale!, [

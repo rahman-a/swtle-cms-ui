@@ -12,6 +12,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
 
 interface IFAQProps {
@@ -20,9 +21,10 @@ interface IFAQProps {
     question: string
     answer: string
   }[]
+  IsContactUs?: boolean
 }
 
-export default function FAQ({ faqs }: IFAQProps) {
+export default function FAQ({ faqs, IsContactUs }: IFAQProps) {
   const router = useRouter()
   const locale = router.locale
   const { t } = useTranslation('common')
@@ -72,7 +74,11 @@ export default function FAQ({ faqs }: IFAQProps) {
             allowToggle
             backgroundColor='white'
             borderRadius={8}
-            width={{ base: '95%', md: '65%', xl: '50%' }}
+            width={{
+              base: '95%',
+              md: IsContactUs ? '95%' : '65%',
+              xl: IsContactUs ? '95%' : '50%',
+            }}
           >
             {faqs.map((faq) => (
               <AccordionItem key={faq.id} p='1rem 1rem 0 1rem'>
@@ -94,14 +100,17 @@ export default function FAQ({ faqs }: IFAQProps) {
               </AccordionItem>
             ))}
           </Accordion>
-          {/* <Button
-            onClick={() => router.push('/contact-us')}
-            variant='primary'
-            borderRadius={20}
-            my={8}
-          >
-            {t('see_more')}
-          </Button> */}
+          {!IsContactUs && (
+            <Button
+              as={NextLink}
+              href='/contact-us'
+              variant='primary'
+              borderRadius={20}
+              my={8}
+            >
+              {t('see_more')}
+            </Button>
+          )}
         </Flex>
       </Container>
     </Box>
