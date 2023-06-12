@@ -96,11 +96,11 @@ export default function TeamMemberCard({ member }: ITeamMemberCardProps) {
               </Link>
             ))}
           </HStack>
-          {member.CV && (
+          {/* {member.CV && (
             <Link as={NextLink} href={member.CV} color='secondary' size='sm'>
               {t('read_more')}
             </Link>
-          )}
+          )} */}
         </Flex>
       </CardFooter>
     </Card>
