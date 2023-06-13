@@ -11,9 +11,9 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
 import MarkdownIt from 'markdown-it'
-import teamBG from '@assets/images/team.png'
-import teamBGMedium from '@assets/images/team-md.png'
-import teamBGSmall from '@assets/images/team-sm.png'
+import teamBG from '@assets/images/team.webp'
+import teamBGMedium from '@assets/images/team-md.webp'
+import teamBGSmall from '@assets/images/team-sm.webp'
 import fetcher from '@/src/services/fetcher'
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 

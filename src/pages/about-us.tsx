@@ -13,9 +13,9 @@ import { NextSeo } from 'next-seo'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
 import MarkdownIt from 'markdown-it'
-import aboutUsBG from '@assets/images/about-us.png'
-import aboutUsBGMedium from '@assets/images/about-us-md.png'
-import aboutUsBGSmall from '@assets/images/about-us-sm.png'
+import aboutUsBG from '@assets/images/about-us.webp'
+import aboutUsBGMedium from '@assets/images/about-us-md.webp'
+import aboutUsBGSmall from '@assets/images/about-us-sm.webp'
 import fetcher from '../services/fetcher'
 import { useEffect } from 'react'
 
@@ -108,7 +108,7 @@ export default function AboutUs({
                     radius: 'top left',
                     radiusValue: '10rem',
                     styles: {
-                      top: isLargerThanXl ? '-10rem' : 0,
+                      top: isLargerThanXl ? '-8rem' : 0,
                     },
                   }}
                 />

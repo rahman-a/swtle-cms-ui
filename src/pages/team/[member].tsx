@@ -16,9 +16,9 @@ import { NextSeo } from 'next-seo'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
-import teamBG from '@assets/images/team.png'
-import teamBGMedium from '@assets/images/team-md.png'
-import teamBGSmall from '@assets/images/team-sm.png'
+import teamBG from '@assets/images/team.webp'
+import teamBGMedium from '@assets/images/team-md.webp'
+import teamBGSmall from '@assets/images/team-sm.webp'
 interface ITeamProps {}
 
 export default function Team(props: ITeamProps) {

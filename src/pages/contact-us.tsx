@@ -17,9 +17,9 @@ import { LocationIcon } from '../icons'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
-import contactUsBG from '@assets/images/contact-us.png'
-import contactUsBGMedium from '@assets/images/contact-us-md.png'
-import contactUsBGSmall from '@assets/images/contact-us-sm.png'
+import contactUsBG from '@assets/images/contact-us.webp'
+import contactUsBGMedium from '@assets/images/contact-us-md.webp'
+import contactUsBGSmall from '@assets/images/contact-us-sm.webp'
 import fetcher from '../services/fetcher'
 
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL

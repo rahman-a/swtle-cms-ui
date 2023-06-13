@@ -19,15 +19,13 @@ export default function FeatureCard({
   slug,
 }: IFeatureCardProps) {
   const articleBody = parseHTML(body) as string
-  const { t } = useTranslation('common')
-  const { locale } = useRouter()
   return (
     <Flex
       gap={8}
       flexDirection={{ base: 'column', md: 'row' }}
       width={{ base: '100%', xl: '45%' }}
     >
-      <Image src={image} alt='feature' width={217} height={165} />
+      <Image src={image} alt={title} width={217} height={165} />
       <VStack alignItems='flex-start'>
         <Text as='h3' fontSize='xl' fontWeight='bold'>
           {title}
@@ -36,7 +34,7 @@ export default function FeatureCard({
           as='p'
           fontSize='md'
           color='gray.500'
-          height={32}
+          height={{ base: 'auto', lg: 32 }}
           overflow='hidden'
         >
           {articleBody.length > 250
