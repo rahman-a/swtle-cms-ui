@@ -34,7 +34,7 @@ export default function FeatureCard({
           as='p'
           fontSize='md'
           color='gray.500'
-          height={{ base: 'auto', lg: 32 }}
+          height='auto'
           overflow='hidden'
         >
           {articleBody.length > 250
