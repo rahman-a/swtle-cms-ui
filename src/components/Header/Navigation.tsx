@@ -28,9 +28,14 @@ import { useRouter } from 'next/router'
 interface INavigationProps {
   isOpen?: boolean
   onClose?: () => void
+  isFixed?: boolean
 }
 
-export default function Navigation({ isOpen, onClose }: INavigationProps) {
+export default function Navigation({
+  isOpen,
+  onClose,
+  isFixed,
+}: INavigationProps) {
   const { locale } = useRouter()
   const { t } = useTranslation('navigation')
   const { t: tc } = useTranslation('common')
@@ -135,7 +140,7 @@ export default function Navigation({ isOpen, onClose }: INavigationProps) {
                         p={2}
                         fontSize='md'
                         fontWeight={500}
-                        color={isOpen ? 'primary' : 'white'}
+                        color={isFixed ? 'white' : 'primary'}
                         borderBottom='2px solid transparent'
                         _hover={{
                           textDecoration: 'none'!,
@@ -216,7 +221,7 @@ export default function Navigation({ isOpen, onClose }: INavigationProps) {
                 href={link.url ?? '#'}
                 fontSize={'md'}
                 fontWeight={500}
-                color={isOpen ? 'primary' : 'white'}
+                color={isFixed ? 'white' : 'primary'}
                 borderBottom='2px solid transparent'
                 _hover={{
                   textDecoration: 'none',

@@ -73,6 +73,11 @@ main {
   border-color: #ffca24;
 }
 
+.react-player__preview img {
+  height: 100%;
+  object-fit: cover;
+}
+
 @media only screen and (max-width: 768px) {
   .outline-bottom-right {
     padding: 0 1.5rem 1.5rem 0;

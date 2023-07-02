@@ -1,21 +1,12 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  VStack,
-  Text,
-  Button,
-  useDisclosure,
-} from '@chakra-ui/react'
-import { useTranslation } from 'next-i18next'
+import { Box, Flex, HStack, VStack, Text } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { fadeUp, fadeDown } from '@animation-variants'
-
 import CTA from './Header/CTA'
-import Video from './Videos'
-import { PlayIcon } from '../icons'
+import { FullPlayIcon } from '../icons'
+import { useRouter } from 'next/router'
 import Partners from './Partners'
 import CountUp from 'react-countup'
+import ReactPlayer from 'react-player'
 
 type Stat = {
   id: number
@@ -62,20 +53,11 @@ export default function MainHeroSection({
   stats,
   data,
 }: IMainHeroSectionProps) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { t } = useTranslation('common')
-
+  const { locale } = useRouter()
   return (
     <>
-      <Video
-        isOpen={isOpen}
-        onClose={onClose}
-        link={data.video.url}
-        thumbnail={data.video.thumbnail}
-      />
       <Box
         className='hero-section'
-        height='100vh'
         width='100%'
         backgroundImage={{
           base: `url(${images.base})`,
@@ -86,7 +68,7 @@ export default function MainHeroSection({
         backgroundPosition={{ base: 'inherit', md: 'center' }}
         backgroundRepeat={'no-repeat'}
         position={'relative'}
-        top='-70px'
+        top='-91px'
         left={0}
         z-index={-1}
       >
@@ -96,64 +78,106 @@ export default function MainHeroSection({
           left={0}
           width={'100%'}
           height={'100%'}
-          justifyContent={'center'}
-          alignItems={'center'}
         >
-          <VStack spacing={{ base: 24, md: 28 }}>
-            <VStack
-              spacing={6}
-              as={motion.div}
-              initial='hide'
-              whileInView='show'
-              exit='show'
-              variants={fadeUp}
+          <VStack
+            mt={{ base: 32, '2xl': 40 }}
+            width='100%'
+            spacing={{ base: 24, md: 28 }}
+          >
+            <Flex
+              flexDirection={{ base: 'column', lg: 'row' }}
+              width='100%'
+              gap={{ base: 14, lg: 48, xl: 56, '2xl': 80 }}
             >
-              <Text
-                as='h1'
-                color='white'
-                fontWeight='bold'
-                textAlign='center'
-                fontSize={{ base: '25px', md: '40px', lg: '60px' }}
+              <VStack
+                width={{ base: '100%', lg: '50%' }}
+                alignItems={{ base: 'center', lg: 'flex-start' }}
+                spacing={6}
+                as={motion.div}
+                initial='hide'
+                whileInView='show'
+                exit='show'
+                variants={fadeUp}
+                ml={{ base: 0, lg: locale === 'ar' ? 0 : 16 }}
+                mr={{ base: 0, lg: locale === 'ar' ? 16 : 0 }}
               >
-                {data.title} &nbsp;
-                <Text as='span' color='secondary' textDecoration='underline'>
-                  {data.companyName}
+                <Text
+                  as='h1'
+                  color='#000'
+                  fontWeight='bold'
+                  textAlign={{ base: 'center', lg: 'start' }}
+                  fontSize={{
+                    base: '25px',
+                    md: '40px',
+                    lg: '50px',
+                    xl: '55px',
+                  }}
+                >
+                  {data.title} &nbsp;
+                  <Text as='span' color='secondary' textDecoration='underline'>
+                    {data.companyName}
+                  </Text>
                 </Text>
-              </Text>
-              <Text
-                as='p'
-                color='white'
-                textAlign={{ base: 'center', md: 'left' }}
-                width={{ base: '80%', md: '100%' }}
-                fontSize={{ base: '16px', md: '18px', lg: '20px' }}
-              >
-                {data.subtitle}
-              </Text>
-              <HStack spacing={3}>
-                {data.video?.url && (
-                  <Button
-                    variant='outline'
-                    color='white'
-                    _hover={{ background: '#000', borderColor: '#000' }}
-                    borderRadius='5rem'
-                    onClick={onOpen}
-                  >
-                    {t('video_btn')}
-                    <PlayIcon width='1.5rem' height='1.5rem' />
-                  </Button>
-                )}
+                <Text
+                  as='p'
+                  color='#000'
+                  textAlign={{
+                    base: 'center',
+                    lg: 'start',
+                  }}
+                  width={{ base: '80%', md: '100%' }}
+                  fontSize={{ base: '16px', md: '18px', lg: '20px' }}
+                >
+                  {data.subtitle}
+                </Text>
                 {data.cta?.label && (
                   <CTA label={data.cta.label} href={data.cta.href} />
                 )}
-              </HStack>
-            </VStack>
+              </VStack>
+              <Box
+                as={motion.div}
+                width={{ base: '100%', lg: '50%' }}
+                display='flex'
+                justifyContent='center'
+                initial='hide'
+                whileInView='show'
+                exit='show'
+                variants={fadeUp}
+                mr={{ base: 0, lg: locale === 'ar' ? 0 : 16 }}
+                ml={{ base: 0, lg: locale === 'ar' ? 16 : 0 }}
+                minH={80}
+              >
+                <Box
+                  h={{ base: 60, md: 'auto' }}
+                  w={{ base: '95%', sm: '65%', lg: '100%' }}
+                >
+                  <ReactPlayer
+                    height='100%'
+                    width='100%'
+                    style={{ padding: '0', margin: '0', position: 'relative' }}
+                    playing={true}
+                    url={data.video.url}
+                    playIcon={<PlayIconContainer />}
+                    className='react-player'
+                    light={
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={data.video.thumbnail ?? './images/thumbnail.webp'}
+                        alt='hero-section'
+                      />
+                    }
+                  />
+                </Box>
+              </Box>
+            </Flex>
+
             {isStatistics && (
               <HStack
                 w='100%'
                 as={motion.div}
                 justifyContent='space-between'
                 alignItems='center'
-                flexWrap='wrap'
+                flexWrap={{ base: 'wrap', lg: 'nowrap' }}
                 initial='hide'
                 whileInView='show'
                 exit='show'
@@ -169,6 +193,7 @@ export default function MainHeroSection({
                   >
                     <Text
                       as='p'
+                      color='#000'
                       fontSize={{
                         base: '12px',
                         sm: '14px',
@@ -181,6 +206,7 @@ export default function MainHeroSection({
                     </Text>
                     <Text
                       as='p'
+                      color='primary'
                       fontSize={{
                         base: '16px',
                         sm: '18px',
@@ -191,7 +217,11 @@ export default function MainHeroSection({
                       fontWeight='bold'
                     >
                       {stat.currency ? (
-                        <Text as='span' fontSize={{ base: '20' }}>
+                        <Text
+                          as='span'
+                          color='primary'
+                          fontSize={{ base: '20' }}
+                        >
                           {stat.currency.toUpperCase()} &nbsp;
                         </Text>
                       ) : (
@@ -211,8 +241,25 @@ export default function MainHeroSection({
             )}
           </VStack>
         </Flex>
-        <Partners partners={data.partners} />
       </Box>
+      <Partners partners={data.partners} />
     </>
+  )
+}
+
+const PlayIconContainer = () => {
+  return (
+    <Box
+      position='absolute'
+      width={12}
+      height={12}
+      borderRadius='full'
+      bg='#000'
+      color='#fff'
+      display='grid'
+      placeItems='center'
+    >
+      <FullPlayIcon boxSize={4} />
+    </Box>
   )
 }

@@ -17,7 +17,8 @@ import NextLink from 'next/link'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import logoImage from '@assets/images/logo.svg'
+import logoImage from '@assets/images/main-icon.svg'
+import logoWhiteImage from '@assets/images/logo.svg'
 import Drawer from './Drawer'
 import CTA from './CTA'
 
@@ -66,10 +67,15 @@ export default function Header(props: IHeaderProps) {
         <Flex justifyContent='space-between'>
           <Box>
             <Link as={NextLink} href='/'>
-              <Image src={logoImage} alt='logo' width={100} height={100} />
+              <Image
+                src={isFixed ? logoWhiteImage : logoImage}
+                alt='logo'
+                width={100}
+                height={100}
+              />
             </Link>
           </Box>
-          <Navigation />
+          <Navigation isFixed={isFixed} />
           <HStack spacing='20'>
             <Box
               position='relative'
@@ -87,7 +93,11 @@ export default function Header(props: IHeaderProps) {
               onClick={onOpen}
               ref={btnRef!}
             >
-              <HamburgerIcon w={10} h={10} />
+              <HamburgerIcon
+                w={10}
+                h={10}
+                color={isFixed ? 'white' : 'primary'}
+              />
             </Button>
           </HStack>
         </Flex>

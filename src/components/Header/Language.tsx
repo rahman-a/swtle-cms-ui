@@ -14,7 +14,7 @@ export default function Language(props: ILanguageProps) {
 
   return (
     <Menu>
-      <MenuButton fontSize={{ base: 'sm', lg: 'md' }}>
+      <MenuButton fontSize={{ base: 'sm', lg: 'md' }} color='primary'>
         <ChevronDownIcon /> {router.locale === 'en' ? 'العربية' : 'English'}
       </MenuButton>
       <MenuList color='#000'>

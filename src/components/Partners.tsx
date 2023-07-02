@@ -13,12 +13,7 @@ export interface IPartnerProps {
 export default function Partner({ partners }: IPartnerProps) {
   const { t } = useTranslation('common')
   return (
-    <Box
-      display='flex'
-      justifyContent='center'
-      position='relative'
-      top={{ base: '-5rem' }}
-    >
+    <Box display='flex' justifyContent='center' position='relative'>
       <Flex
         direction='column'
         alignItems='center'
@@ -26,7 +21,7 @@ export default function Partner({ partners }: IPartnerProps) {
         w={{ base: '85%', md: '60%', lg: '40%', xl: '30%' }}
         backgroundColor='white'
         borderRadius='xl'
-        p={{ base: 4, md: 8 }}
+        pb={{ base: 4, md: 8 }}
       >
         <Text color='primary'>{t('partner_success')}</Text>
         <HStack justifyContent='space-evenly' w='100%'>

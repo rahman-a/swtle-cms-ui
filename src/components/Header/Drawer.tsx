@@ -24,7 +24,6 @@ interface IDrawerProps {
 const DrawerComponent = forwardRef<HTMLButtonElement, IDrawerProps>(
   ({ isOpen, onClose }, ref) => {
     const router = useRouter()
-    const locale = router.locale
     const { t } = useTranslation('common')
     return (
       <Drawer

@@ -21,6 +21,7 @@ import {
   FaHome,
   FaBriefcase,
   FaEnvelopeOpenText,
+  FaPlay,
 } from 'react-icons/fa'
 import {
   MdFlag,
@@ -32,6 +33,7 @@ import {
 import { AiOutlineRotateLeft, AiOutlineRotateRight } from 'react-icons/ai'
 
 export const PlayIcon = (props: any) => <Icon as={BsPlay} {...props} />
+export const FullPlayIcon = (props: any) => <Icon as={FaPlay} {...props} />
 export const LocationIcon = (props: any) => (
   <Icon as={HiOutlineLocationMarker} {...props} />
 )

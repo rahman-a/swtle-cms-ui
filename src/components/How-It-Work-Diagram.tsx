@@ -1,5 +1,4 @@
-import { Box, Flex, useBreakpointValue } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Box, Flex, useBreakpointValue, Image } from '@chakra-ui/react'
 
 interface IHowItWorkDiagramProps {
   images: {
@@ -17,7 +16,7 @@ export default function HowItWorkDiagram({
   return (
     <Box py={20} backgroundColor='surface' position='relative' {...rest}>
       <Flex
-        position='relative'
+        // position='relative'
         justify='center'
         align='center'
         height={{
@@ -26,7 +25,13 @@ export default function HowItWorkDiagram({
           xl: '35rem',
         }}
       >
-        <Image src={`${imageSrc}`} alt='How it work diagram' fill />
+        <Image
+          src={`${imageSrc}`}
+          alt='How it work diagram'
+          objectFit='contain'
+          width={{ base: '100%', lg: '80%', '2xl': '70%' }}
+          height='100%'
+        />
       </Flex>
     </Box>
   )
