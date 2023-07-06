@@ -1,16 +1,16 @@
 import { Container, Box, Flex, HStack, Text } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
-import { useRouter } from 'next/router'
 import { useScroll } from 'framer-motion'
 import howItWorksBG from '@assets/images/how-it-works.webp'
 import howItWorksBGMedium from '@assets/images/how-it-works-md.webp'
 import howItWorksBGSmall from '@assets/images/how-it-works-sm.webp'
+import ProcessThumbnail from '@assets/images/process_thumbnail.png'
 import { HeroSection, WorkStep } from '../components'
 import fetcher from '../services/fetcher'
+import Video from '../components/Videos'
 
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
@@ -85,12 +85,28 @@ export default function HowItWorks({
         title={data.header}
       />
       <Container minW='95%'>
-        <Text
-          fontSize={{ base: '2xl', md: '3xl', xl: '4xl' }}
-          width={{ base: '95%', md: '60%' }}
+        <Flex
+          alignItems='center'
+          w='full'
+          gap={14}
+          flexDirection={{ base: 'column-reverse', lg: 'row' }}
         >
-          {data.description}
-        </Text>
+          <Text
+            fontSize={{ base: '2xl', md: '3xl', xl: '4xl' }}
+            width={{ base: '95%', md: '60%' }}
+          >
+            {data.description}
+          </Text>
+          <Video
+            url='https://www.youtube.com/watch?v=vn59J41x4GI&ab_channel=Swtle'
+            thumbnail={ProcessThumbnail.src}
+            containerStyles={{
+              width: { base: '21.5rem', sm: '24rem' },
+              height: { base: '14rem', sm: '15rem' },
+            }}
+          />
+        </Flex>
+
         <Flex
           py={32}
           width='100%'
