@@ -2,6 +2,7 @@ import { Box, Flex, HStack, VStack, Text } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { fadeUp, fadeDown } from '@animation-variants'
 import CTA from './Header/CTA'
+import VideoPlayer from './Videos'
 import { FullPlayIcon } from '../icons'
 import { useRouter } from 'next/router'
 import Partners from './Partners'
@@ -147,27 +148,14 @@ export default function MainHeroSection({
                 ml={{ base: 0, lg: locale === 'ar' ? 16 : 0 }}
                 minH={80}
               >
-                <Box
-                  h={{ base: 60, md: 'auto' }}
-                  w={{ base: '95%', sm: '65%', lg: '100%' }}
-                >
-                  <ReactPlayer
-                    height='100%'
-                    width='100%'
-                    style={{ padding: '0', margin: '0', position: 'relative' }}
-                    playing={true}
-                    url={data.video.url}
-                    playIcon={<PlayIconContainer />}
-                    className='react-player'
-                    light={
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={data.video.thumbnail ?? './images/thumbnail.webp'}
-                        alt='hero-section'
-                      />
-                    }
-                  />
-                </Box>
+                <VideoPlayer
+                  url={data.video.url}
+                  thumbnail={data.video.thumbnail}
+                  containerStyles={{
+                    height: { base: 60, md: 'auto' },
+                    width: { base: '95%', sm: '65%', lg: '100%' },
+                  }}
+                />
               </Box>
             </Flex>
 
@@ -244,22 +232,5 @@ export default function MainHeroSection({
       </Box>
       <Partners partners={data.partners} />
     </>
-  )
-}
-
-const PlayIconContainer = () => {
-  return (
-    <Box
-      position='absolute'
-      width={12}
-      height={12}
-      borderRadius='full'
-      bg='#000'
-      color='#fff'
-      display='grid'
-      placeItems='center'
-    >
-      <FullPlayIcon boxSize={4} />
-    </Box>
   )
 }

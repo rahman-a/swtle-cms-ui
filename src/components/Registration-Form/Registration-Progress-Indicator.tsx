@@ -23,25 +23,29 @@ export default function RegistrationProgressIndicator({
 
   return (
     <Box
+      w={{ base: '100%', md: 'auto' }}
       position='relative'
       right={{ base: locale === 'ar' ? '-1rem' : '0', sm: '0' }}
     >
       <IndicatorLine step={step} />
       <List
-        spacing={{ base: 0, md: 12 }}
-        display={{ base: 'flex', md: 'block' }}
-        w={{ base: '98vw', md: 'auto' }}
+        spacing={0}
+        display='flex'
         alignItems='center'
-        justifyContent={{ base: 'space-between', md: 'center' }}
-        transform={{ base: 'translateX(-10px)', md: 'translateX(0)' }}
+        justifyContent='space-between'
+        transform='translateX(-10px)'
       >
         {steps.map((s) => (
-          <ListItem key={s.id}>
+          <ListItem
+            key={s.id}
+            h={24}
+            w={{ base: '100%', lg: '7rem', xl: '100%' }}
+          >
             <Stack
               gap={2}
               alignItems='center'
               justifyContent='center'
-              flexDirection={{ base: 'column', md: 'row' }}
+              flexDirection='column'
             >
               <IndicatorCircle
                 state={
@@ -55,15 +59,19 @@ export default function RegistrationProgressIndicator({
               />
               <Text
                 opacity={s.phase <= step ? 1 : 0.4}
-                w={{ base: 16, sm: 20, md: 40 }}
+                w={{ base: 16, sm: 20, md: 40, lg: 'full', xl: 40 }}
                 h={{ base: 20, md: 'auto' }}
                 fontWeight={{ base: 'normal', md: 'bold' }}
                 as='p'
                 margin='0'
-                fontSize={{ base: 'xs', sm: 'sm', md: 'lg', lg: 'xl' }}
+                fontSize={{
+                  base: 'xs',
+                  sm: 'sm',
+                  lg: 'md',
+                  xl: 'lg',
+                }}
                 textAlign={{
                   base: 'center',
-                  md: locale === 'ar' ? 'right' : 'left',
                 }}
               >
                 {s.name}

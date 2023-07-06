@@ -28,13 +28,13 @@ import { useRouter } from 'next/router'
 interface INavigationProps {
   isOpen?: boolean
   onClose?: () => void
-  isFixed?: boolean
+  isMainPage?: boolean
 }
 
 export default function Navigation({
   isOpen,
   onClose,
-  isFixed,
+  isMainPage,
 }: INavigationProps) {
   const { locale } = useRouter()
   const { t } = useTranslation('navigation')
@@ -140,11 +140,11 @@ export default function Navigation({
                         p={2}
                         fontSize='md'
                         fontWeight={500}
-                        color={isFixed ? 'white' : 'primary'}
+                        color={isMainPage || isOpen ? 'primary' : 'white'}
                         borderBottom='2px solid transparent'
                         _hover={{
                           textDecoration: 'none'!,
-                          borderColor: isOpen ? 'primary' : 'white',
+                          borderColor: isMainPage ? 'primary' : 'white',
                         }}
                       >
                         {link.label} <ChevronDownIcon />
@@ -221,11 +221,11 @@ export default function Navigation({
                 href={link.url ?? '#'}
                 fontSize={'md'}
                 fontWeight={500}
-                color={isFixed ? 'white' : 'primary'}
+                color={isMainPage || isOpen ? 'primary' : 'white'}
                 borderBottom='2px solid transparent'
                 _hover={{
                   textDecoration: 'none',
-                  borderColor: isOpen ? 'primary' : 'white',
+                  borderColor: isMainPage ? 'primary' : 'white',
                 }}
               >
                 {link.label}

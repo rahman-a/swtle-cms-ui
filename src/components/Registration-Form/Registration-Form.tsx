@@ -293,7 +293,7 @@ export default function RegistrationForm({
         />
       )}
       <Box
-        width={{ base: '100%', md: '85%', lg: '70%', xl: '60%' }}
+        width='full'
         boxShadow='lg'
         borderRadius={10}
         padding={4}

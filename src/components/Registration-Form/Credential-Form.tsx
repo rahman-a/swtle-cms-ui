@@ -218,7 +218,11 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
       </Stack>
       <FormControl isRequired pt={2} isInvalid={!!errors.isAgreed}>
         <FormLabel mt={0} display='flex'>
-          <HStack spacing={2} alignItems='center'>
+          <HStack
+            spacing={2}
+            alignItems='center'
+            flexWrap={{ base: 'wrap', sm: 'nowrap' }}
+          >
             <Checkbox
               {...register('isAgreed', {
                 required: `${t('registration.consent_policy_required')}`,

@@ -22,6 +22,23 @@ import logoWhiteImage from '@assets/images/logo.svg'
 import Drawer from './Drawer'
 import CTA from './CTA'
 
+const allowedPathsForHeaderBg = [
+  '/login',
+  '/register',
+  '/reset',
+  '/activate',
+  '/404',
+  '/privacy-policy',
+  '/terms-conditions',
+  '/ar/login',
+  '/ar/register',
+  '/ar/reset',
+  '/ar/activate',
+  '/ar/404',
+  '/ar/privacy-policy',
+  '/ar/terms-conditions',
+]
+
 interface IHeaderProps {}
 
 export default function Header(props: IHeaderProps) {
@@ -29,28 +46,20 @@ export default function Header(props: IHeaderProps) {
   const { t } = useTranslation('common')
   const btnRef = useRef<HTMLButtonElement>(null)
   const [isFixed, setIsFixed] = useState(false)
-  const { scrollY } = useScroll()
   const router = useRouter()
-  const allowedPathsForHeaderBg = [
-    '/login',
-    '/register',
-    '/reset',
-    '/activate',
-    '/404',
-    '/privacy-policy',
-    '/terms-conditions',
-    '/ar/login',
-    '/ar/register',
-    '/ar/reset',
-    '/ar/activate',
-    '/ar/404',
-    '/ar/privacy-policy',
-    '/ar/terms-conditions',
-  ]
+  const isHeaderBackground = allowedPathsForHeaderBg.includes(router.asPath)
+  const [isMainPage, setIsMainPage] = useState(router.asPath === '/')
+  const { scrollY } = useScroll()
+
   const headerClassNames = classnames('header', {
-    'header--bg': allowedPathsForHeaderBg.includes(router.route),
+    'header--bg': isHeaderBackground,
     'header--fixed': isFixed,
   })
+
+  useEffect(() => {
+    setIsMainPage(router.asPath === '/')
+  }, [router.asPath])
+
   useEffect(() => {
     scrollY.on('change', (v) => {
       if (v > 80) {
@@ -68,35 +77,38 @@ export default function Header(props: IHeaderProps) {
           <Box>
             <Link as={NextLink} href='/'>
               <Image
-                src={isFixed ? logoWhiteImage : logoImage}
+                src={isMainPage && !isFixed ? logoImage : logoWhiteImage}
                 alt='logo'
                 width={100}
                 height={100}
               />
             </Link>
           </Box>
-          <Navigation isFixed={isFixed} />
+          <Navigation isMainPage={isMainPage && !isFixed} />
           <HStack spacing='20'>
             <Box
               position='relative'
               display={{ base: 'none', sm: 'none', lg: 'none', xl: 'block' }}
             >
-              <Language />
+              <Language isPrimary={isMainPage} />
             </Box>
             {router.asPath !== '/login' && router.asPath !== '/register' && (
               <CTA label={t('get_started')} href='https://app.swtle.com' />
             )}
             <Button
-              display={{ base: 'block', sm: 'block', lg: 'block', xl: 'none' }}
+              display={{ base: 'block', xl: 'none' }}
               bg={'transparent'}
               cursor={'pointer'}
               onClick={onOpen}
               ref={btnRef!}
+              _hover={{
+                background: isMainPage && !isFixed ? 'white' : 'primary',
+              }}
             >
               <HamburgerIcon
                 w={10}
                 h={10}
-                color={isFixed ? 'white' : 'primary'}
+                color={isMainPage && !isFixed ? 'primary' : 'white'}
               />
             </Button>
           </HStack>

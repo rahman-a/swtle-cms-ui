@@ -4,9 +4,11 @@ import { useRouter } from 'next/router'
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import * as React from 'react'
 
-interface ILanguageProps {}
+interface ILanguageProps {
+  isPrimary?: boolean
+}
 
-export default function Language(props: ILanguageProps) {
+export default function Language({ isPrimary }: ILanguageProps) {
   const router = useRouter()
   const changeLanguageHandler = (lang: string) => {
     router.push(router.asPath, undefined, { locale: lang })
@@ -14,7 +16,10 @@ export default function Language(props: ILanguageProps) {
 
   return (
     <Menu>
-      <MenuButton fontSize={{ base: 'sm', lg: 'md' }} color='primary'>
+      <MenuButton
+        fontSize={{ base: 'sm', lg: 'md' }}
+        color={{ base: 'primary', xl: isPrimary ? 'primary' : 'white' }}
+      >
         <ChevronDownIcon /> {router.locale === 'en' ? 'العربية' : 'English'}
       </MenuButton>
       <MenuList color='#000'>
