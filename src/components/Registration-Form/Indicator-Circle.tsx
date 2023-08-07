@@ -21,13 +21,15 @@ export default function Indicator({ state, step }: IIndicatorProps) {
       alignItems='center'
       justifyContent='center'
       color={state === 'undone' ? 'black' : 'white'}
-      zIndex='99'
+      zIndex='90'
       className='indicator'
     >
       {state === 'done' ? (
         <CheckIcon color='white' />
       ) : (
-        <Text opacity={state === 'undone' ? '0.4' : '1'}>{step}</Text>
+        <Text as='span' opacity={state === 'undone' ? '0.4' : '1'}>
+          {step}
+        </Text>
       )}
     </Box>
   )

@@ -29,9 +29,6 @@ export default function AboutUs({
   metadata: any
 }) {
   const [isLargerThanXl] = useMediaQuery('(min-width: 80em)')
-  useEffect(() => {
-    console.log('Data-About-us: ', data)
-  }, [data])
   return (
     <>
       <NextSeo
@@ -121,7 +118,6 @@ export default function AboutUs({
   )
 }
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
-  console.log('strapiUrl: ', strapiUrl)
   const response = await fetcher({
     url: `about-us?populate=deep&locale=${locale}`,
   })

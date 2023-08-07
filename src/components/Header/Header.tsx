@@ -24,19 +24,23 @@ import CTA from './CTA'
 
 const allowedPathsForHeaderBg = [
   '/login',
-  '/register',
+  '/register/personal',
+  '/register/business',
   '/reset',
   '/activate',
   '/404',
   '/privacy-policy',
   '/terms-conditions',
+  '/plans',
   '/ar/login',
-  '/ar/register',
+  '/ar/register/personal',
+  '/ar/register/business',
   '/ar/reset',
   '/ar/activate',
   '/ar/404',
   '/ar/privacy-policy',
   '/ar/terms-conditions',
+  '/ar/plans',
 ]
 
 interface IHeaderProps {}
@@ -92,9 +96,10 @@ export default function Header(props: IHeaderProps) {
             >
               <Language isPrimary={isMainPage} />
             </Box>
-            {router.asPath !== '/login' && router.asPath !== '/register' && (
-              <CTA label={t('get_started')} href='https://app.swtle.com' />
-            )}
+            {router.asPath !== '/login' &&
+              router.pathname !== '/register/[type]' && (
+                <CTA label={t('get_started')} href='/plans' />
+              )}
             <Button
               display={{ base: 'block', xl: 'none' }}
               bg={'transparent'}

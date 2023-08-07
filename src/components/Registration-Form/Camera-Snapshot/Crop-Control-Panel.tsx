@@ -66,7 +66,6 @@ export default function CropControlPanel({
   }
   useEffect(() => {
     rotation && cropper?.rotateTo(rotation)
-    console.log('🚀 rotation:', rotation)
   }, [rotation, cropper])
 
   useEffect(() => {

@@ -12,12 +12,18 @@ interface IThumbnailsProps {
 export default function Thumbnails({ label, name }: IThumbnailsProps) {
   const { getValues, watch } = useFormContext()
   const [image, setImage] = useState<string | null>(null)
+  const [isPdf, setIsPdf] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const watchInput = watch(name)
   const file = getValues(name)
   useEffect(() => {
-    if (file?.name) {
+    if (file?.name && file?.type !== 'application/pdf') {
+      setIsPdf(false)
       setImage(URL.createObjectURL(file))
+    }
+    if (file?.type === 'application/pdf') {
+      setImage(null)
+      setIsPdf(true)
     }
   }, [file, watchInput])
   return (
@@ -42,7 +48,15 @@ export default function Thumbnails({ label, name }: IThumbnailsProps) {
           borderColor='secondary'
           borderRadius='sm'
         >
-          {image && <Image src={image} alt='about' fill />}
+          {image && (
+            <Image
+              style={{ objectFit: 'contain' }}
+              src={image}
+              alt='about'
+              fill
+            />
+          )}
+          {isPdf && <Image src='/images/pdf.png' alt='about' fill />}
         </Box>
         <Text as='p' textAlign='center' fontSize={{ base: 'sm', md: 'md' }}>
           {label}

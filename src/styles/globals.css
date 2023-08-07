@@ -72,6 +72,22 @@ main {
   border-width: 0 0 180px 8px;
   border-color: #ffca24;
 }
+.indicator-item:not(:last-child) p::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -4px;
+  display: block;
+  width: 1px;
+  height: 100%;
+  background-color: #b6b6b6;
+}
+
+@media only screen and (min-width: 480px) {
+  .indicator-item:not(:last-child) p::after {
+    display: none;
+  }
+}
 
 .react-player__preview img {
   height: 100%;
@@ -161,4 +177,11 @@ main {
   left: 0;
   right: 0;
   z-index: 99;
+}
+.company-type-select {
+  padding-inline-start: 2rem !important;
+}
+.company-type-select option:first-child {
+  color: #b6b6b6;
+  cursor: not-allowed;
 }

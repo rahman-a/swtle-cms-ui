@@ -17,18 +17,44 @@ export type Phone = {
 export type ExpireAt = {
   identity: string
   passport: string
-}
+} | null
 export type VerificationDocument = {
   image: File
-}
+} | null
 
 export type IFDataExisted = {
   username?: string
   emails?: Email[]
   phones?: Phone[]
+  name?: string
+  phone?: string
+  email?: string
+  accountType?: 'personal' | 'business'
 }
 
+export type CompanyData = {
+  name: string
+  address: string
+  phone: string
+  email: string
+  type: CompanyType
+  traderLicense: VerificationDocument
+  expiryDate: string
+  establishmentContract?: VerificationDocument
+  accountType: 'personal' | 'business'
+}
+
+export type CompanyType = 'sole' | 'llc'
+
 export interface IRegistrationProps {
+  name: string
+  address: string
+  phone: string
+  email: string
+  type: CompanyType
+  traderLicense: VerificationDocument
+  expiryDate: string
+  establishmentContract?: VerificationDocument
   username: string
   emails: Email[]
   password: string
@@ -47,6 +73,8 @@ export interface IRegistrationProps {
   'identity-back': VerificationDocument
   passport: VerificationDocument
   expireAt: ExpireAt
+  accountType: 'personal' | 'business'
+  isEmployee: boolean
 }
 
 export interface IUser {

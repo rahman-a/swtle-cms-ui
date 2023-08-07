@@ -4,39 +4,48 @@ import { useRouter } from 'next/router'
 import IndicatorCircle from './Indicator-Circle'
 import IndicatorLine from './Indicator-Line'
 
+type Step = {
+  id: number
+  name: string
+  phase: number
+}
+
 export interface IRegistrationProgressIndicatorProps {
+  steps: Step[]
   step: number
+  type: 'personal' | 'business'
 }
 
 export default function RegistrationProgressIndicator({
   step,
+  type,
+  steps: stepsValues,
 }: IRegistrationProgressIndicatorProps) {
   const { t } = useTranslation('registration')
   const { locale } = useRouter()
-  const steps = [
-    { id: 1, name: t('registration.credential'), phase: 0 },
-    { id: 2, name: t('registration.personal_info'), phase: 1 },
-    { id: 3, name: t('registration.address_info'), phase: 2 },
-    { id: 4, name: t('registration.phones_info'), phase: 3 },
-    { id: 5, name: t('registration.documents_info'), phase: 4 },
-  ]
+  const steps = stepsValues.map((step) => ({
+    id: step.id,
+    name: t(`registration.${step.name}`),
+    phase: step.phase,
+  }))
 
   return (
     <Box
-      w={{ base: '100%', md: 'auto' }}
+      w={{ base: '100%', lg: 'auto' }}
       position='relative'
-      right={{ base: locale === 'ar' ? '-1rem' : '0', sm: '0' }}
+      right={{ base: 0, sm: '0' }}
     >
-      <IndicatorLine step={step} />
+      <IndicatorLine step={step} type={type} />
       <List
         spacing={0}
         display='flex'
         alignItems='center'
         justifyContent='space-between'
-        transform='translateX(-10px)'
+        gap={{ base: 1.5, sm: 0 }}
       >
         {steps.map((s) => (
           <ListItem
+            className='indicator-item'
             key={s.id}
             h={24}
             w={{ base: '100%', lg: '7rem', xl: '100%' }}
@@ -59,8 +68,8 @@ export default function RegistrationProgressIndicator({
               />
               <Text
                 opacity={s.phase <= step ? 1 : 0.4}
-                w={{ base: 16, sm: 20, md: 40, lg: 'full', xl: 40 }}
-                h={{ base: 20, md: 'auto' }}
+                position='relative'
+                h={{ md: 'auto' }}
                 fontWeight={{ base: 'normal', md: 'bold' }}
                 as='p'
                 margin='0'
@@ -68,7 +77,6 @@ export default function RegistrationProgressIndicator({
                   base: 'xs',
                   sm: 'sm',
                   lg: 'md',
-                  xl: 'lg',
                 }}
                 textAlign={{
                   base: 'center',

@@ -1,5 +1,4 @@
 import { Button } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 
 interface ICTAProps {

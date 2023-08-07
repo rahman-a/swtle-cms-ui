@@ -3,11 +3,9 @@ import { motion } from 'framer-motion'
 import { fadeUp, fadeDown } from '@animation-variants'
 import CTA from './Header/CTA'
 import VideoPlayer from './Videos'
-import { FullPlayIcon } from '../icons'
 import { useRouter } from 'next/router'
 import Partners from './Partners'
 import CountUp from 'react-countup'
-import ReactPlayer from 'react-player'
 
 type Stat = {
   id: number

@@ -40,7 +40,6 @@ export default function PhoneConfirmModal({
     setIsLoading(true)
     try {
       const { data } = await userAPI.sendVerifyCodeToPhone(undefined, email)
-      console.log('🚀sendPhoneVerificationCode ~ data:', data)
     } catch (error: any) {
       if (error.response) {
         toast({
@@ -61,7 +60,6 @@ export default function PhoneConfirmModal({
     try {
       const { data } = await userAPI.verifyPhoneCode(code, undefined, email)
       setIsPhoneVerified(true)
-      console.log('verifyPhoneCode ~ data:', data)
     } catch (error: any) {
       if (error.response) {
         toast({

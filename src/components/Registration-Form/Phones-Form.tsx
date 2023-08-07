@@ -11,10 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import 'react-phone-number-input/style.css'
-import PhoneInput, {
-  DefaultInputComponentProps,
-  Props,
-} from 'react-phone-number-input'
+import PhoneInput from 'react-phone-number-input'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import type { IRegistrationProps } from '../../types/Registration-types'

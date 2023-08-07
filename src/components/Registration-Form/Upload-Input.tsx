@@ -34,7 +34,12 @@ const UploadInput = forwardRef<HTMLInputElement, IUploadInputProps>(
     const toast = useToast()
 
     const isFileValid = (file: File) => {
-      const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg']
+      const allowedTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ]
       if (!allowedTypes.includes(file.type)) {
         setError({
           title: t('registration.file_invalid'),
@@ -93,7 +98,7 @@ const UploadInput = forwardRef<HTMLInputElement, IUploadInputProps>(
             <input
               style={{ display: 'none' }}
               {...rest}
-              accept='image/*'
+              accept='image/*, .pdf'
               ref={inputRefs}
               value=''
               type='file'

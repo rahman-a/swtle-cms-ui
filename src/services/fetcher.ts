@@ -13,7 +13,6 @@ export default async function fetcher({ api, url, options }: FetcherOptions) {
     const response = await axios.get(`${apiURL}/api/${url}`, options)
     return response.data
   } catch (error: any) {
-    console.log('Error: ', error)
     return error.response.data
   }
 }

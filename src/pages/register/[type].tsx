@@ -1,22 +1,32 @@
 import { Container, Flex, HStack, Link, Text } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
 import { RegistrationForm, RegistrationProgressIndicator } from '@components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
-import Video from '../components/Videos'
+import Video from '../../components/Videos'
 import { useTranslation } from 'next-i18next'
 import NextLink from 'next/link'
 
-interface IRegisterProps {}
+type Step = {
+  id: number
+  name: string
+  phase: number
+}
 
-export default function Register(props: IRegisterProps) {
+interface IRegisterProps {
+  type: string
+  steps: Step[]
+}
+
+type QueryType = 'personal' | 'business'
+
+export default function Register({ type, steps }: IRegisterProps) {
   const [step, setStep] = useState(0)
   const { locale } = useRouter()
   const { t } = useTranslation('registration')
   const { t: tc } = useTranslation('common')
-
   return (
     <>
       <NextSeo title='Swtle | Register' />
@@ -42,7 +52,11 @@ export default function Register(props: IRegisterProps) {
             gap={14}
             flexDirection={{ base: 'column-reverse', lg: 'row' }}
           >
-            <RegistrationProgressIndicator step={step} />
+            <RegistrationProgressIndicator
+              step={step}
+              steps={steps}
+              type={type as QueryType}
+            />
             <Video
               url='https://www.youtube.com/watch?v=vn59J41x4GI&ab_channel=Swtle'
               thumbnail='../images/desktop.png'
@@ -52,7 +66,11 @@ export default function Register(props: IRegisterProps) {
               }}
             />
           </Flex>
-          <RegistrationForm step={step} setStep={setStep} />
+          <RegistrationForm
+            step={step}
+            setStep={setStep}
+            type={type as QueryType}
+          />
         </Flex>
         <HStack pb={8} justifyContent='center'>
           <Text as='p' color='gray.500'>
@@ -73,7 +91,40 @@ export default function Register(props: IRegisterProps) {
   )
 }
 
-export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
+export const getStaticPaths = async () => {
+  return {
+    paths: [
+      { params: { type: 'personal' }, locale: 'en' },
+      { params: { type: 'personal' }, locale: 'ar' },
+      { params: { type: 'business' }, locale: 'en' },
+      { params: { type: 'business' }, locale: 'ar' },
+    ],
+    fallback: false,
+  }
+}
+
+export const getStaticProps = async ({
+  locale,
+  params,
+}: GetStaticPropsContext) => {
+  const stepsValues = [
+    'company',
+    'credential',
+    'personal_info',
+    'address_info',
+    'phones_info',
+    'documents_info',
+  ]
+  const steps = () => {
+    if (params?.type === 'personal') {
+      stepsValues.shift()
+    }
+    return stepsValues.map((step, index) => ({
+      id: index + 1,
+      name: step,
+      phase: index,
+    }))
+  }
   return {
     props: {
       ...(await serverSideTranslations(locale!, [
@@ -83,6 +134,8 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
         'registration',
         'footer',
       ])),
+      type: params?.type,
+      steps: steps(),
     },
   }
 }
