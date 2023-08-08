@@ -188,6 +188,7 @@ export default function TextImageSection({
                   />
                 )}
                 <Text
+                  as='div'
                   color='gray.500'
                   lineHeight={{ base: '1.8', md: '1.6' }}
                   fontSize={descriptionFontSize}

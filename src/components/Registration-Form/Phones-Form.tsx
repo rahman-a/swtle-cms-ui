@@ -1,4 +1,4 @@
-import { useState, useRef, Component } from 'react'
+import { useState } from 'react'
 import {
   Flex,
   FormControl,
@@ -129,6 +129,7 @@ export default function PhonesForm({ isVisible }: IPhonesFormProps) {
                     international
                     countryCallingCodeEditable={false}
                     initialValueFormat='national'
+                    focusInputOnCountrySelection={true}
                     className={locale === 'ar' ? 'phone-input' : ''}
                     style={{ direction: locale === 'ar' ? 'rtl' : 'ltr' }}
                     value={value.phone}

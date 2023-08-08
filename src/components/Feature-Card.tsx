@@ -31,7 +31,7 @@ export default function FeatureCard({
           {title}
         </Text>
         <Text
-          as='p'
+          as='div'
           fontSize='md'
           color='gray.500'
           height='auto'

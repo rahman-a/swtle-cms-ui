@@ -33,8 +33,7 @@ import {
   SuitCaseIcon,
   UserIcon,
 } from '@/src/icons'
-import { AtSignIcon, LockIcon } from '@chakra-ui/icons'
-import { useFieldArray } from 'react-hook-form'
+import { AtSignIcon } from '@chakra-ui/icons'
 import PhoneInput from 'react-phone-number-input'
 import { useRouter } from 'next/router'
 import UploadInput from './Upload-Input'
@@ -145,6 +144,7 @@ export default function CompanyForm({ isVisible }: Props) {
             <PhoneInput
               placeholder={t('registration.phone')}
               international
+              defaultCountry='AE'
               countryCallingCodeEditable={false}
               initialValueFormat='national'
               className={locale === 'ar' ? 'phone-input' : ''}

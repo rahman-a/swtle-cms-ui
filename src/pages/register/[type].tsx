@@ -23,7 +23,7 @@ interface IRegisterProps {
 type QueryType = 'personal' | 'business'
 
 export default function Register({ type, steps }: IRegisterProps) {
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(4)
   const { locale } = useRouter()
   const { t } = useTranslation('registration')
   const { t: tc } = useTranslation('common')
