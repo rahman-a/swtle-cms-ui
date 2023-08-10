@@ -341,7 +341,9 @@ export default function RegistrationForm({
         />
       )}
       <Box
-        width='full'
+        display='flex'
+        flexDirection='column'
+        width={{ base: '100%', md: '80%', lg: '70%', xl: '60%', '2xl': '50%' }}
         boxShadow='lg'
         borderRadius={10}
         padding={4}

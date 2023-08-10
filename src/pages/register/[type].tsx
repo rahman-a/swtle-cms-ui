@@ -36,27 +36,29 @@ export default function Register({ type, steps }: IRegisterProps) {
         flexDirection='column'
         justifyContent='center'
       >
-        <Text as='h1' fontSize='4xl' mt={8} ml={8} fontWeight='bold'>
+        <Text
+          as='h1'
+          textAlign='center'
+          fontSize='4xl'
+          mt={8}
+          ml={8}
+          fontWeight='bold'
+        >
           {t('registration')}
         </Text>
         <Flex
-          mt={{ base: 10, sm: 12, md: 32 }}
+          mt={{ base: 10 }}
           flexDirection='column'
           gap={{ base: 4, xl: 12 }}
-          alignItems={{ base: 'center', lg: 'flex-start' }}
-          justifyContent={{ base: 'center' }}
+          alignItems='center'
+          justifyContent='center'
         >
-          <Flex
-            alignItems={{ base: 'center', lg: 'flex-end' }}
-            w='full'
-            gap={14}
-            flexDirection={{ base: 'column-reverse', lg: 'row' }}
-          >
-            <RegistrationProgressIndicator
+          <Flex alignItems='center' justifyContent='center' w='full' gap={14}>
+            {/* <RegistrationProgressIndicator
               step={step}
               steps={steps}
               type={type as QueryType}
-            />
+            /> */}
             <Video
               url='https://www.youtube.com/watch?v=vn59J41x4GI&ab_channel=Swtle'
               thumbnail='../images/desktop.png'
