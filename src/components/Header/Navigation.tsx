@@ -25,7 +25,7 @@ import {
 } from '@icons'
 import { useRouter } from 'next/router'
 
-interface INavigationProps {
+interface INavigationProps extends React.HTMLAttributes<HTMLElement> {
   isOpen?: boolean
   onClose?: () => void
   isMainPage?: boolean
@@ -35,6 +35,7 @@ export default function Navigation({
   isOpen,
   onClose,
   isMainPage,
+  ...props
 }: INavigationProps) {
   const { locale } = useRouter()
   const { t } = useTranslation('navigation')
@@ -112,7 +113,7 @@ export default function Navigation({
     },
   ]
   return (
-    <nav className={navClassNames}>
+    <nav className={navClassNames} {...props}>
       <Stack
         spacing={{ base: 6, xl: 12 }}
         direction={{ base: 'column', sm: 'column', lg: 'column', xl: 'row' }}
@@ -136,7 +137,7 @@ export default function Navigation({
                       {isOpen && <Box>{link.icon}</Box>}
                       <Link
                         as={NextLink}
-                        href={'#'}
+                        href={''}
                         p={2}
                         fontSize='md'
                         fontWeight={500}

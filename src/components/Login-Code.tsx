@@ -7,6 +7,7 @@ import {
   Spinner,
   Text,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import Countdown, { zeroPad } from 'react-countdown'
 
 interface ILoginCodeProps {
@@ -24,7 +25,7 @@ export default function LoginCode({
   const pinInputRef = useRef<HTMLInputElement>(null)
   const [stopCounter, setStopCounter] = useState<boolean>(false)
   const counterRef = useRef<Countdown>(null)
-
+  const { t } = useTranslation('login')
   useEffect(() => {
     pinInputRef.current?.focus()
   }, [])
@@ -46,7 +47,7 @@ export default function LoginCode({
   return (
     <Box>
       <Text as='h2' mb='5' fontSize={{ base: '2xl', md: '3xl' }}>
-        Type your login code
+        {t('login.code')}
       </Text>
       <HStack w='100%' m='0' position='relative'>
         <PinInput
@@ -86,7 +87,7 @@ export default function LoginCode({
           justifyContent='center'
         >
           <Text as='p' fontSize={{ base: 'sm' }}>
-            Login code will be sent again in
+            {t('login.code_sent_to_your_email')}
           </Text>
           <Countdown
             date={Date.now() + CounterDate}
@@ -107,7 +108,7 @@ export default function LoginCode({
             }}
           />
           <Text as='p' fontSize={{ base: 'sm' }}>
-            seconds in case you didn&apos;t receive one
+            {t('login.resend_code_in_seconds')}
           </Text>
         </HStack>
       )}

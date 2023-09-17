@@ -14,8 +14,6 @@ import { useTranslation } from 'next-i18next'
 import CompanyForm from './CompanyForm'
 import CredentialForm from './Credential-Form'
 import PersonalInfoForm from './Personal-Info-Form'
-import Addresses from './Addresses-Form'
-import PhonesForm from './Phones-Form'
 import VerificationDocumentsForm from './Verification-Documents-Form'
 import type {
   IRegistrationProps,
@@ -74,16 +72,12 @@ export default function RegistrationForm({
       traderLicense: null as VerificationDocument,
       expiryDate: '',
       establishmentContract: null as VerificationDocument,
-      username: '',
       password: '',
-      confirmPassword: '',
       isAgreed: false,
       fullNameInEnglish: '',
       fullNameInArabic: '',
-      company: '',
       emails: [{ email: '', isPrimary: true }] as Email[],
       insideAddress: '',
-      outsideAddress: '',
       country: {
         name: 'United Arab Emirates',
         abbr: 'AE',
@@ -91,7 +85,6 @@ export default function RegistrationForm({
           'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AE.svg',
       } as Country,
       insidePhones: [{ phone: '', isPrimary: true }] as Phone[],
-      outsidePhones: [{ phone: '' }] as Phone[],
       avatar: {} as File,
       'identity-front': null as VerificationDocument,
       'identity-back': null as VerificationDocument,
@@ -100,13 +93,13 @@ export default function RegistrationForm({
     },
   })
 
+  const isLastStep =
+    (step === 2 && type === 'personal') || (step === 3 && type === 'business')
   const errors = methods.formState.errors
 
-  const watchCompanyStepValues = watchValues('company', methods)
   const watchCredentialStepValues = watchValues('credentials', methods)
+  const watchCompanyStepValues = watchValues('company', methods)
   const watchPersonalInfoStepValues = watchValues('personal_info', methods)
-  const watchAddressStepValues = watchValues('address', methods)
-  const watchPhoneStepValues = watchValues('phones', methods)
   const watchDocumentStepValues = watchValues('documents', methods)
 
   const checkIfDataAlreadyExists = async (data: any) => {
@@ -136,26 +129,14 @@ export default function RegistrationForm({
   }
 
   const formattingFinalData = (data: IRegistrationProps) => {
-    delete data.confirmPassword
     data.accountType = type
     data.isEmployee = type === 'business'
-    if (data.country.abbr === 'AE') {
-      delete data.outsideAddress
-      delete data.outsidePhones
-    }
-    if (data.outsidePhones && data.outsidePhones.length) {
-      data.outsidePhones = data.outsidePhones.filter(
-        (value) => value.phone && value.phone.length > 4
-      )
-      data.outsidePhones.length === 0 && delete data.outsidePhones
-    }
     const formData = new FormData()
     for (let key in data) {
       if (
         key === 'emails' ||
         key === 'country' ||
         key === 'insidePhones' ||
-        key === 'outsidePhones' ||
         key === 'expireAt'
       ) {
         formData.append(
@@ -188,6 +169,15 @@ export default function RegistrationForm({
 
   const MovingForwardHandler = async () => {
     setIsFormButtonActive(false)
+    if (isStep('credentials', step, type)) {
+      if (
+        await checkIfDataAlreadyExists({
+          emails: watchCredentialStepValues[0],
+        })
+      ) {
+        return
+      }
+    }
     if (isStep('company', step, type)) {
       if (
         await checkIfDataAlreadyExists({
@@ -199,20 +189,11 @@ export default function RegistrationForm({
         return
       }
     }
-    if (isStep('credentials', step, type)) {
+
+    if (isStep('personal_info', step, type)) {
       if (
         await checkIfDataAlreadyExists({
-          username: watchCredentialStepValues[0],
-          emails: watchCredentialStepValues[1],
-        })
-      ) {
-        return
-      }
-    }
-    if (isStep('phones', step, type)) {
-      if (
-        await checkIfDataAlreadyExists({
-          phones: watchPhoneStepValues[0],
+          phones: watchPersonalInfoStepValues[2],
         })
       ) {
         return
@@ -260,16 +241,9 @@ export default function RegistrationForm({
     if (isStep('credentials', step, type)) {
       let isValid = false
       isValid = watchCredentialStepValues.every((value: string) => value)
-      const usernameErrors = errors.username
       const passwordErrors = errors.password
-      const confirmPasswordErrors = errors.confirmPassword
       const emailsErrors = errors.emails
-      if (
-        usernameErrors ||
-        passwordErrors ||
-        confirmPasswordErrors ||
-        emailsErrors
-      ) {
+      if (passwordErrors || emailsErrors) {
         isValid = false
       }
 
@@ -287,22 +261,9 @@ export default function RegistrationForm({
       isValid = updatedWatchPersonalInfoStepValues.every(
         (value: string) => value
       )
-      isValid = regex.test(watchPersonalInfoStepValues[1])
-      return isValid
-    }
-    if (isStep('address', step, type)) {
-      const updatedWatchAddressStepValues: any =
-        watchAddressStepValues[2] === 'AE'
-          ? [watchAddressStepValues[0]]
-          : watchAddressStepValues
-      const isValid = updatedWatchAddressStepValues.every(
-        (value: string) => value
-      )
-      return isValid
-    }
-    if (isStep('phones', step, type)) {
-      let isValid = false
-      watchPhoneStepValues[0].forEach((value: Phone) => {
+      isValid = regex.test(watchPersonalInfoStepValues[0])
+
+      watchPersonalInfoStepValues[2].forEach((value: Phone) => {
         if (value.phone === '+971' || !value.phone?.startsWith('+971')) {
           isValid = false
           return
@@ -322,8 +283,6 @@ export default function RegistrationForm({
     watchCompanyStepValues,
     watchCredentialStepValues,
     watchPersonalInfoStepValues,
-    watchAddressStepValues,
-    watchPhoneStepValues,
     watchDocumentStepValues,
   ])
 
@@ -358,7 +317,7 @@ export default function RegistrationForm({
               {t('registration.field_required_label')}
             </Text>
           </HStack>
-          {step === 4 && (
+          {isLastStep && (
             <Text as='p' fontSize='md' color='gray.600'>
               {t('registration.max_file_size', { size: '2MB' })}
             </Text>
@@ -366,14 +325,12 @@ export default function RegistrationForm({
         </Flex>
         <form autoComplete='off'>
           <FormProvider {...methods}>
-            <CompanyForm isVisible={isStep('company', step, type)} />
             <CredentialForm isVisible={isStep('credentials', step, type)} />
+            <CompanyForm isVisible={isStep('company', step, type)} />
             <PersonalInfoForm
               type={type}
               isVisible={isStep('personal_info', step, type)}
             />
-            <Addresses isVisible={isStep('address', step, type)} />
-            <PhonesForm isVisible={isStep('phones', step, type)} />
             <VerificationDocumentsForm
               isVisible={isStep('documents', step, type)}
             />

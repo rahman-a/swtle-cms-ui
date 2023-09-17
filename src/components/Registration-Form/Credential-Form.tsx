@@ -52,7 +52,7 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
       data-step='credential info'
       style={{ display: isVisible ? 'block' : 'none' }}
     >
-      <FormControl
+      {/* <FormControl
         id='username'
         isRequired
         isInvalid={!!errors.username?.message}
@@ -99,7 +99,7 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
           <FormErrorMessage>{errors.username.message}</FormErrorMessage>
         )}
       </FormControl>
-      <Divider my={8} borderColor='gray.400' />
+      <Divider my={4} borderColor='gray.400' /> */}
       <Box>
         {fields.map((field, index) => (
           <HStack
@@ -111,7 +111,6 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
           >
             <FormControl
               id='email'
-              pb={6}
               isRequired={index === 0}
               isInvalid={
                 errors.emails && !!errors.emails[index]?.email?.message
@@ -149,17 +148,17 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
                 </FormErrorMessage>
               )}
             </FormControl>
-            {index > 0 && (
+            {/* {index > 0 && (
               <IconButton
                 aria-label={t('registration.email.remove')}
                 variant='ghost'
                 onClick={() => remove(index)}
                 icon={<MinusCircleIcon color='gray.600' />}
               />
-            )}
+            )} */}
           </HStack>
         ))}
-        {fields.length < 3 && (
+        {/* {fields.length < 3 && (
           <Flex justifyContent='flex-end'>
             <IconButton
               aria-label={t('registration.email.add')}
@@ -168,7 +167,7 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
               icon={<PlusCircleIcon color='gray.600' />}
             />
           </Flex>
-        )}
+        )} */}
       </Box>
       <Divider my={4} borderColor='gray.400' />
       <Stack spacing={4}>
@@ -202,7 +201,7 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
             },
           })}
         />
-        <PasswordField
+        {/* <PasswordField
           id='confirmPassword'
           error={errors.confirmPassword?.message}
           label={t('registration.confirm_password')}
@@ -213,9 +212,9 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
               value === watchPassword ||
               `${t('registration.confirm_password_not_match')}`,
           })}
-        />
+        /> */}
       </Stack>
-      <FormControl isRequired pt={2} isInvalid={!!errors.isAgreed}>
+      <FormControl isRequired my={4} isInvalid={!!errors.isAgreed}>
         <FormLabel mt={0} display='flex'>
           <HStack
             spacing={2}

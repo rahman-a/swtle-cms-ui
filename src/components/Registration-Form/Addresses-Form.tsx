@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import flags from 'country-flag-emoji-json'
 import {
   FormControl,
@@ -9,10 +9,13 @@ import {
   Stack,
   FormErrorMessage,
   FormHelperText,
+  VStack,
+  HStack,
 } from '@chakra-ui/react'
 import { LocationIcon } from '@/src/icons'
 import ReactFlagsSelect from 'react-flags-select'
-import { useFormContext, Controller } from 'react-hook-form'
+import PhoneInput from 'react-phone-number-input'
+import { useFormContext, Controller, useFieldArray } from 'react-hook-form'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import type { IRegistrationProps } from '../../types/Registration-types'
@@ -32,6 +35,11 @@ export default function Addresses({ isVisible }: IAddressesProps) {
   } = useFormContext<IRegistrationProps>()
   const { t } = useTranslation('registration')
   const { locale } = useRouter()
+  const [phoneError, setPhoneError] = useState<{ [key: number]: string }>({})
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'insidePhones',
+  })
   const selectCountryHandler = (code: string) => {
     const selectedCountry = flags.find((flag) => flag.code === code)!
     return {
@@ -81,7 +89,7 @@ export default function Addresses({ isVisible }: IAddressesProps) {
             <FormErrorMessage>{errors.insideAddress.message}</FormErrorMessage>
           )}
         </FormControl>
-        <FormControl
+        {/* <FormControl
           id='outsideAddress'
           isRequired
           isInvalid={!!errors.outsideAddress?.message}
@@ -110,9 +118,61 @@ export default function Addresses({ isVisible }: IAddressesProps) {
           {watchCountryName.abbr !== 'AE' && errors.outsideAddress?.message && (
             <FormErrorMessage>{errors.outsideAddress.message}</FormErrorMessage>
           )}
-        </FormControl>
-        <FormControl id='company' isRequired>
-          <FormLabel htmlFor='company'>
+        </FormControl> */}
+        {/*/////////// PHONE NUMBER ///////////////////*/}
+        {fields.map((field, index) => (
+          <HStack
+            marginBottom={index > 1 ? '3rem !important' : 0}
+            key={field.id}
+            width='100%'
+            alignItems='flex-end'
+          >
+            <FormControl
+              isRequired={index === 0}
+              key={field.id}
+              isInvalid={Object.keys(phoneError).includes(index.toString())}
+            >
+              <FormLabel>{t('registration.phone_uae')}</FormLabel>
+              <Controller
+                name={`insidePhones.${index}`}
+                control={control}
+                render={({ field: { value, onChange } }) => (
+                  <PhoneInput
+                    placeholder={`${t('registration.phone_placeholder')}`}
+                    international
+                    defaultCountry='AE'
+                    style={{ direction: locale === 'ar' ? 'rtl' : 'ltr' }}
+                    countryCallingCodeEditable={false}
+                    initialValueFormat='national'
+                    className={locale === 'ar' ? 'phone-input' : ''}
+                    value={value.phone}
+                    onChange={(value) => {
+                      if (!value?.startsWith('+971') || value === '+971') {
+                        setPhoneError({
+                          ...phoneError,
+                          [index]: t('registration.valid_uae_number_required'),
+                        })
+                        return onChange({
+                          phone: value,
+                          isPrimary: index === 0,
+                        })
+                      }
+                      onChange({ phone: value, isPrimary: index === 0 })
+                      setPhoneError({})
+                    }}
+                    inputComponent={Input}
+                  />
+                )}
+              />
+              {phoneError[index] && (
+                <FormErrorMessage>{phoneError[index]}</FormErrorMessage>
+              )}
+            </FormControl>
+          </HStack>
+        ))}
+        {/*/////////// PHONE NUMBER ///////////////////*/}
+        <FormControl id='country' isRequired>
+          <FormLabel htmlFor='country'>
             {t('registration.country_choose')}
           </FormLabel>
           <Controller

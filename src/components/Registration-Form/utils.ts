@@ -31,16 +31,16 @@ export const watchValues = (
       ]
       break
     case 'credentials':
-      values = ['username', 'emails', 'password', 'confirmPassword', 'isAgreed']
+      values = ['emails', 'password', 'isAgreed']
       break
     case 'personal_info':
-      values = ['fullNameInEnglish', 'fullNameInArabic', 'company']
-      break
-    case 'address':
-      values = ['insideAddress', 'outsideAddress', 'country.abbr']
-      break
-    case 'phones':
-      values = ['insidePhones']
+      values = [
+        'fullNameInEnglish',
+        'fullNameInArabic',
+        'insidePhones',
+        'insideAddress',
+        'country.abbr',
+      ]
       break
     case 'documents':
       values = [
@@ -62,32 +62,19 @@ export const watchValues = (
 
 export const isStep = (step: Step, phase: number, type: Type) => {
   switch (step) {
-    case 'company':
-      return phase === 0 && type === 'business'
     case 'credentials':
-      return (
-        (phase === 0 && type === 'personal') ||
-        (phase === 1 && type === 'business')
-      )
+      return phase === 0
+    case 'company':
+      return phase === 1 && type === 'business'
     case 'personal_info':
       return (
         (phase === 1 && type === 'personal') ||
         (phase === 2 && type === 'business')
       )
-    case 'address':
+    case 'documents':
       return (
         (phase === 2 && type === 'personal') ||
         (phase === 3 && type === 'business')
-      )
-    case 'phones':
-      return (
-        (phase === 3 && type === 'personal') ||
-        (phase === 4 && type === 'business')
-      )
-    case 'documents':
-      return (
-        (phase === 4 && type === 'personal') ||
-        (phase === 5 && type === 'business')
       )
     default:
       return false

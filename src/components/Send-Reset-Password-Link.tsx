@@ -18,6 +18,7 @@ import {
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { AtSignIcon, CheckCircleIcon } from '@chakra-ui/icons'
+import { useTranslation } from 'next-i18next'
 import userAPI from '../services/credentials'
 
 interface IForgetPasswordProps {
@@ -42,7 +43,7 @@ export default function ForgetPassword({
   const [isLoading, setIsLoading] = useState(false)
   const [isLinkSent, setIsLinkSent] = useState(false)
   const toast = useToast()
-
+  const { t } = useTranslation('login')
   const resetHandler = () => {
     setIsLinkSent(false)
     onClose()
@@ -81,14 +82,13 @@ export default function ForgetPassword({
               color='gray.400'
               textAlign='center'
             >
-              <CheckCircleIcon color='green.500' /> We have sent you an email
-              with a link to reset your password
+              <CheckCircleIcon color='green.500' />{' '}
+              {t('login.password_reset_sent')}
             </Text>
           ) : (
             <>
               <Text as='p' color='gray.400' textAlign='center' mb='1rem'>
-                Please enter your email address. We will send you an email to
-                reset your password
+                {t('login.password_reset')}
               </Text>
               <form
                 style={{ width: '90%', margin: '0 1rem' }}
@@ -107,9 +107,10 @@ export default function ForgetPassword({
                     <Input
                       type='email'
                       size='lg'
-                      placeholder='yours@example.com'
+                      placeholder={t('login.email') || 'Your Email *'}
                       {...register('email', {
-                        required: 'Please type your email',
+                        required:
+                          t('login.email_required') || 'Please type your email',
                       })}
                     />
                   </InputGroup>
@@ -131,14 +132,14 @@ export default function ForgetPassword({
                 onClick={onClose}
                 isDisabled={isLoading}
               >
-                Close
+                {t('login.close')}
               </Button>
               <Button
                 onClick={handleSubmit(resetPasswordHandler)}
                 variant='primary'
                 isLoading={isLoading}
               >
-                Send E-mail
+                {t('login.email_send')}
               </Button>
             </>
           )}

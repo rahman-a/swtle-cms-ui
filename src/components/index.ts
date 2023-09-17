@@ -23,3 +23,4 @@ export { default as RegistrationProgressIndicator } from './Registration-Form/Re
 export { default as PhoneConfirmModal } from './Phone-Confirm-Modal'
 export { default as ChatwootLiveChat } from './Chatwoot-Livechat'
 export { default as GoogleMap } from './Google-Map'
+export { default as Videos } from './Videos'

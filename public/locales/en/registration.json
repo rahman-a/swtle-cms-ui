@@ -10,7 +10,7 @@
   "registration.phones_info": "Phones",
   "registration.documents_info": "Verification Documents",
   "registration.reset_password": "Reset Password",
-  "registration.already_has_account": "Already has an account or want to register using UAE Pass",
+  "registration.already_has_account": "Already has an account",
   "//! Registration Credential Step": "//////////////////////////////////////",
   "registration.username": "Username",
   "registration.username_required": "Username is required",

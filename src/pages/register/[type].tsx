@@ -1,13 +1,12 @@
-import { Container, Flex, HStack, Link, Text } from '@chakra-ui/react'
+import { useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { RegistrationForm, RegistrationProgressIndicator } from '@components'
-import { useEffect, useState } from 'react'
+import { Container, Flex, HStack, Link, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPropsContext } from 'next'
-import Video from '../../components/Videos'
 import { useTranslation } from 'next-i18next'
 import NextLink from 'next/link'
+import { RegistrationForm, Videos } from '@components'
 
 type Step = {
   id: number
@@ -53,13 +52,14 @@ export default function Register({ type, steps }: IRegisterProps) {
           alignItems='center'
           justifyContent='center'
         >
-          <Flex alignItems='center' justifyContent='center' w='full' gap={14}>
-            {/* <RegistrationProgressIndicator
-              step={step}
-              steps={steps}
-              type={type as QueryType}
-            /> */}
-            <Video
+          <Flex
+            flexDirection='column'
+            alignItems='center'
+            justifyContent='center'
+            w='full'
+            gap={14}
+          >
+            <Videos
               url='https://www.youtube.com/watch?v=vn59J41x4GI&ab_channel=Swtle'
               thumbnail='../images/desktop.png'
               containerStyles={{
@@ -82,7 +82,7 @@ export default function Register({ type, steps }: IRegisterProps) {
               mr={locale === 'en' ? 0 : 1}
               color='secondary'
               as={NextLink}
-              href='https://app.swtle.com'
+              href='/login'
             >
               {tc('click_here')}
             </Link>

@@ -18,6 +18,7 @@ import {
   Flex,
   useToast,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import userAPI from '../services/credentials'
 interface IPhoneConfirmModalProps {
   isOpen: boolean
@@ -36,6 +37,7 @@ export default function PhoneConfirmModal({
   const [verificationLoading, setVerificationLoading] = useState(false)
   const [isPhoneVerified, setIsPhoneVerified] = useState(false)
   const toast = useToast()
+  const { t } = useTranslation('login')
   const sendPhoneVerificationCode = useCallback(async () => {
     setIsLoading(true)
     try {
@@ -58,7 +60,7 @@ export default function PhoneConfirmModal({
   const verifyClientPhoneHandler = async (code: string) => {
     setVerificationLoading(true)
     try {
-      const { data } = await userAPI.verifyPhoneCode(code, undefined, email)
+      await userAPI.verifyPhoneCode(code, undefined, email)
       setIsPhoneVerified(true)
     } catch (error: any) {
       if (error.response) {
@@ -93,7 +95,7 @@ export default function PhoneConfirmModal({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader color='red.600'>
-          {isPhoneVerified ? '' : 'Your phone Not Verified'}
+          {isPhoneVerified ? '' : t('login.phone_error_verified')}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -114,9 +116,9 @@ export default function PhoneConfirmModal({
             !isPhoneVerified && (
               <VStack spacing={4}>
                 <Heading as='h3' fontSize={{ base: 'xl' }} textAlign='center'>
-                  Verification Code has been sent to your phone
+                  {t('login.phone_code_sent')}
                 </Heading>
-                <Text>Enter the Code to verify your phone</Text>
+                <Text>{t('login.enter_phone_code')}</Text>
                 <HStack position='relative'>
                   <PinInput
                     otp
@@ -152,9 +154,9 @@ export default function PhoneConfirmModal({
                 fontSize={{ base: 'xl' }}
                 textAlign='center'
               >
-                Your phone has been verified
+                {t('login.phone_verified')}
               </Heading>
-              <Text>Now you can login to your dashboard</Text>
+              <Text>{t('login.dashboard')}</Text>
             </VStack>
           )}
         </ModalBody>
@@ -165,7 +167,7 @@ export default function PhoneConfirmModal({
               isDisabled={isLoading || verificationLoading}
               variant='primary'
             >
-              Verify
+              {t('login.verify')}
             </Button>
           )}
         </ModalFooter>

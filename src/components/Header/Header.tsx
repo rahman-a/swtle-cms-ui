@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useScroll } from 'framer-motion'
-import Navigation from './Navigation'
-import Language from './Language'
 import classnames from 'classnames'
 import {
   Box,
@@ -21,6 +19,8 @@ import logoImage from '@assets/images/main-icon.svg'
 import logoWhiteImage from '@assets/images/logo.svg'
 import Drawer from './Drawer'
 import CTA from './CTA'
+import Navigation from './Navigation'
+import Language from './Language'
 
 const allowedPathsForHeaderBg = [
   '/login',
@@ -48,9 +48,11 @@ interface IHeaderProps {}
 export default function Header(props: IHeaderProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation('common')
+  const { t: tn } = useTranslation('navigation')
   const btnRef = useRef<HTMLButtonElement>(null)
   const [isFixed, setIsFixed] = useState(false)
   const router = useRouter()
+  const locale = router.locale
   const isHeaderBackground = allowedPathsForHeaderBg.includes(router.asPath)
   const [isMainPage, setIsMainPage] = useState(router.asPath === '/')
   const { scrollY } = useScroll()
@@ -77,7 +79,7 @@ export default function Header(props: IHeaderProps) {
     <header className={headerClassNames}>
       <Drawer isOpen={isOpen} onClose={onClose} ref={btnRef!} />
       <Container maxW='95%' mx='auto'>
-        <Flex justifyContent='space-between'>
+        <Flex justifyContent='space-between' alignItems='center'>
           <Box>
             <Link as={NextLink} href='/'>
               <Image
@@ -88,17 +90,39 @@ export default function Header(props: IHeaderProps) {
               />
             </Link>
           </Box>
-          <Navigation isMainPage={isMainPage && !isFixed} />
-          <HStack spacing='20'>
+          <Navigation
+            style={{ transform: 'translateY(3px)' }}
+            isMainPage={isMainPage && !isFixed}
+          />
+          <HStack spacing='20' gap={4}>
             <Box
               position='relative'
               display={{ base: 'none', sm: 'none', lg: 'none', xl: 'block' }}
+              marginRight={locale === 'ar' ? '0' : '1.6rem'}
+              marginLeft={locale === 'ar' ? '1.4rem' : '0'}
             >
               <Language isPrimary={isMainPage} />
             </Box>
             {router.asPath !== '/login' &&
               router.pathname !== '/register/[type]' && (
-                <CTA label={t('get_started')} href='/plans' />
+                <>
+                  <Button
+                    type='button'
+                    variant='link'
+                    as={NextLink}
+                    href='/login'
+                    marginInline='0 !important'
+                    color='secondary'
+                    fontWeight={400}
+                  >
+                    {tn('login')}
+                  </Button>
+                  <CTA
+                    marginInline='0 !important'
+                    label={t('get_started')}
+                    href='/plans'
+                  />
+                </>
               )}
             <Button
               display={{ base: 'block', xl: 'none' }}

@@ -1,7 +1,7 @@
-import { Button } from '@chakra-ui/react'
+import { Button, ButtonProps } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-interface ICTAProps {
+interface ICTAProps extends ButtonProps {
   label: string
   isOpen?: boolean
   isHeroSection?: boolean
@@ -15,6 +15,7 @@ export default function CTA({
   onClose,
   href,
   isHeroSection,
+  ...props
 }: ICTAProps) {
   const CtaHandler = () => {
     onClose && onClose()
@@ -35,6 +36,7 @@ export default function CTA({
       borderRadius={isOpen ? '1rem' : '5rem'}
       fontSize={{ base: '12px', md: '14px' }}
       boxShadow='0px 1px 3px 1px rgba(0, 0, 0, 0.15)'
+      {...props}
     >
       {label}
     </Button>

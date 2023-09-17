@@ -9,11 +9,7 @@ interface IVideoProps {
   containerStyles?: StyleProps
 }
 
-export default function Video({
-  url,
-  thumbnail,
-  containerStyles,
-}: IVideoProps) {
+function Video({ url, thumbnail, containerStyles }: IVideoProps) {
   return (
     <Box {...(containerStyles ?? {})}>
       <ReactPlayer
@@ -52,3 +48,5 @@ const PlayIconContainer = () => {
     </Box>
   )
 }
+
+export default Video

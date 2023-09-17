@@ -130,7 +130,7 @@ export default function RegistrationFinish({
     setInsidePhone('')
     setUser(null)
     onClose()
-    router.push(`${process.env.NEXT_PUBLIC_APP_URL}`)
+    router.push(`/login`)
   }
 
   useEffect(() => {

@@ -10,7 +10,7 @@
   "registration.phones_info": "أرقام الهواتف",
   "registration.documents_info": "مستندات التحقق",
   "registration.reset_password": "إعادة ضبط كلمة المرور",
-  "registration.already_has_account": "تمتلك حساب بالفعل او تريد التسجيل باستخدام الهوية الرقمية",
+  "registration.already_has_account": "تمتلك حساب بالفعل",
   "//! Registration Credential Step": "//////////////////////////////////////",
   "registration.username": "إسم المستخدم",
   "registration.username_required": "من فضلك ادخل اسم المستخدم",

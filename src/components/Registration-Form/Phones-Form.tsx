@@ -93,18 +93,18 @@ export default function PhonesForm({ isVisible }: IPhonesFormProps) {
                 <FormErrorMessage>{phoneError[index]}</FormErrorMessage>
               )}
             </FormControl>
-            {index > 0 && (
+            {/* {index > 0 && (
               <IconButton
                 aria-label={`${t('registration.phone_remove')}`}
                 variant='ghost'
                 onClick={() => remove(index)}
                 icon={<MinusCircleIcon color='gray.600' />}
               />
-            )}
+            )} */}
           </HStack>
         ))}
       </VStack>
-      {fields.length < 3 && (
+      {/* {fields.length < 3 && (
         <Flex justifyContent='flex-end' width='100%' mt={2}>
           <IconButton
             aria-label={`${t('registration.phone_add')}`}
@@ -113,9 +113,9 @@ export default function PhonesForm({ isVisible }: IPhonesFormProps) {
             icon={<PlusCircleIcon color='gray.600' />}
           />
         </Flex>
-      )}
+      )} */}
       {/* OUTSIDE PHONES  */}
-      <VStack spacing={8} w='100%'>
+      {/* <VStack spacing={8} w='100%'>
         {outSidesFields.map((field, index) => (
           <HStack key={field.id} width='100%' alignItems='flex-end'>
             <FormControl key={field.id}>
@@ -162,7 +162,7 @@ export default function PhonesForm({ isVisible }: IPhonesFormProps) {
             icon={<PlusCircleIcon color='gray.600' />}
           />
         </Flex>
-      )}
+      )} */}
     </section>
   )
 }

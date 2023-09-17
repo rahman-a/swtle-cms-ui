@@ -16,6 +16,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { EyeIcon, EyeSlashIcon } from '../icons'
 import { ILoginForm } from '../pages/login'
@@ -36,7 +37,7 @@ export default function LoginForm({
 }: ILoginFormProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const { t } = useTranslation('login')
   const {
     register,
     handleSubmit,
@@ -52,7 +53,7 @@ export default function LoginForm({
     <>
       <ResetPassword isOpen={isOpen} onClose={onClose} />
       <Text as='h2' mb='5' fontSize={{ base: '2xl', md: '3xl', xl: '4xl' }}>
-        Sign In
+        {t('login')}
       </Text>
       <form
         style={{ width: '100%', margin: 0 }}
@@ -72,13 +73,15 @@ export default function LoginForm({
             <Input
               type='email'
               size='lg'
-              placeholder='Your Email Address *'
+              placeholder={t('login.email') || 'Your Email *'}
               {...register('email', {
-                required: 'Please type your email',
+                required:
+                  t('login.email_required') || 'Please type your email address',
                 validate: (value) => {
                   const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
                   return (
                     regex.test(value) ||
+                    t('login.email_valid') ||
                     'E-mail Address must be a valid e-mail address'
                   )
                 },
@@ -101,13 +104,15 @@ export default function LoginForm({
             <Input
               type={isPasswordVisible ? 'text' : 'password'}
               size='lg'
-              placeholder='Your Password *'
+              placeholder={t('login.password') || 'Your Password *'}
               {...register('password', {
-                required: 'Please type your password',
+                required:
+                  t('login.password_required') || 'Please type your password',
                 validate: (value) => {
                   const regex = /[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/
                   return (
                     !regex.test(value) ||
+                    t('login.password_valid') ||
                     "Password shouldn't contain any special characters"
                   )
                 },
@@ -130,10 +135,10 @@ export default function LoginForm({
         </FormControl>
         <HStack mt='4' justifyContent='space-between'>
           <Checkbox onChange={() => setIsRememberMe(!isRememberMe)}>
-            Remember me
+            {t('login.remind')}
           </Checkbox>
           <Button onClick={onOpen} variant='link' color='secondary'>
-            Forget Password?
+            {t('login.forgot')}
           </Button>
         </HStack>
         <HStack mt={8} width='100%' justifyContent='center'>
@@ -154,7 +159,7 @@ export default function LoginForm({
               },
             }}
           >
-            Sign in
+            {t('login.submit')}
           </Button>
         </HStack>
       </form>
@@ -164,17 +169,17 @@ export default function LoginForm({
         width='100%'
         justifyContent='center'
       >
-        <Button variant='unstyled'>
+        {/* <Button variant='unstyled'>
           <Image src='/images/uae-pass.png' alt='use digital pass' />
-        </Button>
-        <Text>Don&apos;t have an account?</Text>
+        </Button> */}
+        <Text>{t('login.no_account')}</Text>
         <Button
           as={NextLink}
-          href='/register'
+          href='/plans'
           variant='primary'
           borderRadius='5rem'
         >
-          Register
+          {t('login.register')}
         </Button>
       </VStack>
     </>

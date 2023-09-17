@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
+import { useTranslation } from 'next-i18next'
 import { LoginCode, LoginForm, PhoneConfirmModal } from '../components'
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import userAPI from '../services/credentials'
@@ -34,6 +35,7 @@ export default function Login(props: ILoginProps) {
   const [sendingLoginCredentialLoading, setSendingLoginCredentialLoading] =
     useState(false)
   const [verifyLoginCodeLoading, setVerifyLoginCodeLoading] = useState(false)
+  const { t } = useTranslation('login')
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
   const isMobile = useBreakpointValue({ base: true, md: false })
@@ -123,9 +125,13 @@ export default function Login(props: ILoginProps) {
         isRemembered: isRememberMe,
       })
       if (data.success) {
-        localStorage.setItem('uid', data.info._id)
-        localStorage.setItem('period', data.info.expireAt)
-        window.location.href = 'http://localhost:5000'
+        // data.payload contains token, expireAt
+        console.log('Login Data: ', data)
+        const appUrl =
+          process.env.NODE_ENV === 'development'
+            ? 'http://localhost:8080'
+            : 'https://app.swtle.com'
+        window.location.replace(`${appUrl}#token=${data.payload.token}`)
       }
     } catch (error: any) {
       if (error.response) {
@@ -148,7 +154,7 @@ export default function Login(props: ILoginProps) {
   }, [userId, sendLoginCodeHandler])
   return (
     <>
-      <NextSeo title='Swtle | Login' />
+      <NextSeo title={t('login.page_title') || undefined} />
       {userEmail && (
         <PhoneConfirmModal
           isOpen={isOpen}
@@ -247,6 +253,7 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
       ...(await serverSideTranslations(locale!, [
         'common',
         'home',
+        'login',
         'navigation',
         'footer',
       ])),
