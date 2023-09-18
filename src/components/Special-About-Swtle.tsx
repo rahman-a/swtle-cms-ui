@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
 import SectionImage from './Section-Image'
-import { useTranslation } from 'next-i18next'
 
 interface ISpecialAboutSwtleProps {
   title: string

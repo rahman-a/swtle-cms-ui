@@ -8,8 +8,6 @@ import {
   InputLeftElement,
   Stack,
   FormErrorMessage,
-  FormHelperText,
-  VStack,
   HStack,
 } from '@chakra-ui/react'
 import { LocationIcon } from '@/src/icons'

@@ -14,7 +14,6 @@ import serviceBG from '@assets/images/services.webp'
 import serviceBGMedium from '@assets/images/services-md.webp'
 import serviceBGSmall from '@assets/images/services-sm.webp'
 import fetcher from '@/src/services/fetcher'
-const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
 interface IServiceProps {
   data: {

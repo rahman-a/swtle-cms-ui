@@ -2,7 +2,6 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Image } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
-import * as React from 'react'
 
 interface ILanguageProps {
   isPrimary?: boolean

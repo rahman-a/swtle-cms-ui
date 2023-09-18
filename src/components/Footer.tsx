@@ -18,7 +18,6 @@ import {
   EnvelopeIcon,
   FacebookIcon,
   LinkedinIcon,
-  TwitterIcon,
   MessengerIcon,
 } from '@icons'
 

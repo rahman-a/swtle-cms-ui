@@ -1,5 +1,5 @@
 import 'react-phone-number-input/style.css'
-import { LocationIcon, SuitCaseIcon, UserIcon } from '@/src/icons'
+import { LocationIcon, UserIcon } from '@/src/icons'
 import flags from 'country-flag-emoji-json'
 import {
   FormControl,
@@ -9,7 +9,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement,
   Stack,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'

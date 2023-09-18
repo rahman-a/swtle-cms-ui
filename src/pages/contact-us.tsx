@@ -22,8 +22,6 @@ import contactUsBGMedium from '@assets/images/contact-us-md.webp'
 import contactUsBGSmall from '@assets/images/contact-us-sm.webp'
 import fetcher from '../services/fetcher'
 
-const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
-
 interface IContactUsProps {}
 
 export default function ContactUs({

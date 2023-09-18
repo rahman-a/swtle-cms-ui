@@ -3,7 +3,6 @@ import { AtSignIcon, LockIcon } from '@chakra-ui/icons'
 import {
   Button,
   Checkbox,
-  Image,
   FormControl,
   FormErrorMessage,
   HStack,

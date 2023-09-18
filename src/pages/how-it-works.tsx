@@ -12,8 +12,6 @@ import { HeroSection, WorkStep } from '../components'
 import fetcher from '../services/fetcher'
 import Video from '../components/Videos'
 
-const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
-
 export default function HowItWorks({
   data,
   metadata,

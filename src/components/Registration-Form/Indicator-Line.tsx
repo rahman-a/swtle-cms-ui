@@ -1,6 +1,5 @@
 import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import * as React from 'react'
 
 interface IIndicatorLineProps {
   step: number

@@ -5,7 +5,6 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  FormHelperText,
   Input,
   InputGroup,
   InputLeftElement,
@@ -16,13 +15,9 @@ import {
   Checkbox,
   Link,
   Text,
-  IconButton,
-  Flex,
-  InputRightElement,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { MinusCircleIcon, PlusCircleIcon, UserIcon } from '@/src/icons'
-import { AtSignIcon, LockIcon } from '@chakra-ui/icons'
+import { AtSignIcon } from '@chakra-ui/icons'
 import { useFieldArray } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import PasswordField from './Password-Field'

@@ -1,8 +1,5 @@
 import Image from 'next/image'
-import NextLink from 'next/link'
-import { useRouter } from 'next/router'
-import { Flex, VStack, Text, Link, Box } from '@chakra-ui/react'
-import { useTranslation } from 'next-i18next'
+import { Flex, VStack, Text } from '@chakra-ui/react'
 import parseHTML from 'html-react-parser'
 
 interface IFeatureCardProps {

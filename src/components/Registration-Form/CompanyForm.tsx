@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { useTranslation } from 'next-i18next'
 import type { IRegistrationProps } from '../../types/Registration-types'
@@ -13,26 +13,13 @@ import {
   Divider,
   Box,
   HStack,
-  Stack,
-  Checkbox,
-  Link,
   Text,
-  IconButton,
   Flex,
-  InputRightElement,
   Select,
   VStack,
   useMediaQuery,
 } from '@chakra-ui/react'
-import NextLink from 'next/link'
-import {
-  BriefcaseIcon,
-  LocationIcon,
-  MinusCircleIcon,
-  PlusCircleIcon,
-  SuitCaseIcon,
-  UserIcon,
-} from '@/src/icons'
+import { BriefcaseIcon, LocationIcon, SuitCaseIcon } from '@/src/icons'
 import { AtSignIcon } from '@chakra-ui/icons'
 import PhoneInput from 'react-phone-number-input'
 import { useRouter } from 'next/router'

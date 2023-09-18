@@ -15,14 +15,6 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { useTranslation } from 'next-i18next'
 import classNames from 'classnames'
-import {
-  HomeIcon,
-  BriefcaseIcon,
-  GearIcon,
-  EnvelopeIcon,
-  TeamIcon,
-  InfoIcon,
-} from '@/src/icons'
 import { useRouter } from 'next/router'
 import { links } from './navigationItems'
 

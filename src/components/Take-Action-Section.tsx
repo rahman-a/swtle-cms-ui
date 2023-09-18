@@ -1,5 +1,4 @@
 import { Box, Container, Flex } from '@chakra-ui/react'
-import { useTranslation } from 'next-i18next'
 import TakeAction from './Take-Action'
 
 interface ITakeActionSectionProps {

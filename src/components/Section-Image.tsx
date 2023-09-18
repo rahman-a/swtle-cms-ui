@@ -1,6 +1,5 @@
 import { Box } from '@chakra-ui/react'
 import { StaticImageData } from 'next/image'
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import classNames from 'classnames'
 import React from 'react'

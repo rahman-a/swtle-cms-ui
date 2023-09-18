@@ -91,7 +91,8 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
       notFound: true,
     }
   }
-  const fetchedData = response.data.attributes
+  const fetchedData = response.data?.attributes
+  console.log('fetchedData: ', fetchedData)
   const data = {
     header: fetchedData.header,
     aboutTeam: {
@@ -109,12 +110,13 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
       socials: member.attributes.socials.length
         ? member.attributes.socials.map((social: any) => ({
             ...social,
-            icon: `${strapiUrl}${social.icon.data.attributes.formats.thumbnail.url}`,
+            icon: `${strapiUrl}${social.icon.data?.attributes.formats.thumbnail.url}`,
           }))
         : [],
     })),
     cta: fetchedData.action,
   }
+  console.log('data: ', data)
   return {
     props: {
       data,

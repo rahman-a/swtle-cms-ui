@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import {
-  Flex,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   HStack,
-  IconButton,
   Input,
   VStack,
 } from '@chakra-ui/react'
@@ -16,7 +13,6 @@ import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import type { IRegistrationProps } from '../../types/Registration-types'
 import { useFormContext, Controller, useFieldArray } from 'react-hook-form'
-import { MinusCircleIcon, PlusCircleIcon } from '@/src/icons'
 interface IPhonesFormProps {
   isVisible: boolean
 }

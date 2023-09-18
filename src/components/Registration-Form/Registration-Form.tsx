@@ -22,7 +22,6 @@ import type {
   VerificationDocument,
   Email,
   ExpireAt,
-  IFDataExisted,
   CompanyType,
 } from '../../types/Registration-types'
 import RegistrationFinish from './Registration-Finish'
