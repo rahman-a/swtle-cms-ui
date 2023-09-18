@@ -22,8 +22,9 @@ import {
   EnvelopeIcon,
   TeamIcon,
   InfoIcon,
-} from '@icons'
+} from '@/src/icons'
 import { useRouter } from 'next/router'
+import { links } from './navigationItems'
 
 interface INavigationProps extends React.HTMLAttributes<HTMLElement> {
   isOpen?: boolean
@@ -44,74 +45,6 @@ export default function Navigation({
     show: isOpen,
   })
 
-  const links = [
-    { id: 1, label: t('home'), url: '/', icon: <HomeIcon color='teal' /> },
-    {
-      id: 2,
-      label: t('services'),
-      url: '/services',
-      icon: <BriefcaseIcon color='teal' />,
-      children: {
-        individual: [
-          {
-            id: 1,
-            label: t('services.prepayment_recording'),
-            url: '/services/payment-transactions-recording-and-tracking',
-          },
-          {
-            id: 2,
-            label: t('services.electronic_invoicing'),
-            url: '/services/electronic-invoicing',
-          },
-          {
-            id: 3,
-            label: t('services.credit_evaluation'),
-            url: '/services/credit-evaluation',
-          },
-          {
-            id: 4,
-            label: t('services.financing_solution'),
-            url: '/services/financing-solution',
-          },
-          {
-            id: 5,
-            label: t('services.debt_collection'),
-            url: '/services/debt-collection',
-          },
-          {
-            id: 6,
-            label: t('services.legal_recourse'),
-            url: '/services/legal-recourse',
-          },
-        ],
-        business: [],
-      },
-    },
-    {
-      id: 3,
-      label: t('how_it_works'),
-      url: '/how-it-works',
-      icon: <GearIcon color='teal' />,
-    },
-    {
-      id: 4,
-      label: t('our_team'),
-      url: '/team',
-      icon: <TeamIcon color='teal' />,
-    },
-    {
-      id: 5,
-      label: t('about_us'),
-      url: '/about-us',
-      icon: <InfoIcon color='teal' />,
-    },
-    {
-      id: 6,
-      label: t('contact_us'),
-      url: '/contact-us',
-      icon: <EnvelopeIcon color='teal' />,
-    },
-  ]
   return (
     <nav className={navClassNames} {...props}>
       <Stack
@@ -134,7 +67,7 @@ export default function Navigation({
                       borderBottom={isOpen ? '2px solid #f4f4f4' : 'none'}
                       padding={isOpen ? '0 1rem' : '0'}
                     >
-                      {isOpen && <Box>{link.icon}</Box>}
+                      {isOpen && <Box>{<link.icon color='teal' />}</Box>}
                       <Link
                         as={NextLink}
                         href={''}
@@ -148,7 +81,7 @@ export default function Navigation({
                           borderColor: isMainPage ? 'primary' : 'white',
                         }}
                       >
-                        {link.label} <ChevronDownIcon />
+                        {t(link.label)} <ChevronDownIcon />
                       </Link>
                     </HStack>
                   </PopoverTrigger>
@@ -214,7 +147,7 @@ export default function Navigation({
               borderBottom={isOpen ? '2px solid #f4f4f4' : 'none'}
               padding={isOpen ? '0 1rem' : '0'}
             >
-              {isOpen && <Box>{link.icon}</Box>}
+              {isOpen && <Box>{<link.icon color='teal' />}</Box>}
               <Link
                 as={NextLink}
                 onClick={onClose}
@@ -229,7 +162,7 @@ export default function Navigation({
                   borderColor: isMainPage ? 'primary' : 'white',
                 }}
               >
-                {link.label}
+                {t(link.label)}
               </Link>
             </HStack>
           )
@@ -254,6 +187,7 @@ const SubNavItems = ({
   title: string
   onClose?: () => void
 }) => {
+  const { t } = useTranslation('navigation')
   return (
     <Box>
       <Text p={2} fontSize={'md'} color='primary' fontWeight={900}>
@@ -276,7 +210,7 @@ const SubNavItems = ({
               borderRadius: 'md',
             }}
           >
-            {item.label}
+            {t(item.label)}
           </Link>
         ))}
       </Stack>

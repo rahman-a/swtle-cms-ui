@@ -96,15 +96,13 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
     header: fetchedData.header,
     aboutTeam: {
       ...fetchedData.aboutTeam,
-      sectionImage: `${strapiUrl}${fetchedData.aboutTeam.sectionImage.data.attributes.url}`,
+      sectionImage: fetchedData.aboutTeam.sectionImage,
     },
     staff: fetchedData.staff.data.map((member: any) => ({
       id: member.id,
       ...member.attributes,
       biography: MarkdownIt({ html: true }).render(member.attributes.biography),
-      image: member.attributes.image.data
-        ? `${strapiUrl}${member.attributes.image.data?.attributes.url}`
-        : null,
+      image: member.attributes.image ? member.attributes.image : null,
       CV: member.attributes.CV.data
         ? `${strapiUrl}${member.attributes.CV.data?.attributes.url}`
         : null,

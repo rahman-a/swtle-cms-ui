@@ -23,6 +23,8 @@ function Video({ url, thumbnail, containerStyles }: IVideoProps) {
         light={
           // eslint-disable-next-line @next/next/no-img-element
           <img
+            width='572px'
+            height='333px'
             src={thumbnail ?? './images/thumbnail.webp'}
             alt='hero-section'
           />

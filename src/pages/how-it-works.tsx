@@ -7,7 +7,7 @@ import { useScroll } from 'framer-motion'
 import howItWorksBG from '@assets/images/how-it-works.webp'
 import howItWorksBGMedium from '@assets/images/how-it-works-md.webp'
 import howItWorksBGSmall from '@assets/images/how-it-works-sm.webp'
-import ProcessThumbnail from '@assets/images/process_thumbnail.png'
+import ProcessThumbnail from '@assets/images/process_thumbnail.webp'
 import { HeroSection, WorkStep } from '../components'
 import fetcher from '../services/fetcher'
 import Video from '../components/Videos'
@@ -178,15 +178,7 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
     header: fetchedData.header,
     description: fetchedData.description,
     flowTitle: fetchedData.stepsFlowTitle,
-    steps: fetchedData.steps
-      .map((step: any) => ({
-        id: step.id,
-        title: step.title,
-        description: step.description,
-        step: step.step,
-        image: `${strapiUrl}${step.image.data.attributes.url}`,
-      }))
-      .sort((a: any, b: any) => a.step - b.step),
+    steps: fetchedData.steps.sort((a: any, b: any) => a.step - b.step),
   }
   return {
     props: {

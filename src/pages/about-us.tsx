@@ -17,9 +17,6 @@ import aboutUsBG from '@assets/images/about-us.webp'
 import aboutUsBGMedium from '@assets/images/about-us-md.webp'
 import aboutUsBGSmall from '@assets/images/about-us-sm.webp'
 import fetcher from '../services/fetcher'
-import { useEffect } from 'react'
-
-const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
 
 export default function AboutUs({
   data,
@@ -134,14 +131,14 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
       description: MarkdownIt({ html: true }).render(
         fetchedData.aboutContent.description
       ),
-      sectionImage: `${strapiUrl}${fetchedData.aboutContent.sectionImage.data.attributes.url}`,
+      sectionImage: fetchedData.aboutContent.sectionImage,
     },
     tabs: fetchedData.tabs.map((tab: any) => ({
       ...tab,
       content: {
         ...tab.content,
         description: MarkdownIt({ html: true }).render(tab.content.description),
-        sectionImage: `${strapiUrl}${tab.content.sectionImage.data.attributes.url}`,
+        sectionImage: tab.content.sectionImage,
       },
     })),
   }

@@ -3,9 +3,9 @@ import { NextSeo } from 'next-seo'
 import { Container } from '@chakra-ui/react'
 import MarkdownIt from 'markdown-it'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import heroSectionBGImage from '@assets/images/main-hero-section.png'
-import heroSectionBGImageMedium from '@assets/images/main-hero-section-md.png'
-import heroSectionBGImageSmall from '@assets/images/main-hero-section-sm.png'
+import heroSectionBGImage from '@assets/images/main-hero-section.webp'
+import heroSectionBGImageMedium from '@assets/images/main-hero-section-md.webp'
+import heroSectionBGImageSmall from '@assets/images/main-hero-section-sm.webp'
 import fetcher from '@api/fetcher'
 import {
   FAQ,
@@ -18,8 +18,6 @@ import {
   WhySwtle,
 } from '@components'
 
-const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_LOCAL
-
 export default function Home({ data, metadata }: { data: any; metadata: any }) {
   return (
     <>
@@ -29,25 +27,25 @@ export default function Home({ data, metadata }: { data: any; metadata: any }) {
         canonical='https://www.swtle.com'
       />
       <MainHeroSection
-        isStatistics={data.heroSection.is_statistics_section}
+        isStatistics={data.is_statistics_section}
         images={{
           base: heroSectionBGImageSmall.src,
           md: heroSectionBGImageMedium.src,
           lg: heroSectionBGImage.src,
         }}
-        stats={data.heroSection.stats}
+        stats={data.stats}
         data={{
-          title: data.heroSection.header,
-          subtitle: data.heroSection.subheader,
+          title: data.header,
+          subtitle: data.subheader,
           cta: {
-            label: data.heroSection.buttons[0].label,
-            href: data.heroSection.buttons[0].link,
+            label: data.buttons[0].label,
+            href: data.buttons[0].link,
           },
-          companyName: data.heroSection.companyName,
-          partners: data.heroSection.partners,
+          companyName: data.companyName,
+          partners: data.partners,
           video: {
-            url: data.heroSection.video.url,
-            thumbnail: data.heroSection.video.thumbnail,
+            url: data.video.url,
+            thumbnail: data.video.thumbnail,
           },
         }}
       />
@@ -120,18 +118,6 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
     }
   }
   const fetchedData = response.data.attributes
-  const heroSection = {
-    ...fetchedData.HeroSection,
-    is_statistics_section: fetchedData.is_statistics_section,
-    video: {
-      ...fetchedData.HeroSection.video,
-      thumbnail: `${strapiUrl}${fetchedData.HeroSection.video.thumbnail.data.attributes.url}`,
-    },
-    partners: fetchedData.HeroSection.partners.map((partner: any) => ({
-      ...partner,
-      logo: `${strapiUrl}${partner.logo.data.attributes.url}`,
-    })),
-  }
   const articlesSection = {
     ...fetchedData.Articles_Section,
     articles: fetchedData.Articles_Section.articles.data.map(
@@ -140,7 +126,7 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
         title: article.attributes.title,
         body: MarkdownIt({ html: true }).render(article.attributes.body),
         slug: article.attributes.slug,
-        image: `${strapiUrl}${article.attributes.image.data.attributes.url}`,
+        image: article.attributes.image,
       })
     ),
   }
@@ -148,7 +134,7 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
   const special = {
     ...fetchedData.Special_Section,
     title: fetchedData.Special_Section.section_title,
-    image: `${strapiUrl}${fetchedData.Special_Section.image.data.attributes.url}`,
+    image: fetchedData.Special_Section.image,
   }
 
   const aboutSwtle = {
@@ -156,7 +142,7 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
     description: MarkdownIt({ html: true }).render(
       fetchedData.aboutCompany.description
     ),
-    sectionImage: `${strapiUrl}${fetchedData.aboutCompany.sectionImage.data.attributes.url}`,
+    sectionImage: fetchedData.aboutCompany.sectionImage,
   }
 
   const faqs = fetchedData.faqs.data.map((faq: any) => ({
@@ -166,15 +152,16 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
   }))
 
   const howItWorksBGImages = {
-    base: `${strapiUrl}${fetchedData.howITWorks.small.data.attributes.url}`,
-    md: `${strapiUrl}${fetchedData.howITWorks.medium.data.attributes.url}`,
-    default: `${strapiUrl}${fetchedData.howITWorks.default.data.attributes.url}`,
+    base: fetchedData.howITWorks.small,
+    md: fetchedData.howITWorks.medium,
+    default: fetchedData.howITWorks.default,
   }
 
   return {
     props: {
       data: {
-        heroSection,
+        ...fetchedData.HeroSection,
+        is_statistics_section: fetchedData.is_statistics_section,
         articlesSection,
         takeActionOne: {
           ...fetchedData.takeActionSection_1,

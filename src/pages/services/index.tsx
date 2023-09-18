@@ -157,7 +157,7 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
           icon: `${strapiUrl}${item.icon.data.attributes.url}`,
           content: {
             ...item.content,
-            sectionImage: `${strapiUrl}${item.content.sectionImage.data.attributes.url}`,
+            sectionImage: item.content.sectionImage,
           },
         }))
       : [],
@@ -167,16 +167,11 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
           icon: `${strapiUrl}${item.icon.data.attributes.url}`,
           content: {
             ...item.content,
-            sectionImage: `${strapiUrl}${item.content.sectionImage.data.attributes.url}`,
+            sectionImage: item.content.sectionImage,
           },
         }))
       : [],
-    benefits: fetchedData.Benefits.length
-      ? fetchedData.Benefits.map((item: any) => ({
-          ...item,
-          sectionImage: `${strapiUrl}${item.sectionImage.data.attributes.url}`,
-        }))
-      : [],
+    benefits: fetchedData.Benefits.length ? fetchedData.Benefits : [],
   }
   return {
     props: {

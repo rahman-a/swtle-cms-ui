@@ -32,7 +32,7 @@ export default function FAQ({ faqs, IsContactUs }: IFAQProps) {
     <Box
       position='relative'
       py={20}
-      backgroundImage='/images/faq-bg.png'
+      backgroundImage='/images/faq-bg_ozx6nm.webp'
       backgroundSize='cover'
       backgroundRepeat='no-repeat'
       backgroundPosition='center'

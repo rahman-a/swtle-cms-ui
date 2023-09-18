@@ -34,7 +34,7 @@ export default function WhySwtle({
           alignItems='center'
         >
           <Text
-            as='h3'
+            as='h2'
             fontSize={{ base: '3xl', xl: '4xl' }}
             fontWeight='bold'
             color='secondary'

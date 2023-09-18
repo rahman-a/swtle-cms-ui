@@ -113,7 +113,7 @@ export const getStaticProps = async ({
       description: MarkdownIt({ html: true }).render(
         fetchedData.description.description
       ),
-      sectionImage: `${strapiUrl}${fetchedData.description.sectionImage.data.attributes.url}`,
+      sectionImage: fetchedData.description.sectionImage,
     },
     benefits: fetchedData.Benefits,
     action: fetchedData.action,

@@ -101,7 +101,7 @@ export default function Header(props: IHeaderProps) {
               marginRight={locale === 'ar' ? '0' : '1.6rem'}
               marginLeft={locale === 'ar' ? '1.4rem' : '0'}
             >
-              <Language isPrimary={isMainPage} />
+              <Language isPrimary={isMainPage && !isFixed} />
             </Box>
             {router.asPath !== '/login' &&
               router.pathname !== '/register/[type]' && (
@@ -112,7 +112,7 @@ export default function Header(props: IHeaderProps) {
                     as={NextLink}
                     href='/login'
                     marginInline='0 !important'
-                    color='secondary'
+                    color={!isMainPage || isFixed ? '#fff' : 'secondary'}
                     fontWeight={400}
                   >
                     {tn('login')}
@@ -129,6 +129,7 @@ export default function Header(props: IHeaderProps) {
               bg={'transparent'}
               cursor={'pointer'}
               onClick={onOpen}
+              margin='0 !important'
               ref={btnRef!}
               _hover={{
                 background: isMainPage && !isFixed ? 'white' : 'primary',

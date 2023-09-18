@@ -67,19 +67,25 @@ export default function Footer(props: IFooterProps) {
                   <Link
                     target='_blank'
                     href='https://www.facebook.com/swtle.op'
+                    aria-label='facebook'
                   >
                     <FacebookIcon />
                   </Link>
                   <Link
                     target='_blank'
                     href='https://www.linkedin.com/in/swtle-%D8%B3%D9%88%D9%8A%D8%AA%D9%84-0221a5265/'
+                    aria-label='linkedin'
                   >
                     <LinkedinIcon />
                   </Link>
                   {/* <Link href='https://www.facebook.com/swtle'>
                     <TwitterIcon />
                   </Link> */}
-                  <Link target='_blank' href='https://m.me/swtle.op'>
+                  <Link
+                    target='_blank'
+                    href='https://m.me/swtle.op'
+                    aria-label='facebook messenger'
+                  >
                     <MessengerIcon />
                   </Link>
                 </Flex>

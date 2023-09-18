@@ -20,7 +20,7 @@ export default function TakeActionSection({
     <Box
       position='relative'
       py={20}
-      backgroundImage='/images/take-action-bg.png'
+      backgroundImage='/images/take-action-bg_ud3gat.webp'
       backgroundSize='cover'
       backgroundRepeat='no-repeat'
       backgroundPosition='center'
