@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import {
   Card,
   CardBody,
@@ -10,11 +11,10 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import parser from 'html-react-parser'
-import { useTranslation } from 'next-i18next'
 import { FacebookIcon, LinkedinIcon, TwitterIcon, YoutubeIcon } from '../icons'
 import malePlaceholder from '@assets/images/male_placeholder.png'
 import femalePlaceholder from '@assets/images/female_placeholder.png'
+const RenderHtml = dynamic(() => import('./Render-Html'))
 
 export interface ITeamMemberCardProps {
   member: {
@@ -35,8 +35,7 @@ export interface ITeamMemberCardProps {
 }
 
 export default function TeamMemberCard({ member }: ITeamMemberCardProps) {
-  const { t } = useTranslation('common')
-  const par = parser(member.biography) as string
+  const par = member.biography
   const socialIcons = {
     Facebook: <FacebookIcon />,
     Twitter: <TwitterIcon />,
@@ -76,9 +75,13 @@ export default function TeamMemberCard({ member }: ITeamMemberCardProps) {
           >
             {member.name}
           </Text>
-          <Text fontSize='md' height={20}>
-            {par.length > 200 ? par.slice(0, 200) + '...' : par}
-          </Text>
+          <RenderHtml
+            as='div'
+            html={par}
+            maxChar={200}
+            fontSize='md'
+            height={20}
+          />
         </VStack>
       </CardBody>
       <CardFooter>

@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import {
   Box,
   Button,
@@ -11,13 +12,12 @@ import {
   ListItem,
   ListIcon,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import SectionImage from './Section-Image'
-import parser from 'html-react-parser'
 import Image from 'next/image'
 import { ISectionImageProps } from './Section-Image'
 import { FillCircleIcon } from '../icons'
+const RenderHtml = dynamic(() => import('./Render-Html'))
 
 type SectionButton = ButtonProps & {
   label: string
@@ -77,7 +77,6 @@ export default function TextImageSection({
   HGap,
   list,
 }: ITextImageSectionProps) {
-  const router = useRouter()
   return (
     <Box
       py={{ base: 4, md: 8, lg: 12, xl: 16, '2xl': 20 }}
@@ -187,14 +186,13 @@ export default function TextImageSection({
                     width={verticalLine.width}
                   />
                 )}
-                <Text
+                <RenderHtml
+                  html={description}
                   as='div'
                   color='gray.500'
                   lineHeight={{ base: '1.8', md: '1.6' }}
                   fontSize={descriptionFontSize}
-                >
-                  {parser(description)}
-                </Text>
+                />
               </HStack>
               {list && list.length > 0 && (
                 <List spacing={3}>

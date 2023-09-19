@@ -1,7 +1,7 @@
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { Flex, VStack, Text } from '@chakra-ui/react'
-import parseHTML from 'html-react-parser'
-
+const RenderHtml = dynamic(() => import('./Render-Html'))
 interface IFeatureCardProps {
   title: string
   body: string
@@ -15,7 +15,6 @@ export default function FeatureCard({
   image,
   slug,
 }: IFeatureCardProps) {
-  const articleBody = parseHTML(body) as string
   return (
     <Flex
       gap={8}
@@ -27,17 +26,15 @@ export default function FeatureCard({
         <Text as='h3' fontSize='xl' fontWeight='bold'>
           {title}
         </Text>
-        <Text
+        <RenderHtml
+          html={body}
+          maxChar={250}
           as='div'
           fontSize='md'
           color='gray.500'
           height='auto'
           overflow='hidden'
-        >
-          {articleBody.length > 250
-            ? articleBody.substring(0, 250) + ' . . . .'
-            : articleBody}
-        </Text>
+        />
         {/* <Box textAlign={locale === 'ar' ? 'left' : 'right'} w='100%'>
           <Link
             as={NextLink}
