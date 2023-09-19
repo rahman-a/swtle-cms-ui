@@ -92,7 +92,6 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
     }
   }
   const fetchedData = response.data?.attributes
-  console.log('fetchedData: ', fetchedData)
   const data = {
     header: fetchedData.header,
     aboutTeam: {
@@ -116,7 +115,6 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
     })),
     cta: fetchedData.action,
   }
-  console.log('data: ', data)
   return {
     props: {
       data,

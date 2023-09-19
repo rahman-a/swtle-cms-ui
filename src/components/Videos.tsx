@@ -1,7 +1,7 @@
-const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
+import dynamic from 'next/dynamic'
 import { Box, StyleProps } from '@chakra-ui/react'
 import { FullPlayIcon } from '../icons'
-import dynamic from 'next/dynamic'
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
 interface IVideoProps {
   url: string

@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import 'react-phone-number-input/style.css'
 import { LocationIcon, UserIcon } from '@/src/icons'
 import flags from 'country-flag-emoji-json'
@@ -13,11 +14,11 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import type { IRegistrationProps } from '../../types/Registration-types'
-import PhoneInput from 'react-phone-number-input'
+const PhoneInput = dynamic(() => import('react-phone-number-input'))
 import { useFormContext, Controller, useFieldArray } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import ReactFlagsSelect from 'react-flags-select'
+const ReactFlagsSelect = dynamic(() => import('react-flags-select'))
 
 interface IPersonalInfoFormProps {
   isVisible: boolean
