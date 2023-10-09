@@ -3,7 +3,12 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { appWithTranslation } from 'next-i18next'
 import { useChakraTheme } from '../hooks/useChakraTheme'
-import { Layout, ChatwootLiveChat } from '@components'
+import {
+  Layout,
+  ChatwootLiveChat,
+  GoogleAnalyticsScript,
+  CookieBannerConsent,
+} from '@components'
 
 export default appWithTranslation(function App({
   Component,
@@ -13,6 +18,8 @@ export default appWithTranslation(function App({
   return (
     <ChakraProvider resetCSS theme={theme}>
       <ChatwootLiveChat />
+      <GoogleAnalyticsScript />
+      <CookieBannerConsent />
       <Layout>
         <Component {...pageProps} />
       </Layout>
