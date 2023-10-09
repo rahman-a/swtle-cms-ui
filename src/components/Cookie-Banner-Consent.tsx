@@ -32,7 +32,7 @@ export default function CookieBannerConsent(props: ICookieBannerConsentProps) {
   }, [])
 
   React.useEffect(() => {
-    if (cookieBannerConsent === 'granted' && window?.gtag) {
+    if (cookieBannerConsent === 'granted' && window) {
       window.gtag('consent', 'update', {
         analytics_storage: cookieBannerConsent,
       })
