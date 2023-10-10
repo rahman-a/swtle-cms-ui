@@ -47,54 +47,6 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
       data-step='credential info'
       style={{ display: isVisible ? 'block' : 'none' }}
     >
-      {/* <FormControl
-        id='username'
-        isRequired
-        isInvalid={!!errors.username?.message}
-      >
-        <FormLabel htmlFor='username'>{t('registration.username')}</FormLabel>
-        <InputGroup>
-          <InputLeftElement color='gray.500'>
-            <UserIcon />
-          </InputLeftElement>
-
-          <Input
-            type='text'
-            id='username'
-            placeholder={`${t('registration.username')}`}
-            paddingInlineStart={locale === 'ar' ? 8 : 0}
-            {...register('username', {
-              required: `${t('registration.username_required')}`,
-              minLength: {
-                value: 6,
-                message: `${t('registration.username_least_length', {
-                  length: 6,
-                })}`,
-              },
-              maxLength: {
-                value: 20,
-                message: `${t('registration.username_most_length', {
-                  length: 20,
-                })}`,
-              },
-              validate: (value) => {
-                const regex = /^[a-zA-Z0-9.]+$/
-                return (
-                  regex.test(value) ||
-                  `${t('registration.username_valid_format_required')}`
-                )
-              },
-            })}
-          />
-        </InputGroup>
-        <FormHelperText>
-          {t('registration.username_valid_format_message')}
-        </FormHelperText>
-        {errors.username?.message && (
-          <FormErrorMessage>{errors.username.message}</FormErrorMessage>
-        )}
-      </FormControl>
-      <Divider my={4} borderColor='gray.400' /> */}
       <Box>
         {fields.map((field, index) => (
           <HStack
@@ -143,26 +95,8 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
                 </FormErrorMessage>
               )}
             </FormControl>
-            {/* {index > 0 && (
-              <IconButton
-                aria-label={t('registration.email.remove')}
-                variant='ghost'
-                onClick={() => remove(index)}
-                icon={<MinusCircleIcon color='gray.600' />}
-              />
-            )} */}
           </HStack>
         ))}
-        {/* {fields.length < 3 && (
-          <Flex justifyContent='flex-end'>
-            <IconButton
-              aria-label={t('registration.email.add')}
-              variant='ghost'
-              onClick={() => append({ email: '', isPrimary: false })}
-              icon={<PlusCircleIcon color='gray.600' />}
-            />
-          </Flex>
-        )} */}
       </Box>
       <Divider my={4} borderColor='gray.400' />
       <Stack spacing={4}>
@@ -196,20 +130,8 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
             },
           })}
         />
-        {/* <PasswordField
-          id='confirmPassword'
-          error={errors.confirmPassword?.message}
-          label={t('registration.confirm_password')}
-          placeholder={t('registration.confirm_password')}
-          {...register('confirmPassword', {
-            required: `${t('registration.confirm_password_required')}`,
-            validate: (value) =>
-              value === watchPassword ||
-              `${t('registration.confirm_password_not_match')}`,
-          })}
-        /> */}
       </Stack>
-      <FormControl isRequired my={4} isInvalid={!!errors.isAgreed}>
+      {/* <FormControl isRequired my={4} isInvalid={!!errors.isAgreed}>
         <FormLabel mt={0} display='flex'>
           <HStack
             spacing={2}
@@ -248,7 +170,7 @@ export default function CredentialForm({ isVisible }: ICredentialFormProps) {
         <FormErrorMessage>
           {errors.isAgreed && errors.isAgreed.message}
         </FormErrorMessage>
-      </FormControl>
+      </FormControl> */}
     </section>
   )
 }

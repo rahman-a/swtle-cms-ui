@@ -70,14 +70,12 @@ export default function CookieBannerConsent(props: ICookieBannerConsentProps) {
             </Text>
             , you consent to our use of cookies.
           </Text>
-          <Box display='flex' justifyContent='center' gap={5}>
-            <Button
-              onClick={() => handleCookieConsent('denied')}
-              color='GrayText'
-              variant='ghost'
-            >
-              Reject All
-            </Button>
+          <Box
+            display='flex'
+            justifyContent='center'
+            flexDirection='row-reverse'
+            gap={5}
+          >
             <Button
               onClick={() => handleCookieConsent('granted')}
               color='white'
@@ -85,6 +83,13 @@ export default function CookieBannerConsent(props: ICookieBannerConsentProps) {
               _hover={{ color: 'secondary', background: 'white' }}
             >
               Accept All
+            </Button>
+            <Button
+              onClick={() => handleCookieConsent('denied')}
+              color='GrayText'
+              variant='ghost'
+            >
+              Reject All
             </Button>
           </Box>
         </DrawerBody>

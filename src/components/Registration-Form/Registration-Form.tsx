@@ -72,7 +72,7 @@ export default function RegistrationForm({
       expiryDate: '',
       establishmentContract: null as VerificationDocument,
       password: '',
-      isAgreed: false,
+      isAgreed: true,
       fullNameInEnglish: '',
       fullNameInArabic: '',
       emails: [{ email: '', isPrimary: true }] as Email[],
@@ -257,18 +257,23 @@ export default function RegistrationForm({
       if (type === 'business') {
         updatedWatchPersonalInfoStepValues.splice(2, 1)
       }
-      isValid = updatedWatchPersonalInfoStepValues.every(
-        (value: string) => value
+      isValid = regex.test(watchPersonalInfoStepValues[1])
+      console.log(
+        'watchPersonalInfoStepValues[0]',
+        watchPersonalInfoStepValues[0]
       )
-      isValid = regex.test(watchPersonalInfoStepValues[0])
-
-      watchPersonalInfoStepValues[2].forEach((value: Phone) => {
-        if (value.phone === '+971' || !value.phone?.startsWith('+971')) {
-          isValid = false
-          return
-        }
-        isValid = true
-      })
+      isValid &&
+        watchPersonalInfoStepValues[2].forEach((value: Phone) => {
+          if (value.phone === '+971' || !value.phone?.startsWith('+971')) {
+            isValid = false
+            return
+          }
+          isValid = true
+        })
+      isValid =
+        type === 'business'
+          ? isValid && !!updatedWatchPersonalInfoStepValues[2]
+          : isValid && !!updatedWatchPersonalInfoStepValues[3]
       return isValid
     }
 
