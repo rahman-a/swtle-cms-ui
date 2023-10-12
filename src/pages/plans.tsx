@@ -49,6 +49,7 @@ type Plan = {
   title: string
   price: string
   period: string
+  path: string
   features: { id: number; description: string }[]
 }
 
@@ -121,7 +122,7 @@ export default function ThreeTierPlans({ plans }: ThreeTierPlansProps) {
                   <Box w='80%' pt={4}>
                     <Button
                       as={NextLink}
-                      href='/register/personal'
+                      href={plan.path}
                       w='full'
                       color='primary'
                       variant='outline'
