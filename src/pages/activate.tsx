@@ -61,9 +61,7 @@ export default function EmailActivation({
                         {zeroPad(seconds)}
                       </Text>
                     )}
-                    onComplete={() =>
-                      router.push(`${process.env.NEXT_PUBLIC_APP_URL}`)
-                    }
+                    onComplete={() => router.push(`/login`)}
                   />
                   <Text as='p'>{t('seconds')}</Text>
                 </HStack>

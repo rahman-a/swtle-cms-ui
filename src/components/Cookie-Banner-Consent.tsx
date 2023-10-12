@@ -10,11 +10,13 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { useLocalStorage } from '@/src/hooks/useLocalStorage'
 
 export interface ICookieBannerConsentProps {}
 
 export default function CookieBannerConsent(props: ICookieBannerConsentProps) {
+  const { t } = useTranslation('common')
   const [cookieBannerConsent, setCookieBannerConsent] = useLocalStorage(
     'cookieBannerConsent',
     false
@@ -55,7 +57,7 @@ export default function CookieBannerConsent(props: ICookieBannerConsentProps) {
           justifyContent='center'
           textAlign='center'
         >
-          We value your privacy (Cookies Consent)
+          {t('value_your_privacy')}
         </DrawerHeader>
         <DrawerBody pb={4}>
           <Text
@@ -63,12 +65,11 @@ export default function CookieBannerConsent(props: ICookieBannerConsentProps) {
             textAlign='center'
             pb={4}
           >
-            We use cookies to enhance your browsing experience, serve a
-            personalized content, and analyze our traffic. By clicking
+            {t('cookie_consent_msg')}
             <Text as='span' color='secondary' mx={1}>
-              Accept All
+              {t('accept_all')}
             </Text>
-            , you consent to our use of cookies.
+            , {t('cookie_consent_msg2')}
           </Text>
           <Box
             display='flex'
@@ -82,14 +83,14 @@ export default function CookieBannerConsent(props: ICookieBannerConsentProps) {
               bg='secondary'
               _hover={{ color: 'secondary', background: 'white' }}
             >
-              Accept All
+              {t('accept_all')}
             </Button>
             <Button
               onClick={() => handleCookieConsent('denied')}
               color='GrayText'
               variant='ghost'
             >
-              Reject All
+              {t('reject_all')}
             </Button>
           </Box>
         </DrawerBody>

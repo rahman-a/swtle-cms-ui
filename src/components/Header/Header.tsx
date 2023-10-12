@@ -24,8 +24,7 @@ import Language from './Language'
 
 const allowedPathsForHeaderBg = [
   '/login',
-  '/register/personal',
-  '/register/business',
+  '/register/[type]',
   '/reset',
   '/activate',
   '/404',
@@ -33,8 +32,7 @@ const allowedPathsForHeaderBg = [
   '/terms-conditions',
   '/plans',
   '/ar/login',
-  '/ar/register/personal',
-  '/ar/register/business',
+  '/ar/register/[type]',
   '/ar/reset',
   '/ar/activate',
   '/ar/404',
@@ -53,7 +51,7 @@ export default function Header(props: IHeaderProps) {
   const [isFixed, setIsFixed] = useState(false)
   const router = useRouter()
   const locale = router.locale
-  const isHeaderBackground = allowedPathsForHeaderBg.includes(router.asPath)
+  const isHeaderBackground = allowedPathsForHeaderBg.includes(router.pathname)
   const [isMainPage, setIsMainPage] = useState(router.asPath === '/')
   const { scrollY } = useScroll()
 

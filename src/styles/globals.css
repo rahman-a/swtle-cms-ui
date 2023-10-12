@@ -185,3 +185,9 @@ main {
   color: #b6b6b6;
   cursor: not-allowed;
 }
+
+.terms-and-conditions > *,
+.privacy-policy > * {
+  color: #333;
+  line-height: 1.6 !important;
+}

@@ -27,6 +27,9 @@ import userAPI from '../services/credentials'
 import { EyeIcon, EyeSlashIcon } from '../icons'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import skylineImage from '@assets/images/skyline.png'
+import skylineLongImage from '@assets/images/skyline-long.png'
+import logoWordImage from '@assets/images/logo-word.svg'
 interface IResetPasswordProps {
   token: string
 }
@@ -281,20 +284,20 @@ export default function ResetPassword({ token }: IResetPasswordProps) {
               <Image
                 width={logoWidth ?? 200}
                 height={logoHeight ?? 150}
-                src='/images/logo-word.svg'
+                src={logoWordImage}
                 alt='swtle'
               />
             </Box>
             {isMobile ? (
               <Image
-                src='/images/skyline-long.png'
+                src={skylineLongImage}
                 alt='skyline'
                 width={900}
                 height={500}
               />
             ) : (
               <Image
-                src='/images/skyline.png'
+                src={skylineImage}
                 alt='skyline'
                 width={imageWidth ?? 400}
                 height={imageHeight ?? 250}

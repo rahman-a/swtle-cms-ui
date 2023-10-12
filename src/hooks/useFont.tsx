@@ -6,8 +6,9 @@ const LatoFont = Lato({
 })
 const AlmaraiFont = Almarai({
   subsets: ['arabic'],
-  weight: ['300', '400', '700'],
+  weight: ['300', '400', '700', '800'],
 })
+
 export const useFont = () => {
   const { locale } = useRouter()
   return locale === 'en' ? LatoFont : AlmaraiFont

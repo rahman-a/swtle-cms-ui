@@ -33,5 +33,15 @@
   "works.step": "step",
   "service.benefits": "Benefits of the Service",
   "success_message": "Your message has been sent successfully",
-  "error_message": "An error occurred while sending your message"
+  "error_message": "An error occurred while sending your message",
+  "privacy_policy": "Privacy Policy",
+  "your_privacy_important": "Your privacy is important to us.",
+  "have_question": "If you have any questions about our privacy policy, please contact us...",
+  "terms_and_conditions": "Terms and Conditions",
+  "welcome_swtle": "Welcome to Swtle!",
+  "value_your_privacy": "We value your privacy (Cookies Consent)",
+  "cookie_consent_msg": "We use cookies to enhance your browsing experience, serve a personalized content, and analyze our traffic. By clicking",
+  "cookie_consent_msg2": "you consent to our use of cookies.",
+  "accept_all": "Accept All",
+  "reject_all": "Reject All"
 }

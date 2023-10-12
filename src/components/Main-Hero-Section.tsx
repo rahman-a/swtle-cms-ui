@@ -64,7 +64,10 @@ export default function MainHeroSection({
           xl: `url(${images.lg})`,
         }}
         backgroundSize='cover'
-        backgroundPosition={{ base: 'inherit', md: 'center' }}
+        backgroundPosition={{
+          base: 'inherit',
+          md: isStatistics ? 'center' : 'bottom',
+        }}
         backgroundRepeat={'no-repeat'}
         position={'relative'}
         top='-91px'
