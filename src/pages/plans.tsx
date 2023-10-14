@@ -103,10 +103,12 @@ export default function ThreeTierPlans({ plans }: ThreeTierPlansProps) {
                   </Text>
                   <HStack justifyContent='center'>
                     <Text fontSize='2xl' fontWeight='600'>
-                      {plan.price}/
-                      <Text as='span' fontSize='sm' color='gray.600'>
-                        {plan.period}
-                      </Text>
+                      {plan.price}
+                      {plan.period && (
+                        <Text as='span' fontSize='sm' color='gray.600'>
+                          &nbsp;/{plan.period}
+                        </Text>
+                      )}
                     </Text>
                   </HStack>
                 </Box>
