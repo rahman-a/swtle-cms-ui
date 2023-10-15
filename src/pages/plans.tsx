@@ -11,6 +11,7 @@ import {
   ListIcon,
   Button,
   Icon,
+  ChakraProps,
 } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -20,13 +21,11 @@ import NextLink from 'next/link'
 import { CheckCircleIcon, SuitCaseIcon, UserIcon } from '@icons'
 import fetcher from '../services/fetcher'
 
-interface Props {
+interface Props extends ChakraProps {
   children: React.ReactNode
 }
 
-function PriceWrapper(props: Props) {
-  const { children } = props
-
+function PriceWrapper({ children, ...props }: Props) {
   return (
     <Box
       style={{ marginTop: '2rem' }}
@@ -78,6 +77,7 @@ export default function ThreeTierPlans({ plans }: ThreeTierPlansProps) {
           textAlign='center'
           justify='center'
           spacing={{ base: 4, lg: 10 }}
+          mx={{ base: '1rem', md: 'auto' }}
           py={10}
         >
           {plans.map((plan: Plan) => (
@@ -113,9 +113,9 @@ export default function ThreeTierPlans({ plans }: ThreeTierPlansProps) {
                   </HStack>
                 </Box>
                 <VStack bg={bgColorValue} py={4} borderBottomRadius={'xl'}>
-                  <List spacing={3} textAlign='start' px={12}>
+                  <List spacing={3} textAlign='start' px={12} minH={48}>
                     {plan.features.map((feature) => (
-                      <ListItem key={feature.id}>
+                      <ListItem key={feature.id} display='flex'>
                         <ListIcon as={CheckCircleIcon} color='green.500' />
                         {feature.description}
                       </ListItem>
