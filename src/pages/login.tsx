@@ -126,7 +126,6 @@ export default function Login(props: ILoginProps) {
       })
       if (data.success) {
         // data.payload contains token, expireAt
-        console.log('Login Data: ', data)
         const appUrl =
           process.env.NODE_ENV === 'development'
             ? 'http://localhost:8080'

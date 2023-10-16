@@ -258,10 +258,6 @@ export default function RegistrationForm({
         updatedWatchPersonalInfoStepValues.splice(2, 1)
       }
       isValid = regex.test(watchPersonalInfoStepValues[1])
-      console.log(
-        'watchPersonalInfoStepValues[0]',
-        watchPersonalInfoStepValues[0]
-      )
       isValid &&
         watchPersonalInfoStepValues[2].forEach((value: Phone) => {
           if (value.phone === '+971' || !value.phone?.startsWith('+971')) {

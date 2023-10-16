@@ -45,7 +45,7 @@ export default function VerificationDocumentsForm({
           name='identity-back'
           label={t('registration.identity_back')}
         />
-        <Thumbnail name='passport' label={t('registration.identity_back')} />
+        <Thumbnail name='passport' label={t('registration.passport')} />
       </Flex>
       <Box my={12}>
         <Flex
