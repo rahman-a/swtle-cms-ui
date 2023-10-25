@@ -17,12 +17,12 @@ export default function FeatureCard({
 }: IFeatureCardProps) {
   return (
     <Flex
-      gap={8}
       flexDirection={{ base: 'column', md: 'row' }}
       width={{ base: '100%', xl: '45%' }}
+      mb={8}
     >
       <Image src={image} alt={title} width={217} height={165} />
-      <VStack alignItems='flex-start'>
+      <VStack alignItems='flex-start' mx={6} mt={{ base: 4, md: 0 }}>
         <Text as='h3' fontSize='xl' fontWeight='bold'>
           {title}
         </Text>

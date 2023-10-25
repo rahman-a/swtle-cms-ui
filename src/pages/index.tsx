@@ -94,6 +94,7 @@ export default function Home({ data, metadata }: { data: any; metadata: any }) {
             radius: 'top left',
             radiusValue: '12rem',
             outline: 'bottom left',
+            overlayGradient: true,
           }}
         />
       </Container>

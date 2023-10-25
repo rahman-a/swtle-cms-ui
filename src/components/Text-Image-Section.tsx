@@ -218,6 +218,7 @@ export default function TextImageSection({
             outline={sectionImage.outline}
             styles={sectionImage.styles}
             overlayText={sectionImage.overlayText}
+            overlayGradient={sectionImage.overlayGradient}
           />
         </Flex>
       </Flex>

@@ -11,6 +11,7 @@ export interface ISectionImageProps {
   radiusValue?: string
   outline?: 'bottom right' | 'bottom left'
   styles?: React.CSSProperties
+  overlayGradient?: boolean
 }
 
 export default function SectionImage({
@@ -20,6 +21,7 @@ export default function SectionImage({
   outline,
   overlayText,
   styles,
+  overlayGradient,
 }: ISectionImageProps) {
   const outlineStyle = classNames({
     'outline-bottom-right': outline === 'bottom right',
@@ -57,13 +59,26 @@ export default function SectionImage({
           {overlayText}
         </Box>
       )}
-      <Image
-        src={image}
-        alt='section-image'
-        width={1000}
-        height={1000}
-        style={{ borderRadius: radius ? radiusStyle[radius] : 'none' }}
-      />
+      <figure style={{ position: 'relative' }}>
+        {overlayGradient && (
+          <Box
+            position='absolute'
+            top='0'
+            left='0'
+            width='100%'
+            height='100%'
+            backgroundImage='linear-gradient(120deg, transparent, rgb(33 89 127 / 65%))'
+            borderRadius={radius ? radiusStyle[radius] : 'none'}
+          ></Box>
+        )}
+        <Image
+          style={{ borderRadius: radius ? radiusStyle[radius] : 'none' }}
+          src={image}
+          alt='section-image'
+          width={1000}
+          height={1000}
+        />
+      </figure>
     </Box>
   )
 }

@@ -52,10 +52,8 @@ export default function WhySwtle({
         <Flex
           direction={{ base: 'column', md: 'row' }}
           justifyContent='center'
-          alignItems='center'
           width='100%'
           flexWrap='wrap'
-          gap={4}
         >
           {articles.map((article, idx) => (
             <FeatureCard key={article.id} {...article} />
