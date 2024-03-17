@@ -129,7 +129,7 @@ export default function Login(props: ILoginProps) {
         const appUrl =
           process.env.NODE_ENV === 'development'
             ? 'http://localhost:8080'
-            : 'https://app.swtle.com'
+            : 'https://app.swtle.info'
         window.location.replace(`${appUrl}#token=${data.payload.token}`)
       }
     } catch (error: any) {
