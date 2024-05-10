@@ -27,7 +27,8 @@ export default function Home({ data, metadata }: { data: any; metadata: any }) {
         canonical='https://www.swtle.com'
       />
       <MainHeroSection
-        isStatistics={data.is_statistics_section}
+{/*         isStatistics={data.is_statistics_section} */}
+        isStatistics={false}
         images={{
           base: heroSectionBGImageSmall.src,
           md: heroSectionBGImageMedium.src,
